@@ -457,8 +457,11 @@ p{color:var(--slate-light)}
 /* 13. FACILITADORES */
 .section--facilitadores{background:var(--white)}
 
+/* grid con filas 1fr en vez de flex: iguala el alto de las dos tarjetas al de
+   la mas alta, asi las dos fotos quedan exactamente del mismo tamano aunque
+   las biografias tengan distinta cantidad de renglones. */
 .facilitators-grid{
-  display:flex;flex-direction:column;
+  display:grid;grid-auto-rows:1fr;
   gap:clamp(1.25rem,2vw,1.75rem);
   margin-top:clamp(2.5rem,4vw,4rem);
 }
