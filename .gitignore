@@ -22,3 +22,4 @@ assets/hero-workshop-*.avif
 # Configuración local del editor
 .claude/
 logos-sitio-anterior/
+publicar.bat
