@@ -7,8 +7,12 @@
      ver el hero. Los enlaces con # (ej: /#inscripcion) siguen funcionando. */
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
+  var urlLimpia = location.pathname + location.search;
+
   /* Con restauracion manual el navegador deja de saltar solo al ancla,
-     asi que si la URL trae un # lo resolvemos nosotros. */
+     asi que si la URL trae un # lo resolvemos nosotros. Despues lo borramos
+     de la barra de direcciones: si el # queda pegado, la proxima vez que
+     abris la pagina el navegador te lleva a esa seccion y no a la portada. */
   if (location.hash) {
     window.addEventListener('load', function () {
       var destino = null;
@@ -16,8 +20,21 @@
       // instant y no smooth: al abrir la pagina, animar 5000px seria lento y
       // desorientador. El scroll suave queda para los clics en el menu.
       if (destino) destino.scrollIntoView({ behavior: 'instant' });
+      history.replaceState(null, '', urlLimpia);
     });
   }
+
+  /* Los clics del menu tampoco deben dejar el # en la URL.
+     Sin preventDefault a proposito: dejamos que el navegador haga el salto
+     nativo (que ya funcionaba bien) y solo reescribimos la barra de
+     direcciones despues. Asi no tocamos el mecanismo de scroll. */
+  document.querySelectorAll('a[href^="#"]').forEach(function (enlace) {
+    enlace.addEventListener('click', function () {
+      setTimeout(function () {
+        history.replaceState(null, '', urlLimpia);
+      }, 0);
+    });
+  });
 
   /* 1. NAV — solid on scroll (throttled con rAF: como mucho una vez por frame) */
   const nav = document.querySelector('[data-nav]');

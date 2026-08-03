@@ -11,7 +11,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202608031845" />
+  <link rel="stylesheet" href="styles.css?v=202608031906" />
 </head>
 <body>
 
@@ -331,11 +331,12 @@
           <div class="facilitator" data-reveal="left">
             <div class="facilitator__photo">
               <picture>
-                <source type="image/avif" sizes="280px"
-                        srcset="assets/andriy-nb-400.avif 400w, assets/andriy-nb-640.avif 640w" />
-                <img src="assets/andriy-nb-640.webp" sizes="280px"
-                     srcset="assets/andriy-nb-400.webp 400w, assets/andriy-nb-640.webp 640w"
-                     width="640" height="480" loading="lazy" decoding="async" alt="Andriy Trofymenko" />
+                <source type="image/avif" sizes="(max-width:760px) 100vw, 460px"
+                        srcset="assets/andriy-studio-600.avif 600w, assets/andriy-studio-960.avif 960w" />
+                <img src="assets/andriy-studio-960.webp" sizes="(max-width:760px) 100vw, 460px"
+                     srcset="assets/andriy-studio-600.webp 600w, assets/andriy-studio-960.webp 960w"
+                     width="960" height="1000" loading="lazy" decoding="async"
+                     class="photo--cover" alt="Andriy Trofymenko" />
               </picture>
             </div>
             <div class="facilitator__info">
@@ -474,7 +475,7 @@
           <p class="footer-col-label">Contacto</p>
           <p class="footer-sublabel">WhatsApp</p>
           <a class="footer-link" href="https://wa.me/5492966692544" target="_blank" rel="noopener">+54 9 2966 69 2544</a>
-          <a class="footer-link" href="https://wa.me/5491133278023" target="_blank" rel="noopener">+54 9 11 3327 8023</a>
+          <a class="footer-link" href="https://wa.me/5491133278023" target="_blank" rel="noopener">+54 9 1133 27 8023</a>
           <a class="footer-link footer-link--apart" href="https://www.christianpollavini.com" target="_blank" rel="noopener">www.christianpollavini.com</a>
         </div>
         <div class="footer-col">
@@ -492,6 +493,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202608031845"></script>
+  <script src="script.js?v=202608031906"></script>
 </body>
 </html>
