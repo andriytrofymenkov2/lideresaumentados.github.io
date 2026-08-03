@@ -1,6 +1,24 @@
 (function () {
   'use strict';
 
+  /* 0. EMPEZAR SIEMPRE EN LA PORTADA
+     Por defecto el navegador guarda el scroll y te devuelve donde estabas al
+     recargar. En una landing eso hace que caigas a mitad de pagina en vez de
+     ver el hero. Los enlaces con # (ej: /#inscripcion) siguen funcionando. */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  /* Con restauracion manual el navegador deja de saltar solo al ancla,
+     asi que si la URL trae un # lo resolvemos nosotros. */
+  if (location.hash) {
+    window.addEventListener('load', function () {
+      var destino = null;
+      try { destino = document.querySelector(location.hash); } catch (_) {}
+      // instant y no smooth: al abrir la pagina, animar 5000px seria lento y
+      // desorientador. El scroll suave queda para los clics en el menu.
+      if (destino) destino.scrollIntoView({ behavior: 'instant' });
+    });
+  }
+
   /* 1. NAV — solid on scroll (throttled con rAF: como mucho una vez por frame) */
   const nav = document.querySelector('[data-nav]');
   if (nav) {
