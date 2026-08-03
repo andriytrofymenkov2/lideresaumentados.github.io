@@ -866,5 +866,3 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   /* Sin animacion no hace falta reservar capas de composicion */
   .geo,.eyebrow-dot,.hero-in{will-change:auto!important}
 }
-
-/* marca de prueba */
