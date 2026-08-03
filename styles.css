@@ -605,6 +605,9 @@ p{color:var(--slate-light)}
 .footer-brand span{color:var(--yellow)}
 .footer-brand-col p{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65}
 .footer-col-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:.85rem}
+/* Etiqueta unica para los dos numeros, en vez de repetir "WhatsApp" en cada uno */
+.footer-sublabel{font-family:var(--font-head);font-size:.8rem;font-weight:600;color:rgba(255,255,255,.42);margin-bottom:.1rem}
+.footer-link--apart{margin-top:.9rem}
 .footer-link{display:block;font-size:.88rem;color:rgba(255,255,255,.55);padding-block:.45rem;transition:color .3s}
 .footer-link:hover{color:#fff}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.3)}
