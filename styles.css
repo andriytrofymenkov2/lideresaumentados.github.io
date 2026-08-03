@@ -1,0 +1,865 @@
+/* =====================================================================
+   Líderes Aumentados — Estilo Catalyst
+   Colores: --cloud #F5F6FA · --slate #2D3436 · --sky #74B9FF · --yellow #FFEAA7
+   Tipografía: Plus Jakarta Sans (headings 700/800) · DM Sans (body)
+   ===================================================================== */
+
+/* 1. TOKENS */
+:root {
+  --cloud:        #F5F6FA;
+  --white:        #FFFFFF;
+  --slate:        #2D3436;
+  --slate-light:  #636E72;
+  --slate-muted:  #B2BEC3;
+  --sky:          #74B9FF;
+  --sky-dark:     #4A90D9;
+  --yellow:       #FFEAA7;
+  --yellow-dark:  #FDCB6E;
+
+  --line:         rgba(45,52,54,.10);
+  --line-2:       rgba(45,52,54,.18);
+
+  --radius:       16px;
+  --radius-sm:    10px;
+  --radius-pill:  9999px;
+  --container:    1200px;
+  --ease:         cubic-bezier(.22,1,.36,1);
+  --ease-out:     cubic-bezier(.16,1,.3,1);
+
+  --font-head:    'Plus Jakarta Sans', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* 2. RESET */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--cloud)}
+body{
+  font-family:var(--font-body);
+  background:var(--cloud);
+  color:var(--slate);
+  line-height:1.65;
+  font-size:1rem;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;height:auto;display:block}
+/* El <picture> no debe ser el hijo de flex/grid: el <img> tiene que serlo */
+picture{display:contents}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+ul{list-style:none}
+::selection{background:var(--yellow);color:var(--slate)}
+
+/* 3. TYPOGRAPHY */
+h1,h2,h3{font-family:var(--font-head);font-weight:700;color:var(--slate);letter-spacing:-0.04em}
+.h2{font-size:clamp(2.2rem,4vw,3rem);line-height:1.08;letter-spacing:-.03em;margin-top:.75rem}
+p{color:var(--slate-light)}
+.section-lead{font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.65;max-width:56ch;margin-top:1.25rem}
+
+/* Eyebrow */
+.eyebrow{
+  display:inline-block;
+  font-family:var(--font-head);
+  font-size:.65rem;font-weight:500;text-transform:uppercase;letter-spacing:.2em;
+  color:var(--sky-dark);margin-bottom:.5rem;
+}
+.eyebrow-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--sky);margin-right:.5rem;vertical-align:middle;
+  animation:pulse 2s ease-in-out infinite;
+  will-change:transform,opacity;
+  backface-visibility:hidden;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.eyebrow--dim{color:rgba(255,255,255,.55)}
+
+/* Hero badge — glass pill estilo Catalyst */
+.eyebrow--badge{
+  display:inline-flex;align-items:center;
+  width:fit-content;
+  padding:.5rem 1rem;
+  border-radius:var(--radius-pill);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(45,52,54,.08);
+  box-shadow:rgba(116,185,255,.3) 0px 8px 32px 0px;
+}
+
+/* Text accent */
+.text-sky{color:var(--sky-dark)}
+
+/* 4. LAYOUT */
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:clamp(1.25rem,5vw,3rem)}
+.section{padding-block:clamp(3.5rem,6vw,6rem);position:relative;contain:layout style}
+.section--cloud{background:var(--cloud)}
+.section--white{background:var(--white)}
+.section--slate{background:var(--slate);color:var(--white)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--cloud)}
+::-webkit-scrollbar-thumb{background:var(--slate-muted);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--slate-light)}
+
+/* 5. BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.9rem 1.75rem;border-radius:var(--radius-pill);
+  font-family:var(--font-head);font-size:.9rem;font-weight:700;
+  letter-spacing:-.01em;transition:background .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease);white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn svg{transition:transform .3s var(--ease);flex-shrink:0}
+.btn:hover svg{transform:translateX(4px)}
+
+/* CTA principal — amarillo */
+.btn--cta{background:var(--yellow);color:var(--slate)}
+.btn--cta:hover{background:var(--yellow-dark);box-shadow:0 8px 30px -6px rgba(253,203,110,.55);transform:translateY(-2px)}
+
+/* Nav CTA — slate oscuro */
+.btn--nav{background:var(--slate);color:var(--yellow);font-size:.75rem;letter-spacing:.1em;padding:.7rem 1.4rem}
+.btn--nav:hover{background:#1a1f20;box-shadow:0 6px 20px -4px rgba(45,52,54,.4)}
+
+/* Ghost */
+.btn--ghost{background:transparent;border:2px solid var(--line-2);color:var(--slate-light)}
+.btn--ghost:hover{border-color:var(--slate);color:var(--slate)}
+
+/* WhatsApp */
+.btn--wa{
+  background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);
+  color:#fff;font-size:1rem;padding:1.1rem 2rem;justify-content:center;
+  box-shadow:0 8px 28px -6px rgba(37,211,102,.45);
+}
+.btn--wa:hover{box-shadow:0 12px 36px -4px rgba(37,211,102,.65);transform:translateY(-2px)}
+.btn--wa:hover svg{transform:none}
+
+/* Fields */
+.field{display:grid;gap:.4rem}
+.field label{font-family:var(--font-head);font-size:.72rem;font-weight:600;color:var(--slate-muted);text-transform:uppercase;letter-spacing:.12em}
+.field .req{color:var(--sky-dark)}
+.field input{
+  width:100%;padding:.85rem 1rem;border-radius:var(--radius-sm);
+  border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);
+  color:#fff;font:inherit;font-size:.95rem;
+  transition:border-color .3s,background .3s;
+}
+.field input::placeholder{color:rgba(255,255,255,.35)}
+.field input:focus{outline:none;border-color:var(--yellow);background:rgba(255,255,255,.12)}
+
+/* 6. NAV */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease);
+}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;padding-block:1.1rem;gap:2rem}
+.nav__brand{display:inline-flex;align-items:center;color:var(--slate);padding-block:.35rem}
+/* Monograma: texto real, no imagen — usa la tipografia ya cargada, sin request extra */
+.brand-mark{
+  display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;flex-shrink:0;
+  border-radius:11px;background:var(--slate);
+  font-family:var(--font-head);font-weight:800;font-size:1.05rem;
+  letter-spacing:-.045em;line-height:1;color:#fff;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.brand-mark i{font-style:normal;color:var(--sky)}
+.nav__brand:hover .brand-mark{transform:translateY(-1px);box-shadow:0 6px 18px -4px rgba(45,52,54,.38)}
+.nav__links{display:flex;align-items:center;gap:1.75rem}
+.nav__links a{font-family:var(--font-head);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--slate-light);transition:color .3s;padding-block:.7rem}
+.nav__links a:hover{color:var(--slate)}
+.nav__burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;color:var(--slate)}
+/* El nav es fixed: el desenfoque se recalcula en cada frame de scroll.
+   Con el fondo al 92% de opacidad, blur(10px) es indistinguible de blur(20px)
+   y cuesta la mitad. */
+.nav.is-solid{background:rgba(245,246,250,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+
+/* Mobile menu */
+.nav__mobile{display:none}
+
+/* 7. HERO */
+.hero{
+  /* Sin min-height a proposito: con 92vh, en pantallas altas el bloque central
+     se estiraba y rompia la simetria vertical de la tarjeta de datos. */
+  position:relative;
+  background:var(--cloud);overflow:hidden;
+  /* Espaciados atados a la altura de pantalla: en monitores bajos el hero
+     se comprime para que la tarjeta de datos entre completa sin cortarse. */
+  padding-top:clamp(4.75rem,9vh,6rem);display:flex;flex-direction:column;
+}
+
+/* Floating geometric shapes (estilo Catalyst) */
+.geo{
+  position:absolute;border-radius:var(--radius);
+  pointer-events:none;z-index:0;
+  /* GPU compositing — evita repaint en cada frame */
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+/* Sky blue shapes */
+.geo--1{width:80px;height:80px;background:var(--sky);opacity:.9;top:12%;left:4%;border-radius:18px;box-shadow:rgba(116,185,255,.3) 0px 8px 32px 0px;animation:geoFloat 6s ease-in-out infinite}
+.geo--2{width:48px;height:48px;background:var(--sky);opacity:.9;top:28%;left:8%;border-radius:50%;box-shadow:rgba(116,185,255,.3) 0px 8px 32px 0px;animation:geoFloat 7.5s ease-in-out 1.5s infinite}
+.geo--3{width:24px;height:56px;background:var(--sky);opacity:.9;bottom:22%;left:6%;border-radius:8px;box-shadow:rgba(116,185,255,.3) 0px 8px 32px 0px;animation:geoFloat 9s ease-in-out 0.8s infinite}
+/* Yellow shapes */
+.geo--4{width:32px;height:56px;background:var(--yellow);opacity:.8;top:8%;right:5%;border-radius:8px;box-shadow:rgba(255,234,167,.6) 0px 12px 40px 0px;animation:geoFloat 6s ease-in-out infinite}
+.geo--5{width:48px;height:48px;background:var(--yellow);opacity:.8;bottom:12%;right:8%;border-radius:50%;box-shadow:rgba(255,234,167,.6) 0px 12px 40px 0px;animation:geoFloat 7s ease-in-out 1.5s infinite}
+.geo--6{width:56px;height:28px;background:var(--yellow-dark);opacity:.8;bottom:28%;right:14%;border-radius:10px;box-shadow:rgba(255,234,167,.6) 0px 12px 40px 0px;animation:geoFloat 8s ease-in-out 2s infinite}
+/* Visual panel geo */
+.geo--v1{width:60px;height:60px;background:var(--sky);opacity:.9;position:absolute;top:-20px;left:-20px;border-radius:14px;z-index:10;box-shadow:rgba(116,185,255,.3) 0px 8px 32px 0px;animation:geoFloat 6s ease-in-out infinite}
+.geo--v2{width:32px;height:32px;background:var(--yellow);opacity:.8;position:absolute;bottom:-12px;right:-12px;border-radius:8px;z-index:10;box-shadow:rgba(255,234,167,.6) 0px 12px 40px 0px;animation:geoFloat 7s ease-in-out 1.5s infinite}
+/* Solo transform en keyframes — propiedad compuesta, nunca causa layout ni paint */
+@keyframes geoFloat{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
+  33%{transform:translate3d(0,-12px,0) rotate(3deg)}
+  66%{transform:translate3d(0,-6px,0) rotate(-2deg)}
+}
+
+.hero__layout{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,5vw,5rem);align-items:center;
+  padding-block:clamp(1.25rem,4vh,5rem);flex:1;
+}
+.hero__content{display:flex;flex-direction:column;gap:0}
+.hero__title{
+  font-family:var(--font-head);font-weight:800;
+  /* Tope calculado para que "Aumentados" entre en una línea en la columna del hero */
+  font-size:clamp(3.5rem,7.1vw,5.3rem);
+  line-height:.97;letter-spacing:-.04em;
+  color:var(--slate);margin:1rem 0 1rem;
+}
+.hero__title-accent{
+  display:block;
+  background:linear-gradient(135deg,var(--sky) 0%,#0984E3 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero__claim{
+  font-family:var(--font-head);font-weight:500;
+  font-size:clamp(1.1rem,1.8vw,1.4rem);
+  line-height:1.45;color:var(--slate-light);
+  margin-bottom:1.25rem;
+}
+.hero__claim strong{color:var(--slate);font-weight:700}
+.hero__body{font-size:clamp(.95rem,1.4vw,1.1rem);color:var(--slate-light);line-height:1.7;margin-bottom:2rem;max-width:44ch}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-bottom:2rem}
+.hero__proof{display:flex;align-items:center;gap:.85rem}
+.proof-text{font-family:var(--font-head);font-size:.78rem;font-weight:500;color:var(--slate-light)}
+
+/* Hero visual */
+/* align-self:end — si la imagen queda mas baja que la columna de texto (pantallas
+   bajas, donde actua el max-height), centrada dejaria un hueco debajo que rompe
+   la simetria de la tarjeta de datos. Anclada al pie, el hueco no existe. */
+.hero__visual{position:relative;align-self:end}
+.hero__card-wrap{position:relative}
+.hero__photo-card{
+  border-radius:20px;overflow:hidden;
+  border:2px solid rgba(45,52,54,.08);
+  box-shadow:0 24px 60px -12px rgba(45,52,54,.18);
+  position:relative;
+}
+/* max-height: en pantallas bajas la imagen 4/5 se comia el hero entero.
+   Arriba de ~890px de alto el tope no llega a activarse (queda en 4/5). */
+.hero__photo-card img{width:100%;aspect-ratio:4/5;max-height:72vh;object-fit:cover;object-position:top;display:block}
+/* Hero meta bar */
+/* Simetria vertical de la tarjeta de datos: el hueco de arriba lo da el
+   padding-bottom del layout, el de abajo este padding-bottom. Usan el MISMO
+   clamp, asi quedan iguales en cualquier altura de pantalla. */
+.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.25rem,4vh,5rem)}
+.hero__meta{display:grid;grid-template-columns:repeat(4,1fr)}
+.hero__meta-item{padding:1.15rem .75rem;display:flex;flex-direction:column;gap:.22rem;align-items:center;text-align:center}
+.hero__meta-item:not(:last-child){border-right:1.5px solid var(--line)}
+.hero__meta-item dt{font-family:var(--font-head);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--slate-muted)}
+.hero__meta-item dd{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:var(--slate)}
+
+/* Glass variant — cristal claro */
+.hero__meta--glass{
+  position:relative;
+  background:linear-gradient(160deg,
+    rgba(255,255,255,.75) 0%,
+    rgba(235,245,255,.38) 60%,
+    rgba(215,232,255,.20) 100%);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:22px;
+  border-top:1px solid rgba(255,255,255,1);
+  border-left:1px solid rgba(255,255,255,.85);
+  border-right:1px solid rgba(170,200,235,.3);
+  border-bottom:1px solid rgba(170,200,235,.25);
+  box-shadow:
+    0 28px 60px rgba(45,52,54,.12),
+    0 6px 16px rgba(45,52,54,.07),
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 1px 0 0 rgba(255,255,255,.75),
+    inset 0 -1px 0 rgba(170,200,235,.3),
+    inset 0 0 48px rgba(255,255,255,.15);
+  overflow:hidden;
+}
+/* Barrido de luz diagonal — efecto óptico del cristal */
+.hero__meta--glass::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(118deg,
+    rgba(255,255,255,.65) 0%,
+    rgba(255,255,255,.22) 30%,
+    transparent 54%,
+    rgba(200,220,255,.10) 100%);
+  pointer-events:none;z-index:0;
+  border-radius:inherit;
+}
+.hero__meta--glass .hero__meta-item{position:relative;z-index:1}
+.hero__meta--glass .hero__meta-item:not(:last-child){
+  border-right:1px solid rgba(180,205,235,.4);
+}
+.hero__meta--glass .hero__meta-item dt{color:rgba(45,52,54,.48)}
+.hero__meta--glass .hero__meta-item dd{color:var(--slate)}
+
+/* 8. SPONSORS */
+.sponsors{padding-block:clamp(3rem,5vw,4rem)}
+.sponsors__eyebrow{text-align:center;margin-bottom:2rem}
+.sponsors__grid{
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:1.25rem;
+}
+.sponsor-slot{
+  display:flex;align-items:center;justify-content:center;
+  width:160px;height:72px;
+  border-radius:14px;
+  border:1.5px dashed var(--line-2);
+  background:rgba(255,255,255,.85);
+  transition:border-color .3s,box-shadow .3s;
+}
+.sponsor-slot:hover{
+  border-color:var(--sky);
+  box-shadow:0 4px 20px rgba(116,185,255,.15);
+}
+.sponsor-slot span{
+  font-family:var(--font-head);font-size:.65rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.15em;color:var(--slate-muted);
+}
+/* 9. STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:clamp(3rem,5vw,5rem) 0 clamp(2rem,3vw,3rem)}
+.stat-card{
+  padding:2.25rem 2rem;border:1.5px solid var(--line);border-radius:var(--radius);
+  background:var(--cloud);display:flex;flex-direction:column;gap:.65rem;
+  transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.stat-card:hover{transform:translateY(-5px);border-color:var(--sky);box-shadow:0 20px 50px -15px rgba(116,185,255,.2)}
+.stat-card:nth-child(2){background:var(--slate);border-color:var(--slate)}
+.stat-card:nth-child(2) .stat-num{color:var(--yellow)}
+.stat-card:nth-child(2) .stat-text{color:rgba(255,255,255,.7)}
+.stat-card:nth-child(2) .stat-src{color:rgba(255,255,255,.4)}
+.stat-num{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(3rem,5vw,4.5rem);
+  line-height:1;letter-spacing:-.04em;color:var(--sky-dark);
+}
+.stat-num sup{font-size:50%;vertical-align:super}
+.stat-text{font-size:.95rem;color:var(--slate-light);line-height:1.55;flex:1}
+.stat-src{font-family:var(--font-head);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--slate-muted)}
+.stats-outro{
+  border-top:1.5px solid var(--line);padding-top:3rem;
+  text-align:center;
+  display:flex;flex-direction:column;gap:.75rem;
+  align-items:center;
+}
+.stats-outro__line{
+  font-family:var(--font-head);font-weight:500;line-height:1.45;
+  max-width:58ch;
+}
+.stats-outro__line--1{
+  font-size:clamp(1rem,1.5vw,1.2rem);
+  color:var(--slate-muted);
+}
+.stats-outro__line--2{
+  font-size:clamp(1.05rem,1.6vw,1.3rem);
+  color:var(--slate-light);
+}
+.stats-outro__line--3{
+  font-size:clamp(1.1rem,1.8vw,1.5rem);
+  color:var(--slate);font-weight:600;
+}
+.stats-outro__accent{
+  color:var(--sky-dark);font-weight:700;
+}
+
+/* 10. MANIFESTO */
+.manifesto-layout{display:grid;grid-template-columns:1fr auto;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.manifesto-wrap{max-width:72ch}
+.manifesto-media{
+  width:clamp(230px,25vw,320px);
+  /* 1:1.5 = proporcion nativa de la imagen: no se recorta ni el hombre ni el rostro */
+  aspect-ratio:1/1.5;
+  border-radius:20px;overflow:hidden;
+  /* La imagen tiene fondo casi blanco: sin el borde se funde con el fondo de la seccion */
+  border:1px solid rgba(45,52,54,.08);
+  box-shadow:0 2px 8px rgba(45,52,54,.05),0 20px 48px rgba(45,52,54,.12);
+}
+.manifesto-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.manifesto-quote{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(1.9rem,4.5vw,3.6rem);
+  line-height:1.1;letter-spacing:-.03em;
+  color:var(--slate);margin:1.5rem 0 2rem;
+}
+.manifesto-body{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--slate-light);line-height:1.72;max-width:56ch}
+
+/* 11. CAPS GRID */
+.caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:clamp(2.5rem,4vw,4rem)}
+.cap-card{
+  padding:2.25rem 2rem;border:1.5px solid var(--line);border-radius:var(--radius);
+  background:var(--cloud);display:flex;flex-direction:column;gap:1rem;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+}
+.cap-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px -15px rgba(45,52,54,.12);border-color:var(--line-2)}
+.cap-ico{
+  width:52px;height:52px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.cap-ico svg{width:26px;height:26px}
+.cap-ico--sky{background:rgba(116,185,255,.15);color:var(--sky-dark)}
+.cap-ico--yellow{background:rgba(255,234,167,.45);color:#A8732A}
+.cap-ico--slate{background:rgba(45,52,54,.08);color:var(--slate)}
+.cap-card h3{font-family:var(--font-head);font-size:1.15rem;font-weight:700;color:var(--slate);letter-spacing:-.02em}
+.cap-card p{font-size:.93rem;color:var(--slate-light);line-height:1.6}
+
+/* 12. ACCORDION */
+.accordion{border-top:1.5px solid var(--line);margin-top:clamp(2.5rem,4vw,4rem)}
+.acc-item{border-bottom:1.5px solid var(--line)}
+.acc-item summary{list-style:none}
+.acc-item summary::-webkit-details-marker{display:none}
+.acc-summary{
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:1.5rem;
+  padding:1.65rem 0;cursor:pointer;
+  transition:padding-left .4s var(--ease);
+}
+.acc-summary:hover{padding-left:.75rem}
+.acc-label{
+  font-family:var(--font-head);font-size:.6rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.22em;
+  color:var(--sky-dark);white-space:nowrap;
+}
+.acc-title{
+  font-family:var(--font-head);font-size:clamp(1rem,1.7vw,1.35rem);
+  font-weight:600;letter-spacing:-.02em;color:var(--slate);
+}
+.acc-chevron{color:var(--slate-muted);transition:transform .4s var(--ease),color .4s var(--ease);flex-shrink:0}
+.acc-item[open] .acc-chevron{transform:rotate(180deg);color:var(--sky-dark)}
+.acc-item[open] .acc-label{color:var(--sky-dark)}
+.acc-body{
+  padding:0 0 1.75rem 8rem;
+  animation:accOpen .35s var(--ease-out);
+}
+@keyframes accOpen{from{opacity:0;transform:translate3d(0,-6px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.acc-body p{font-size:.95rem;color:var(--slate-light);line-height:1.72;max-width:62ch}
+
+/* 13. FACILITADORES */
+.section--facilitadores{background:var(--white)}
+
+.facilitators-grid{
+  display:flex;flex-direction:column;
+  gap:clamp(1.25rem,2vw,1.75rem);
+  margin-top:clamp(2.5rem,4vw,4rem);
+}
+
+.facilitator{
+  display:grid;grid-template-columns:5fr 7fr;
+  align-items:stretch;
+  background:var(--white);
+  border:1px solid rgba(45,52,54,.07);
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(45,52,54,.04),0 8px 32px rgba(45,52,54,.07);
+  transition:box-shadow .5s var(--ease),transform .5s var(--ease);
+  min-height:320px;
+}
+.facilitator:hover{
+  box-shadow:0 4px 16px rgba(45,52,54,.07),0 24px 56px rgba(45,52,54,.13);
+  transform:translateY(-4px);
+}
+
+.facilitator__photo{
+  background:#DFE2E7;
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;padding-top:2.5rem;position:relative;
+}
+.facilitator__photo:has(img.photo--cover){
+  padding-top:0;align-items:stretch;background:none;
+}
+.facilitator__photo img{
+  width:85%;max-width:280px;display:block;
+  object-fit:contain;object-position:bottom;
+  filter:drop-shadow(0 16px 40px rgba(45,52,54,.16));
+  transition:transform .7s cubic-bezier(.34,1.56,.64,1),filter .5s var(--ease);
+}
+.facilitator__photo img.photo--cover{
+  width:100%;height:100%;max-width:none;
+  object-fit:cover;object-position:center top;
+  filter:none;
+}
+.facilitator:hover .facilitator__photo img{
+  transform:scale(1.04) translateY(-8px);
+  filter:drop-shadow(0 24px 52px rgba(45,52,54,.24));
+}
+.facilitator:hover .facilitator__photo img.photo--cover{
+  transform:scale(1.04);filter:none;
+}
+
+.facilitator__info{
+  padding:clamp(2.5rem,4vw,4rem);
+  display:flex;flex-direction:column;justify-content:center;gap:1rem;
+  border-left:1px solid rgba(45,52,54,.06);
+}
+
+.facilitator .person-name{
+  font-size:clamp(1.5rem,2.5vw,2.2rem);
+  letter-spacing:-.04em;line-height:1.1;color:var(--slate);
+}
+.facilitator .person-role{
+  /* font-head: DM Sans no tiene 700 cargado y el navegador lo sintetizaba (falso negrita) */
+  font-family:var(--font-head);
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--sky-dark);
+}
+.facilitator .person-bio{
+  font-size:.95rem;color:var(--slate-light);
+  line-height:1.75;max-width:42ch;margin-top:.25rem;
+}
+
+/* segunda card: foto a la derecha */
+.facilitator--flip{grid-template-columns:7fr 5fr}
+.facilitator--flip .facilitator__photo{order:2;border-left:1px solid rgba(45,52,54,.06)}
+.facilitator--flip .facilitator__info{order:1;border-left:none}
+
+@media(max-width:760px){
+  .facilitator,.facilitator--flip{grid-template-columns:1fr;min-height:auto}
+  .facilitator--flip .facilitator__photo,.facilitator--flip .facilitator__info{order:unset}
+  .facilitator__info{border-left:none;border-top:1px solid rgba(45,52,54,.06)}
+  /* Altura fija: si no, el recorte escala por ancho y deja mucho fondo vacío */
+  .facilitator__photo{min-height:0;height:clamp(290px,78vw,380px);padding-top:1.25rem}
+  .facilitator__photo img{
+    width:auto;height:100%;max-width:88%;max-height:100%;
+    object-fit:contain;object-position:bottom;
+  }
+}
+.person-name{font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--slate)}
+.person-role{font-size:.84rem;color:var(--sky-dark);font-weight:500}
+.person-bio{font-size:.9rem;color:var(--slate-light);line-height:1.65}
+
+/* 14. AUDIENCIA */
+.audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,8rem);align-items:center}
+.audience-left{display:flex;flex-direction:column;gap:1.25rem}
+.audience-left .h2{margin-top:.5rem}
+
+.audience-list{display:flex;flex-direction:column}
+.audience-item{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:1.2rem 0;
+  border-bottom:1px solid var(--line-2);
+  cursor:default;
+  transition:padding-left .35s var(--ease);
+}
+.audience-item:first-child{border-top:1px solid var(--line-2)}
+.audience-item:hover{padding-left:.75rem}
+
+.audience-label{
+  font-family:var(--font-head);
+  font-size:clamp(1.1rem,2vw,1.45rem);
+  font-weight:600;letter-spacing:-.03em;
+  color:var(--slate);flex:1;
+  transition:color .3s var(--ease);
+}
+.audience-item:hover .audience-label{color:var(--sky-dark)}
+
+@media(max-width:760px){
+  .audience-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+
+/* 15. CTA / INSCRIPCIÓN */
+.section--slate .eyebrow{color:rgba(255,255,255,.5)}
+.cta-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,7rem);align-items:start}
+.cta-title{
+  font-family:var(--font-head);font-weight:800;
+  font-size:clamp(1.9rem,3.5vw,2.8rem);line-height:1.1;
+  letter-spacing:-.03em;color:#fff;margin:1rem 0 1.1rem;
+}
+.cta-lead{font-size:clamp(.95rem,1.4vw,1.15rem);color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:2.25rem}
+.cta-details{display:flex;flex-direction:column;gap:.8rem}
+.cta-details li{display:flex;align-items:center;gap:.8rem;font-size:.92rem;color:rgba(255,255,255,.6)}
+.cta-details li svg{flex-shrink:0;color:var(--yellow)}
+.cta-map{margin:3rem auto 0;max-width:700px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 4px 32px rgba(0,0,0,.4)}
+.cta-map iframe{width:100%;height:260px;display:block;border:none;filter:saturate(.65) contrast(1.1)}
+.cta-form{display:grid;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-ok{display:none;color:#55EFC4;font-size:.87rem}
+.form-ok.show{display:block}
+.form-err{display:none;color:#FF9A8B;font-size:.87rem;line-height:1.5}
+.form-err.show{display:block}
+.form-err a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.form-note{font-size:.78rem;color:rgba(255,255,255,.4)}
+
+/* 16. FOOTER */
+.footer{background:var(--slate);border-top:1.5px solid rgba(255,255,255,.08);padding-block:4rem 2rem}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand{font-family:var(--font-head);font-size:1.15rem;font-weight:800;color:#fff;display:block;margin-bottom:.85rem;letter-spacing:-.02em}
+.footer-brand span{color:var(--yellow)}
+.footer-brand-col p{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65}
+.footer-col-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:.85rem}
+.footer-link{display:block;font-size:.88rem;color:rgba(255,255,255,.55);padding-block:.45rem;transition:color .3s}
+.footer-link:hover{color:#fff}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.3)}
+
+/* 17. REVEAL — sistema de efectos variados */
+
+/* Base: fade up */
+[data-reveal]{
+  opacity:0;transform:translate3d(0,28px,0);
+  transition:opacity .75s var(--ease-out),transform .75s var(--ease-out);
+  transition-delay:var(--d,0s);
+}
+[data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
+
+/* Fade desde izquierda */
+[data-reveal="left"]{transform:translate3d(-32px,0,0)}
+[data-reveal="left"].is-visible{transform:translate3d(0,0,0)}
+
+/* Fade desde derecha */
+[data-reveal="right"]{transform:translate3d(32px,0,0)}
+[data-reveal="right"].is-visible{transform:translate3d(0,0,0)}
+
+/* Scale suave (cards, stats) */
+[data-reveal="scale"]{transform:translate3d(0,12px,0) scale(.97);opacity:0}
+[data-reveal="scale"].is-visible{transform:translate3d(0,0,0) scale(1);opacity:1}
+
+/* Fade puro */
+[data-reveal="fade"]{transform:none;opacity:0}
+[data-reveal="fade"].is-visible{opacity:1}
+
+/* Blur dissolve — para citas y textos destacados */
+[data-reveal="blur"]{
+  opacity:0;filter:blur(8px);transform:translate3d(0,16px,0);
+  transition:opacity .9s var(--ease-out),filter .9s var(--ease-out),transform .9s var(--ease-out);
+  transition-delay:var(--d,0s);
+}
+[data-reveal="blur"].is-visible{opacity:1;filter:blur(0px);transform:translate3d(0,0,0)}
+
+/* Duración más lenta para elementos grandes */
+[data-reveal="slow"]{
+  transform:translate3d(0,24px,0);opacity:0;
+  transition-duration:1.1s;
+}
+[data-reveal="slow"].is-visible{transform:translate3d(0,0,0);opacity:1}
+
+/* Hero — animación de entrada (CSS puro, sin IntersectionObserver) */
+@keyframes heroReveal{
+  from{opacity:0;transform:translate3d(0,20px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes heroRevealImg{
+  from{opacity:0;transform:translate3d(24px,0,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+/* Coreografia de entrada: antes tardaba 1470ms en terminar de revelar todo
+   y retrasaba el LCP a 1264ms aunque la imagen ya estaba lista a los 25ms.
+   Mismo escalonado, la mitad de tiempo. */
+.hero-in{
+  animation:heroReveal .5s var(--ease-out) both;
+}
+.hero-in--img{animation-name:heroRevealImg;animation-duration:.55s}
+.hero-in--1{animation-delay:.02s}
+.hero-in--2{animation-delay:.07s}
+.hero-in--3{animation-delay:.13s}
+.hero-in--4{animation-delay:.19s}
+.hero-in--5{animation-delay:.25s}
+.hero-in--6{animation-delay:.31s}
+.hero-in--img{animation-delay:.06s}
+
+/* Stagger grids */
+.stats-grid [data-reveal]:nth-child(2){--d:.12s}
+.stats-grid [data-reveal]:nth-child(3){--d:.24s}
+.caps-grid [data-reveal]:nth-child(2){--d:.1s}
+.caps-grid [data-reveal]:nth-child(3){--d:.2s}
+.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.08s}
+.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.16s}
+.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.24s}
+.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.32s}
+.acc-item:nth-child(2){--d:.07s}
+.acc-item:nth-child(3){--d:.14s}
+.acc-item:nth-child(4){--d:.21s}
+.acc-item:nth-child(5){--d:.28s}
+
+/* 18. RESPONSIVE */
+
+/* — Bases de seguridad (todos los tamaños) — */
+/* Los hijos de grid/flex no se encogen por debajo de su contenido sin min-width:0 */
+.hero__content,.hero__visual,.cta-info,.cta-form,
+.audience-left,.audience-list,.facilitator__info,.facilitator__photo,
+.stat-card,.cap-card,.acc-title,.footer-inner>*{min-width:0}
+h1,h2,h3,p,.acc-title,.audience-label,.cta-details li{overflow-wrap:break-word}
+/* El nav es fixed: los anclas no deben quedar tapadas */
+section[id],main[id]{scroll-margin-top:5.5rem}
+
+/* ——— ≤1100px — nav apretado antes de pasar a móvil ——— */
+@media(max-width:1100px){
+  .nav__inner{gap:1.25rem}
+  .nav__links{gap:1.15rem}
+  .nav__links a{font-size:.68rem;letter-spacing:.12em}
+  .btn--nav{padding:.65rem 1.15rem;font-size:.7rem}
+}
+
+/* ——— ≤1024px — tablet horizontal ——— */
+@media(max-width:1024px){
+  .hero{min-height:auto;padding-top:5.5rem}
+  .hero__layout{grid-template-columns:1fr;padding-block:clamp(2rem,4vw,3.5rem)}
+  .hero__visual{display:none}
+  .hero__title{font-size:clamp(3.25rem,10vw,5rem)}
+  .hero__body{max-width:60ch}
+  .hero__bar{margin-top:0}
+  .stats-grid{grid-template-columns:1fr;gap:1rem}
+  .caps-grid{grid-template-columns:1fr}
+  .cta-layout{grid-template-columns:1fr;gap:3rem}
+  .cta-map{max-width:100%;margin-top:2.5rem}
+  .cta-map iframe{height:240px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2.25rem}
+}
+
+/* ——— ≤900px — se activa el menú móvil ——— */
+@media(max-width:900px){
+  .nav__links{display:none}
+  .nav__burger{display:inline-flex}
+  .nav__inner{gap:1rem}
+  .nav__mobile{
+    /* Por encima del nav fijo (z-index:100), si no el burger tapa la X de cerrar */
+    display:flex;position:fixed;inset:0;z-index:110;
+    background:var(--cloud);transform:translateX(100%);
+    transition:transform .4s var(--ease);flex-direction:column;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  .nav__mobile.open{transform:translateX(0)}
+  .nav__mobile-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem clamp(1.25rem,5vw,3rem);border-bottom:1.5px solid var(--line);
+  }
+  .nav__mobile-head button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;margin-right:-.5rem}
+  .nav__mobile nav{
+    display:flex;flex-direction:column;
+    padding:1.5rem clamp(1.25rem,5vw,3rem) 2.5rem;gap:.25rem;
+  }
+  .nav__mobile nav a{
+    font-family:var(--font-head);font-size:clamp(1.25rem,5vw,1.5rem);font-weight:700;
+    padding:.75rem 0;border-bottom:1px solid var(--line);color:var(--slate);
+  }
+  .nav__mobile .btn{margin-top:1.5rem;justify-content:center;border-bottom:none}
+
+  /* Formas decorativas: en móvil compiten con el texto */
+  .geo--1,.geo--2,.geo--3,.geo--6{display:none}
+  /* Bajadas para no chocar con la barra de navegación */
+  .geo--4{width:22px;height:40px;top:22%;right:3%;opacity:.5}
+  .geo--5{width:34px;height:34px;bottom:16%;right:4%;opacity:.5}
+
+  .audience-grid{grid-template-columns:1fr;gap:2.5rem}
+  /* Sin espacio para dos columnas: texto arriba, imagen debajo centrada */
+  .manifesto-layout{grid-template-columns:1fr;gap:2.5rem;justify-items:center}
+  .manifesto-media{width:min(290px,74vw)}
+}
+
+/* ——— ≤760px — teléfonos grandes / tablet vertical ——— */
+@media(max-width:760px){
+  /* Meta del hero en 2×2 en lugar de 4 filas apiladas */
+  .hero__meta{grid-template-columns:1fr 1fr}
+  .hero__meta-item{padding:.95rem .6rem}
+  .hero__meta-item:not(:last-child){border-right:none}
+  .hero__meta--glass .hero__meta-item:nth-child(odd){border-right:1px solid rgba(180,205,235,.4)}
+  .hero__meta--glass .hero__meta-item:nth-child(-n+2){border-bottom:1px solid rgba(180,205,235,.4)}
+  .hero__meta-item dd{font-size:.78rem;line-height:1.3}
+
+  .acc-body{padding-left:0}
+  .form-row{grid-template-columns:1fr}
+  /* 16px evita que iOS haga zoom automático al enfocar un input */
+  .field input{font-size:16px}
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;gap:.6rem;text-align:left}
+  /* El salto de línea forzado deja una línea huérfana en móvil */
+  .stats-outro__line--3 br{display:none}
+  .stats-outro{padding-top:2.25rem}
+  .stat-card,.cap-card{padding:1.85rem 1.5rem}
+  .cta-map iframe{height:210px}
+  .facilitator__info{padding:2rem 1.6rem}
+}
+
+/* ——— ≤600px — acordeón: etiqueta sobre el título ——— */
+@media(max-width:600px){
+  .acc-summary{
+    grid-template-columns:1fr auto;
+    gap:.4rem 1rem;padding:1.3rem 0;
+  }
+  .acc-label{grid-column:1;grid-row:1;font-size:.55rem;letter-spacing:.18em}
+  .acc-title{grid-column:1;grid-row:2}
+  .acc-chevron{grid-column:2;grid-row:1/3;align-self:center}
+  .acc-summary:hover{padding-left:0}
+  .audience-item:hover{padding-left:0}
+}
+
+/* ——— ≤560px — teléfonos ——— */
+@media(max-width:560px){
+  /* El CTA del nav ya no entra junto a marca + burger */
+  .nav .btn--nav{display:none}
+  .hero{padding-top:4.75rem}
+  .hero__title{font-size:clamp(2.9rem,13vw,4rem);line-height:1}
+  .hero__claim{font-size:1.05rem}
+  .h2{font-size:clamp(1.95rem,7.5vw,2.4rem)}
+  .cta-title{font-size:clamp(1.7rem,7vw,2.1rem)}
+  .manifesto-quote{font-size:clamp(1.75rem,8vw,2.4rem)}
+  .stat-num{font-size:clamp(2.6rem,13vw,3.4rem)}
+  /* Botones a ancho completo: objetivo táctil cómodo */
+  .hero__actions{flex-direction:column;align-items:stretch;gap:.7rem}
+  .hero__actions .btn{justify-content:center;width:100%}
+  .audience-left .btn{align-self:stretch!important;justify-content:center}
+  .sponsor-slot{width:calc(50% - .625rem);max-width:150px;height:62px}
+  .sponsors__grid{gap:.75rem}
+  .btn--wa{padding:1rem 1.5rem}
+  .cta-map iframe{height:190px}
+  .cta-map{border-radius:12px}
+}
+
+/* ——— ≤345px — teléfonos muy angostos: los datos ya no entran en 2 columnas ——— */
+@media(max-width:345px){
+  .hero__meta{grid-template-columns:1fr}
+  .hero__meta--glass .hero__meta-item:nth-child(odd){border-right:none}
+  .hero__meta--glass .hero__meta-item:not(:last-child){border-bottom:1px solid rgba(180,205,235,.4)}
+  .hero__meta--glass .hero__meta-item:last-child{border-bottom:none}
+}
+
+/* ——— ≤380px — teléfonos angostos (iPhone SE) ——— */
+@media(max-width:380px){
+  .hero__title{font-size:2.65rem}
+  .btn{padding:.85rem 1.4rem;font-size:.85rem}
+  .facilitator__info{padding:1.75rem 1.25rem}
+}
+
+/* ——— Teléfono en horizontal: el hero no debe ocupar toda la pantalla ——— */
+@media(max-height:520px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:5rem}
+  .hero__layout{padding-block:1.5rem}
+  .nav__mobile nav a{font-size:1.1rem;padding:.5rem 0}
+  .nav__mobile .btn{margin-top:1rem}
+}
+
+/* ——— Pantallas táctiles: desactivar hovers que "se pegan" ——— */
+@media(hover:none){
+  .facilitator:hover{transform:none;box-shadow:0 2px 8px rgba(45,52,54,.04),0 8px 32px rgba(45,52,54,.07)}
+  .facilitator:hover .facilitator__photo img{transform:none}
+  .stat-card:hover,.cap-card:hover{transform:none}
+  .btn:hover{transform:none}
+  .acc-summary:hover,.audience-item:hover{padding-left:0}
+}
+
+/* 19. REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  [data-reveal]{opacity:1;transform:none;filter:none}
+  .geo,.eyebrow-dot{animation:none!important}
+  /* Sin animacion no hace falta reservar capas de composicion */
+  .geo,.eyebrow-dot,.hero-in{will-change:auto!important}
+}

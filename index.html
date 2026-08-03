@@ -1,70 +1,493 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Líderes Aumentados — Plataforma del programa</title>
-<meta name="description" content="Plataforma del programa Líderes Aumentados: liderazgo estratégico e Inteligencia Artificial aplicada a la gestión pública en Santa Cruz.">
-<link rel="stylesheet" href="css/styles.css?v=33">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Líderes Aumentados · Workshop ejecutivo de IA y Liderazgo · Río Gallegos</title>
+  <meta name="description" content="Workshop ejecutivo presencial. La inteligencia artificial no reemplaza a los líderes: amplifica su capacidad de decidir, innovar y conducir organizaciones en la nueva era." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- ============================ PANTALLA DE ACCESO ============================ -->
-<div id="gate-screen">
-  <div class="gate-card">
-    <div class="gate-brand">
-      <div class="gate-brand-mark"></div>
-      <span>Líderes Aumentados</span>
+  <!-- NAV -->
+  <header class="nav" data-nav>
+    <div class="container nav__inner">
+      <a href="#top" class="nav__brand" aria-label="Líderes Aumentados, ir al inicio">
+        <span class="brand-mark" aria-hidden="true">L<i>A</i></span>
+      </a>
+      <nav class="nav__links">
+        <a href="#contexto">El cambio</a>
+        <a href="#programa">Programa</a>
+        <a href="#facilitadores">Facilitadores</a>
+        <a href="#inscripcion">Inscripción</a>
+      </nav>
+      <a href="#inscripcion" class="btn btn--nav">Reservar lugar</a>
+      <button class="nav__burger" data-burger aria-label="Abrir menú">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
-    <h1>Bienvenido/a</h1>
-    <p class="gate-sub">Ingresá con el correo y la clave que te compartieron los organizadores para acceder al contenido del programa.</p>
-    <form id="gate-form">
-      <label for="gate-email" class="visually-hidden">Correo</label>
-      <input type="email" id="gate-email" placeholder="Tu correo" autocomplete="username" required>
-      <label for="gate-clave" class="visually-hidden">Clave</label>
-      <div class="password-wrapper">
-        <input type="password" id="gate-clave" placeholder="Tu clave" autocomplete="current-password" required>
-        <button type="button" class="password-toggle" id="toggle-clave" aria-label="Mostrar contraseña">
-          <svg id="toggle-clave-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
-      </div>
-      <div id="gate-error" role="alert"></div>
-      <button type="submit" class="btn-primary" id="gate-submit">Ingresar</button>
-    </form>
-  </div>
-</div>
+  </header>
 
-<!-- ============================ APP (contenido protegido) ============================ -->
-<div id="app">
-
-  <div id="sidebar-overlay"></div>
-
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">
-      <div class="brand-mark"></div>
-      <span>Líderes Aumentados</span>
+  <!-- Menú móvil -->
+  <div class="nav__mobile" data-mobile>
+    <div class="nav__mobile-head">
+      <span class="nav__brand"><span class="brand-mark" aria-hidden="true">L<i>A</i></span></span>
+      <button data-mobile-close aria-label="Cerrar menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
-
-    <nav id="main-nav" aria-label="Navegación principal">
-      <button class="nav-item" data-view="inicio"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Inicio</button>
-      <button class="nav-item" data-view="cronograma"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Cronograma</button>
-      <button class="nav-item" data-view="modulos"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Módulos</button>
-      <button class="nav-item" data-view="novedades"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Novedades</button>
+    <nav>
+      <a href="#contexto">El cambio</a>
+      <a href="#programa">Programa</a>
+      <a href="#facilitadores">Facilitadores</a>
+      <a href="#inscripcion">Inscripción</a>
+      <a href="#inscripcion" class="btn btn--cta">Reservar lugar</a>
     </nav>
-  </aside>
-
-  <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
-    <div class="topbar-mobile">
-      <button id="menu-toggle" aria-label="Abrir menú">☰</button>
-      <span>Líderes Aumentados</span>
-      <span style="width:24px;"></span>
-    </div>
-
-    <main class="main" id="main-content"><!-- se completa por JS --></main>
   </div>
-</div>
 
-<script src="js/content.js"></script>
-<script src="js/app.js"></script>
+  <main id="top">
+
+    <!-- ═══════ HERO ═══════ -->
+    <section class="hero">
+      <!-- Formas geométricas flotantes (estilo Catalyst) -->
+      <div class="geo geo--1" aria-hidden="true"></div>
+      <div class="geo geo--2" aria-hidden="true"></div>
+      <div class="geo geo--3" aria-hidden="true"></div>
+      <div class="geo geo--4" aria-hidden="true"></div>
+      <div class="geo geo--5" aria-hidden="true"></div>
+      <div class="geo geo--6" aria-hidden="true"></div>
+
+      <div class="container hero__layout">
+        <div class="hero__content">
+          <p class="eyebrow eyebrow--badge hero-in hero-in--1">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Workshop ejecutivo
+          </p>
+
+          <h1 class="hero__title hero-in hero-in--2">
+            Líderes<br>
+            <span class="hero__title-accent">Aumentados</span>
+          </h1>
+
+          <p class="hero__claim hero-in hero-in--3">
+            La IA no reemplaza líderes. Los <strong>amplifica.</strong>
+          </p>
+
+          <p class="hero__body hero-in hero-in--4">
+            Cuatro horas de entrenamiento ejecutivo presencial. Decidir con más claridad, conducir equipos en contextos de cambio e integrar la IA como ventaja estratégica real.
+          </p>
+
+          <div class="hero__actions hero-in hero-in--5">
+            <a href="#inscripcion" class="btn btn--cta">
+              Reservar mi lugar
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#programa" class="btn btn--ghost">Ver el programa</a>
+          </div>
+
+          <div class="hero__proof hero-in hero-in--6">
+            <p class="proof-text">Cupos limitados · Abierto a todo público</p>
+          </div>
+        </div>
+
+        <div class="hero__visual hero-in hero-in--img">
+          <div class="hero__card-wrap">
+            <!-- Card flotante estilo Catalyst -->
+            <div class="hero__photo-card">
+              <picture>
+                <!-- Debajo de 1025px .hero__visual esta display:none, pero el navegador
+                     descarga la imagen igual. Este placeholder vacio lo evita (0 bytes de red). -->
+                <source media="(max-width:1024px)"
+                        srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='3'%20height='2'%3E%3C/svg%3E" />
+                <!-- WebP y no AVIF a proposito: es la imagen LCP y el AVIF de 1536
+                     tardaba 490ms en decodificar contra 206ms del WebP (medido). -->
+                <img src="assets/hero-workshop-1536.webp" sizes="512px"
+                     srcset="assets/hero-workshop-1024.webp 1024w, assets/hero-workshop-1536.webp 1536w"
+                     width="1536" height="1024" fetchpriority="high" decoding="async"
+                     alt="Participante de workshop de liderazgo frente a pizarra con frameworks" />
+              </picture>
+            </div>
+            <!-- Geo shapes dentro del visual -->
+            <div class="geo geo--v1" aria-hidden="true"></div>
+            <div class="geo geo--v2" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta glass card -->
+      <div class="hero__bar">
+        <div class="container">
+          <dl class="hero__meta hero__meta--glass">
+            <div class="hero__meta-item"><dt>Fecha</dt><dd>5 de septiembre</dd></div>
+            <div class="hero__meta-item"><dt>Horario</dt><dd>10:00–14:00 hs</dd></div>
+            <div class="hero__meta-item"><dt>Lugar</dt><dd>Cámara de Comercio · Río Gallegos</dd></div>
+            <div class="hero__meta-item"><dt>Modalidad</dt><dd>Presencial</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══════ SPONSORS ═══════ -->
+    <section class="section section--cloud sponsors">
+      <div class="container">
+        <p class="eyebrow sponsors__eyebrow" data-reveal="fade">Con el apoyo de</p>
+        <div class="sponsors__grid">
+          <div class="sponsor-slot" data-reveal="scale" style="--d:.05s"><span>Logo sponsor</span></div>
+          <div class="sponsor-slot" data-reveal="scale" style="--d:.15s"><span>Logo sponsor</span></div>
+          <div class="sponsor-slot" data-reveal="scale" style="--d:.25s"><span>Logo sponsor</span></div>
+          <div class="sponsor-slot" data-reveal="scale" style="--d:.35s"><span>Logo sponsor</span></div>
+          <div class="sponsor-slot" data-reveal="scale" style="--d:.45s"><span>Logo sponsor</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CONTEXTO / STATS ═══════ -->
+    <section id="contexto" class="section section--white">
+      <div class="container">
+        <p class="eyebrow" data-reveal="fade">El contexto que ningún líder puede ignorar</p>
+        <h2 class="h2" data-reveal="slow">La IA ya llegó.<br>El desafío ahora es liderar con ella.</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card" data-reveal="scale" style="--d:.1s">
+            <span class="stat-num">53<sup>%</sup></span>
+            <p class="stat-text">de los líderes integrará la IA en sus decisiones estratégicas antes de fin de 2026. La IA dejó de ser táctica.</p>
+            <span class="stat-src">Harvard Business Impact · 2026 Global Leadership Study</span>
+          </div>
+          <div class="stat-card" data-reveal="scale" style="--d:.25s">
+            <span class="stat-num">83<sup>%</sup></span>
+            <p class="stat-text">de los CEOs confirma: el éxito de la IA depende de las personas, no de la tecnología.</p>
+            <span class="stat-src">IBM Institute for Business Value</span>
+          </div>
+          <div class="stat-card" data-reveal="scale" style="--d:.4s">
+            <span class="stat-num">36<sup>%</sup></span>
+            <p class="stat-text">de las empresas prevé que al menos 1 de cada 10 puestos estará totalmente automatizado en apenas un año. Los roles deben rediseñarse ahora.</p>
+            <span class="stat-src">Deloitte · 2026 AI Report</span>
+          </div>
+        </div>
+
+        <div class="stats-outro" data-reveal="blur">
+          <p class="stats-outro__line stats-outro__line--1">La IA no va a transformar organizaciones por sí sola.</p>
+          <p class="stats-outro__line stats-outro__line--2">Lo harán los líderes capaces de integrarla en su forma de pensar, decidir y gestionar.</p>
+          <p class="stats-outro__line stats-outro__line--3">Porque el futuro no pertenece a quienes tienen mejores herramientas, sino a <br><span class="stats-outro__accent">quienes saben utilizarlas mejor.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ MANIFIESTO ═══════ -->
+    <section id="manifiesto" class="section section--cloud">
+      <div class="container">
+        <div class="manifesto-layout">
+          <div class="manifesto-wrap" data-reveal="slow">
+            <p class="eyebrow">El enfoque</p>
+            <blockquote class="manifesto-quote">
+              El futuro del liderazgo no es humano ni artificial.
+              Es <span class="text-sky">aumentado.</span>
+            </blockquote>
+            <p class="manifesto-body">
+              La tecnología sola no transforma organizaciones. La transformación ocurre cuando
+              líderes preparados usan la IA para pensar mejor, ordenar equipos y crear valor,
+              con el criterio humano siempre al mando.
+            </p>
+          </div>
+
+          <figure class="manifesto-media" data-reveal="right">
+            <picture>
+              <source type="image/avif" sizes="(max-width:900px) 280px, 320px"
+                      srcset="assets/enfoque2-500.avif 500w, assets/enfoque2-760.avif 760w" />
+              <img src="assets/enfoque2-760.webp" sizes="(max-width:900px) 280px, 320px"
+                   srcset="assets/enfoque2-500.webp 500w, assets/enfoque2-760.webp 760w"
+                   width="1024" height="1536" loading="lazy" decoding="async"
+                   alt="Líder de espaldas frente a un rostro formado por una red de nodos de inteligencia artificial" />
+            </picture>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CAPACIDADES ═══════ -->
+    <section id="capacidades" class="section section--white">
+      <div class="container">
+        <p class="eyebrow" data-reveal="fade">Qué desarrollás en 4 horas</p>
+        <h2 class="h2" data-reveal>Tres capacidades para liderar la nueva era</h2>
+
+        <div class="caps-grid">
+          <div class="cap-card" data-reveal="left" style="--d:.05s">
+            <div class="cap-ico cap-ico--sky">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1M12 2a7 7 0 0 1 4 12.7c-.6.5-1 1.3-1 2.1"/></svg>
+            </div>
+            <h3>Decidir con criterio</h3>
+            <p>Marcos claros para transformar información en decisiones, con la IA como copiloto y el juicio humano al mando.</p>
+          </div>
+          <div class="cap-card" data-reveal="scale" style="--d:.2s">
+            <div class="cap-ico cap-ico--yellow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20a4 4 0 0 0-8 0M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 20a3 3 0 0 1 3-3M20 20a3 3 0 0 0-3-3"/></svg>
+            </div>
+            <h3>Conducir equipos</h3>
+            <p>Comunicación, feedback y conducción para alinear equipos en contextos de cambio, presión e incertidumbre.</p>
+          </div>
+          <div class="cap-card" data-reveal="right" style="--d:.35s">
+            <div class="cap-ico cap-ico--slate">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Innovar procesos</h3>
+            <p>Rediseñar cómo se trabaja con IA aplicada, con trazabilidad y ética en cada paso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ PROGRAMA — ACCORDION ═══════ -->
+    <section id="programa" class="section section--cloud">
+      <div class="container">
+        <p class="eyebrow" data-reveal="fade">El programa</p>
+        <h2 class="h2" data-reveal>Cuatro horas de entrenamiento aplicado</h2>
+        <p class="section-lead" data-reveal="blur">Metodología activa, casos reales y uso guiado de IA. Cada bloque, una capacidad concreta para volver al trabajo y aplicar de inmediato.</p>
+
+        <div class="accordion" data-reveal="left">
+          <details class="acc-item">
+            <summary class="acc-summary">
+              <span class="acc-label">BLOQUE 01</span>
+              <h3 class="acc-title">Nuevo liderazgo en la era de la IA</h3>
+              <span class="acc-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <p>Panorama de la transformación: qué está cambiando en las organizaciones que ya integran IA, qué roles están evolucionando y cuál es el nuevo estándar del liderazgo efectivo. Marco de referencia para el resto del workshop.</p>
+            </div>
+          </details>
+
+          <details class="acc-item">
+            <summary class="acc-summary">
+              <span class="acc-label">BLOQUE 02</span>
+              <h3 class="acc-title">Decisiones ágiles con criterio</h3>
+              <span class="acc-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <p>Frameworks para tomar decisiones complejas con información incompleta. Uso de IA como copiloto para analizar escenarios, anticipar consecuencias y estructurar el razonamiento.</p>
+            </div>
+          </details>
+
+          <details class="acc-item">
+            <summary class="acc-summary">
+              <span class="acc-label">BLOQUE 03</span>
+              <h3 class="acc-title">Productividad y procesos aumentados</h3>
+              <span class="acc-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <p>Mapeo de procesos susceptibles de optimización con IA. Criterios de implementación que respetan la ética y la cultura organizacional, y cómo introducir IA sin resistencia.</p>
+            </div>
+          </details>
+
+          <details class="acc-item">
+            <summary class="acc-summary">
+              <span class="acc-label">BLOQUE 04</span>
+              <h3 class="acc-title">Conducción de equipos en el cambio</h3>
+              <span class="acc-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <p>Cómo liderar personas en contextos de transformación tecnológica. Gestión del miedo, la resistencia y la incertidumbre. Comunicación que construye confianza mientras el equipo cambia.</p>
+            </div>
+          </details>
+
+          <details class="acc-item">
+            <summary class="acc-summary">
+              <span class="acc-label">BLOQUE 05</span>
+              <h3 class="acc-title">IA responsable y confianza institucional</h3>
+              <span class="acc-chevron">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <p>Ética de la IA para líderes: qué preguntas hacerse antes de implementar, cómo comunicar el uso de IA a equipos y stakeholders, y cómo construir una cultura de innovación responsable que genere confianza institucional sostenible.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ FACILITADORES ═══════ -->
+    <section id="facilitadores" class="section section--facilitadores">
+      <div class="container">
+        <p class="eyebrow" data-reveal="fade">Los facilitadores</p>
+        <h2 class="h2" data-reveal>Quiénes conducen el workshop</h2>
+        <p class="section-lead" data-reveal="blur">Un coach de líderes y un especialista en procesos, trabajando juntos para una transformación real, no teórica.</p>
+
+        <div class="facilitators-grid">
+
+          <div class="facilitator" data-reveal="left">
+            <div class="facilitator__photo">
+              <picture>
+                <source type="image/avif" sizes="280px"
+                        srcset="assets/andriy-nb-400.avif 400w, assets/andriy-nb-640.avif 640w" />
+                <img src="assets/andriy-nb-640.webp" sizes="280px"
+                     srcset="assets/andriy-nb-400.webp 400w, assets/andriy-nb-640.webp 640w"
+                     width="640" height="480" loading="lazy" decoding="async" alt="Andriy Trofymenko" />
+              </picture>
+            </div>
+            <div class="facilitator__info">
+              <h3 class="person-name">Andriy Trofymenko</h3>
+              <p class="person-role">Ingeniero Industrial · Mejora Continua · Optimización</p>
+              <p class="person-bio">Gestión empresarial y rediseño de procesos, especializado en Inteligencia Artificial aplicada a la gestión. Foco en criterio humano y eficiencia operacional, con experiencia en integración de sistemas para organizaciones públicas y privadas.</p>
+            </div>
+          </div>
+
+          <div class="facilitator facilitator--flip" data-reveal="right">
+            <div class="facilitator__photo">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 100vw, 460px"
+                        srcset="assets/christian-clean-720.avif 720w, assets/christian-clean-1264.avif 1264w" />
+                <img src="assets/christian-clean-1264.webp" sizes="(max-width:760px) 100vw, 460px"
+                     srcset="assets/christian-clean-720.webp 720w, assets/christian-clean-1264.webp 1264w"
+                     width="1264" height="843" loading="lazy" decoding="async"
+                     class="photo--cover" alt="Christian Pollavini" />
+              </picture>
+            </div>
+            <div class="facilitator__info">
+              <h3 class="person-name">Christian Pollavini</h3>
+              <p class="person-role">Coach de Líderes · Equipos · Gestión Organizacional</p>
+              <p class="person-bio">Desarrollo organizacional y coaching ejecutivo. Foco en conducción, decisiones y desarrollo de líderes. Fundador de www.christianpollavini.com.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ AUDIENCIA ═══════ -->
+    <section class="section section--cloud">
+      <div class="container">
+        <div class="audience-grid">
+          <div class="audience-left" data-reveal="left">
+            <p class="eyebrow">¿Este workshop es para vos?</p>
+            <h2 class="h2">Para quienes quieren liderar la transformación, no seguirla.</h2>
+            <p class="section-lead">Un espacio de alto nivel para perfiles con equipos a cargo o con potencial de conducción, tanto en el sector público como en el privado.</p>
+            <a href="#inscripcion" class="btn btn--cta" style="margin-top:.5rem;align-self:flex-start">
+              Quiero reservar mi lugar
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="audience-list" data-reveal="right">
+            <div class="audience-item"><span class="audience-label">Tomar mejores decisiones con IA</span></div>
+            <div class="audience-item"><span class="audience-label">Liderar equipos más productivos</span></div>
+            <div class="audience-item"><span class="audience-label">Identificar herramientas de impacto</span></div>
+            <div class="audience-item"><span class="audience-label">Prepararte para el nuevo liderazgo</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CTA / INSCRIPCIÓN ═══════ -->
+    <section id="inscripcion" class="section section--slate">
+      <div class="container">
+        <div class="cta-layout">
+          <div class="cta-info" data-reveal="left">
+            <p class="eyebrow eyebrow--dim">Inscripción</p>
+            <h2 class="cta-title">Sumate a la primera generación de líderes aumentados.</h2>
+            <p class="cta-lead">Cupos limitados. Dejanos tus datos y te contactamos para confirmar tu lugar en el workshop.</p>
+            <ul class="cta-details">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                5 de septiembre · 10:00–14:00 hs · Presencial
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Cámara de Comercio · Río Gallegos, Santa Cruz
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Abierto a todo público
+              </li>
+            </ul>
+          </div>
+
+          <form class="cta-form" data-form data-reveal="right">
+            <div class="form-row">
+              <div class="field">
+                <label for="nombre">Nombre y apellido <span class="req">*</span></label>
+                <input id="nombre" name="nombre" type="text" required placeholder="Tu nombre completo" />
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="req">*</span></label>
+                <input id="email" name="email" type="email" required placeholder="nombre@correo.com" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="organizacion">Organización</label>
+              <input id="organizacion" name="organizacion" type="text" placeholder="Empresa, organismo o independiente" />
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="cargo">Cargo / Rol</label>
+                <input id="cargo" name="cargo" type="text" placeholder="Tu función actual" />
+              </div>
+              <div class="field">
+                <label for="telefono">Teléfono <span class="req">*</span></label>
+                <input id="telefono" name="telefono" type="tel" required placeholder="+54 9 ..." />
+              </div>
+            </div>
+            <button type="submit" class="btn btn--wa">
+              Reservar mi lugar
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="form-ok" data-form-ok>✓ ¡Solicitud recibida! Te contactamos a la brevedad para confirmar tu lugar.</p>
+            <p class="form-err" data-form-err>No pudimos enviar tu solicitud. Probá de nuevo o escribinos a <a href="https://wa.me/5492966692544" target="_blank" rel="noopener">+54 9 2966 69 2544</a> y te reservamos el lugar.</p>
+            <p class="form-note">Recibimos tu solicitud y nos comunicamos a la brevedad para confirmar tu inscripción.</p>
+          </form>
+        </div>
+        <div class="cta-map" data-reveal="fade">
+          <iframe
+            src="https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            title="Ubicación: Cámara de Comercio, Río Gallegos"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand-col">
+          <span class="footer-brand">Líderes <span>Aumentados</span></span>
+          <p>Workshop ejecutivo de Inteligencia Artificial y Liderazgo. Formar líderes preparados para decidir, innovar y conducir en la nueva era.</p>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-label">Contacto</p>
+          <a class="footer-link" href="https://wa.me/5492966692544" target="_blank" rel="noopener">WhatsApp · +54 9 2966 69 2544</a>
+          <a class="footer-link" href="https://wa.me/5491133278023" target="_blank" rel="noopener">WhatsApp · +54 9 11 3327 8023</a>
+          <a class="footer-link" href="https://www.christianpollavini.com" target="_blank" rel="noopener">www.christianpollavini.com</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-label">Programa</p>
+          <a class="footer-link" href="#contexto">El cambio</a>
+          <a class="footer-link" href="#programa">Programa</a>
+          <a class="footer-link" href="#facilitadores">Facilitadores</a>
+          <a class="footer-link" href="#inscripcion">Inscripción</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> Líderes Aumentados. Todos los derechos reservados.</span>
+        <span>Desarrollo Organizacional &amp; Coaching</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

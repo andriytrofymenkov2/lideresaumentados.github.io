@@ -1,0 +1,24 @@
+# Imágenes y videos fuente: pesan ~11 MB y la página no los usa.
+# Las versiones optimizadas (.avif / .webp) sí se suben.
+*.png
+*.jpg
+*.jpeg
+*.mp4
+
+# Folletos y respaldos
+*.pdf
+_landing-v3-respaldo.html
+
+# Código del backend: no se sirve desde la web y contiene el email de contacto
+google-apps-script.js
+
+# Derivados que quedaron sin uso (quedan en disco, no se publican):
+# enfoque-*  = imagen oscura descartada
+# hero-workshop-*.avif = el hero pasó a WebP por velocidad de decodificación
+assets/enfoque-500.*
+assets/enfoque-760.*
+assets/hero-workshop-*.avif
+
+# Configuración local del editor
+.claude/
+logos-sitio-anterior/
