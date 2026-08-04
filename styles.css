@@ -323,7 +323,7 @@ p{color:var(--slate-light)}
 }
 .sponsor-slot{
   display:flex;align-items:center;justify-content:center;
-  width:160px;height:72px;
+  width:200px;height:88px;
   border-radius:14px;
   border:1.5px dashed var(--line-2);
   background:rgba(255,255,255,.85);
@@ -337,6 +337,11 @@ p{color:var(--slate-light)}
   font-family:var(--font-head);font-size:.65rem;font-weight:600;
   text-transform:uppercase;letter-spacing:.15em;color:var(--slate-muted);
 }
+/* Sponsor confirmado: borde solido, el punteado marca "lugar disponible".
+   Mismo tamano que los demas recuadros, para que la fila quede pareja. */
+.sponsor-slot--filled{border-style:solid;border-color:var(--line);background:var(--white)}
+.sponsor-slot--filled:hover{border-color:var(--line-2);box-shadow:0 6px 26px rgba(45,52,54,.10)}
+.sponsor-slot img{width:auto;max-width:88%;max-height:70%;object-fit:contain}
 /* 9. STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:clamp(3rem,5vw,5rem) 0 clamp(2rem,3vw,3rem)}
 .stat-card{
@@ -828,7 +833,7 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .hero__actions{flex-direction:column;align-items:stretch;gap:.7rem}
   .hero__actions .btn{justify-content:center;width:100%}
   .audience-left .btn{align-self:stretch!important;justify-content:center}
-  .sponsor-slot{width:calc(50% - .625rem);max-width:150px;height:62px}
+  .sponsor-slot{width:calc(50% - .625rem);max-width:165px;height:74px}
   .sponsors__grid{gap:.75rem}
   .btn--wa{padding:1rem 1.5rem}
   .cta-map iframe{height:190px}
