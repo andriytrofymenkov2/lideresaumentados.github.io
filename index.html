@@ -11,7 +11,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=1011" />
+  <link rel="stylesheet" href="styles.css?v=202608040009" />
 </head>
 <body>
 
@@ -101,13 +101,9 @@
             <!-- Card flotante estilo Catalyst -->
             <div class="hero__photo-card">
               <picture>
-                <!-- Debajo de 1025px .hero__visual esta display:none, pero el navegador
-                     descarga la imagen igual. Este placeholder vacio lo evita (0 bytes de red). -->
-                <source media="(max-width:1024px)"
-                        srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='3'%20height='2'%3E%3C/svg%3E" />
                 <!-- WebP y no AVIF a proposito: es la imagen LCP y el AVIF de 1536
                      tardaba 490ms en decodificar contra 206ms del WebP (medido). -->
-                <img src="assets/hero-workshop-1536.webp" sizes="512px"
+                <img src="assets/hero-workshop-1536.webp" sizes="(max-width:1024px) 92vw, 512px"
                      srcset="assets/hero-workshop-1024.webp 1024w, assets/hero-workshop-1536.webp 1536w"
                      width="1536" height="1024" fetchpriority="high" decoding="async"
                      alt="Participante de workshop de liderazgo frente a pizarra con frameworks" />
@@ -493,6 +489,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=1011"></script>
+  <script src="script.js?v=202608040009"></script>
 </body>
 </html>

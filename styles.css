@@ -717,7 +717,14 @@ section[id],main[id]{scroll-margin-top:5.5rem}
 @media(max-width:1024px){
   .hero{min-height:auto;padding-top:5.5rem}
   .hero__layout{grid-template-columns:1fr;padding-block:clamp(2rem,4vw,3.5rem)}
-  .hero__visual{display:none}
+  /* La foto pasa debajo del texto y los botones, antes de la tarjeta de datos:
+     asi el titulo y el CTA quedan arriba del pliegue. */
+  .hero__visual{align-self:auto;margin-top:.5rem}
+  /* 4/3 en vez de 4/5: apilada, una foto vertical se comeria media pantalla */
+  .hero__photo-card img{aspect-ratio:4/3;max-height:none}
+  /* Los acentos geometricos, al tamano de escritorio, tapaban el pizarron */
+  .geo--v1{width:34px;height:34px;top:-12px;left:-12px;border-radius:9px}
+  .geo--v2{width:20px;height:20px;bottom:-8px;right:-8px;border-radius:6px}
   .hero__title{font-size:clamp(3.25rem,10vw,5rem)}
   .hero__body{max-width:60ch}
   .hero__bar{margin-top:0}
