@@ -11,7 +11,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=2301" />
+  <link rel="stylesheet" href="styles.css?v=2500" />
 </head>
 <body>
 
@@ -101,8 +101,6 @@
             <!-- Card flotante estilo Catalyst -->
             <div class="hero__photo-card">
               <picture>
-                <!-- WebP y no AVIF a proposito: es la imagen LCP y el AVIF de 1536
-                     tardaba 490ms en decodificar contra 206ms del WebP (medido). -->
                 <!-- En escritorio pedimos siempre la version de 1536 (la mas grande que
                      tenemos). Con object-fit:cover se muestra un recorte de ~960px de
                      ancho: cuantos mas pixeles de origen, mas nitido queda al reducir.
@@ -495,6 +493,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=2301"></script>
+  <script src="script.js?v=2500"></script>
 </body>
 </html>
