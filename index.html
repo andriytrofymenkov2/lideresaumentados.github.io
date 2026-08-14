@@ -11,7 +11,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=2500" />
+  <link rel="stylesheet" href="styles.css?v=202608141056" />
 </head>
 <body>
 
@@ -92,7 +92,7 @@
           </div>
 
           <div class="hero__proof hero-in hero-in--6">
-            <p class="proof-text">Cupos limitados · Abierto a todo público</p>
+            <p class="proof-text">Cupos limitados · Para quienes liderarán en contextos cambiantes.</p>
           </div>
         </div>
 
@@ -122,10 +122,10 @@
       <div class="hero__bar">
         <div class="container">
           <dl class="hero__meta hero__meta--glass">
-            <div class="hero__meta-item"><dt>Fecha</dt><dd>5 de septiembre</dd></div>
+            <div class="hero__meta-item"><dt>Fecha</dt><dd>Sábado 5 de septiembre</dd></div>
             <div class="hero__meta-item"><dt>Horario</dt><dd>10:00–14:00 hs</dd></div>
-            <div class="hero__meta-item"><dt>Lugar</dt><dd>Cámara de Comercio · Río Gallegos</dd></div>
             <div class="hero__meta-item"><dt>Modalidad</dt><dd>Presencial</dd></div>
+            <div class="hero__meta-item"><dt>Lugar</dt><dd>Auditorio del CCIARG – 9 de Julio 32 , Río Gallegos</dd></div>
           </dl>
         </div>
       </div>
@@ -324,7 +324,7 @@
       <div class="container">
         <p class="eyebrow" data-reveal="fade">Los facilitadores</p>
         <h2 class="h2" data-reveal>Quiénes conducen el workshop</h2>
-        <p class="section-lead" data-reveal="blur">Un coach de líderes y un especialista en procesos, trabajando juntos para una transformación real, no teórica.</p>
+        <p class="section-lead" data-reveal="blur">Un especialista en procesos y un coach de líderes, trabajando juntos para una transformación real.</p>
 
         <div class="facilitators-grid">
 
@@ -375,7 +375,7 @@
           <div class="audience-left" data-reveal="left">
             <p class="eyebrow">¿Este workshop es para vos?</p>
             <h2 class="h2">Para quienes quieren liderar la transformación, no seguirla.</h2>
-            <p class="section-lead">Un espacio de alto nivel para perfiles con equipos a cargo o con potencial de conducción, tanto en el sector público como en el privado.</p>
+            <p class="section-lead">Un espacio para perfiles con equipos a cargo y con ambición de liderazgo, que quieren llevar su gestión al siguiente nivel con inteligencia artificial, en organizaciones públicas y privadas.</p>
             <a href="#inscripcion" class="btn btn--cta" style="margin-top:.5rem;align-self:flex-start">
               Quiero reservar mi lugar
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -402,17 +402,23 @@
             <ul class="cta-details">
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                5 de septiembre · 10:00–14:00 hs · Presencial
+                Sábado 5 de septiembre · 10:00–14:00 hs · Presencial
               </li>
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Cámara de Comercio · Río Gallegos, Santa Cruz
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                Abierto a todo público
+                Auditorio del CCIARG – 9 de Julio 32 , Río Gallegos
               </li>
             </ul>
+            <div class="cta-pricing">
+              <div class="cta-pricing__row">
+                <span class="cta-pricing__price">$75.000</span>
+                <span class="cta-pricing__label">Entrada general · por participante</span>
+              </div>
+              <div class="cta-pricing__row">
+                <span class="cta-pricing__price">$50.000</span>
+                <span class="cta-pricing__label">Entrada corporativa · grupos de 3 o más</span>
+              </div>
+            </div>
           </div>
 
           <form class="cta-form" data-form data-reveal="right">
@@ -440,6 +446,28 @@
                 <input id="telefono" name="telefono" type="tel" required placeholder="+54 9 ..." />
               </div>
             </div>
+            <div class="field">
+              <label for="nivel_ia">¿Cuál considerás que es tu nivel de conocimiento de Inteligencia Artificial? <span class="req">*</span></label>
+              <select id="nivel_ia" name="nivel_ia" required>
+                <option value="" disabled selected>Seleccioná una opción</option>
+                <option value="Inicial">Inicial — Tengo poco o ningún conocimiento.</option>
+                <option value="Básico">Básico — Conozco algunas herramientas y las utilizo ocasionalmente.</option>
+                <option value="Intermedio">Intermedio — Utilizo IA con frecuencia para tareas profesionales.</option>
+                <option value="Avanzado">Avanzado — Integro distintas herramientas de IA en mi trabajo y optimizo procesos.</option>
+                <option value="Experto">Experto — Diseño soluciones, automatizaciones o flujos de trabajo con IA.</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="frecuencia_ia">¿Con qué frecuencia utilizás herramientas de IA? <span class="req">*</span></label>
+              <select id="frecuencia_ia" name="frecuencia_ia" required>
+                <option value="" disabled selected>Seleccioná una opción</option>
+                <option value="Nunca">Nunca</option>
+                <option value="Ocasionalmente">Ocasionalmente</option>
+                <option value="Algunas veces por semana">Algunas veces por semana</option>
+                <option value="Todos los días">Todos los días</option>
+                <option value="Varias veces al día">Varias veces al día</option>
+              </select>
+            </div>
             <button type="submit" class="btn btn--wa">
               Reservar mi lugar
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -452,7 +480,7 @@
         <div class="cta-map" data-reveal="fade">
           <iframe
             src="https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            title="Ubicación: Cámara de Comercio, Río Gallegos"
+            title="Ubicación: Auditorio del CCIARG – 9 de Julio 32 , Río Gallegos"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             allowfullscreen>
@@ -486,6 +514,10 @@
           <a class="footer-link" href="#inscripcion">Inscripción</a>
         </div>
       </div>
+      <div class="footer-logos">
+        <img src="assets/logo-andriy.webp" alt="Andriy Trofymenko" loading="lazy" />
+        <img src="assets/logo-christian.webp" alt="Christian Pollavini" loading="lazy" />
+      </div>
       <div class="footer-bottom">
         <span>© <span data-year>2026</span> Líderes Aumentados. Todos los derechos reservados.</span>
         <span>Desarrollo Organizacional &amp; Coaching</span>
@@ -493,6 +525,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=2500"></script>
+  <script src="script.js?v=202608141056"></script>
 </body>
 </html>

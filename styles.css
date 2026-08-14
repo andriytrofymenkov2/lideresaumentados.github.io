@@ -146,6 +146,18 @@ p{color:var(--slate-light)}
 }
 .field input::placeholder{color:rgba(255,255,255,.35)}
 .field input:focus{outline:none;border-color:var(--yellow);background:rgba(255,255,255,.12)}
+.field select{
+  width:100%;padding:.85rem 1rem;border-radius:var(--radius-sm);
+  border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);
+  color:#fff;font:inherit;font-size:.95rem;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+  padding-right:2.5rem;cursor:pointer;
+  transition:border-color .3s,background-color .3s;
+}
+.field select:focus{outline:none;border-color:var(--yellow);background-color:rgba(255,255,255,.12)}
+.field select option{background:#2d3436;color:#fff}
 
 /* 6. NAV */
 .nav{
@@ -257,6 +269,10 @@ p{color:var(--slate-light)}
   border:2px solid rgba(45,52,54,.08);
   box-shadow:0 24px 60px -12px rgba(45,52,54,.18);
   position:relative;
+  /* Miniatura de 20x25px incrustada (222 bytes): se ve al instante mientras
+     baja la foto real, en vez del hueco blanco. No agrega ningun request. */
+  background-image:url("data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAADQBQCdASoUABkAPrVQoEwnJKMiKAqo4BaJYwDGnUwgrAv2xl/EiDnuSMiCQDSXK54Dg5lN/1gQAP7z8HH1L1q+whScfj4v675zU772nB9Tu54+vocA/V8tSKSPKEQvm+CQ8bnzJgx2L2KAPYAUvQ2ePE2AuIO0wsnQvbjOlG56PgTmfJjXv7HPyR9gYFH2k2VSLlnu+/JkdREStHHtqqD4jRVLVZElBYTAzkSYAGdy10uVzJIFcWKvx+H6kQpEBCDpUlr8wEE2kYAA");
+  background-size:cover;background-position:top center;background-repeat:no-repeat;
 }
 /* max-height: en pantallas bajas la imagen 4/5 se comia el hero entero.
    Arriba de ~890px de alto el tope no llega a activarse (queda en 4/5). */
@@ -266,7 +282,9 @@ p{color:var(--slate-light)}
    padding-bottom del layout, el de abajo este padding-bottom. Usan el MISMO
    clamp, asi quedan iguales en cualquier altura de pantalla. */
 .hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.25rem,4vh,5rem)}
-.hero__meta{display:grid;grid-template-columns:repeat(4,1fr)}
+/* La columna Lugar lleva mucho mas texto que las otras tres: si las cuatro
+   miden igual, se parte en dos renglones y estira la tarjeta. */
+.hero__meta{display:grid;grid-template-columns:1fr 1fr 1fr 1.8fr}
 .hero__meta-item{padding:1.15rem .75rem;display:flex;flex-direction:column;gap:.22rem;align-items:center;text-align:center}
 .hero__meta-item:not(:last-child){border-right:1.5px solid var(--line)}
 .hero__meta-item dt{font-family:var(--font-head);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--slate-muted)}
@@ -595,6 +613,10 @@ p{color:var(--slate-light)}
 .cta-details{display:flex;flex-direction:column;gap:.8rem}
 .cta-details li{display:flex;align-items:center;gap:.8rem;font-size:.92rem;color:rgba(255,255,255,.6)}
 .cta-details li svg{flex-shrink:0;color:var(--yellow)}
+.cta-pricing{margin-top:1.75rem;display:flex;flex-direction:column;gap:.6rem;width:fit-content}
+.cta-pricing__row{display:flex;flex-direction:column;gap:.2rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.cta-pricing__price{font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.cta-pricing__label{font-size:.82rem;color:rgba(255,255,255,.5)}
 .cta-map{margin:3rem auto 0;max-width:700px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 4px 32px rgba(0,0,0,.4)}
 .cta-map iframe{width:100%;height:260px;display:block;border:none;filter:saturate(.65) contrast(1.1)}
 .cta-form{display:grid;gap:1rem}
@@ -607,18 +629,20 @@ p{color:var(--slate-light)}
 .form-note{font-size:.78rem;color:rgba(255,255,255,.4)}
 
 /* 16. FOOTER */
-.footer{background:var(--slate);border-top:1.5px solid rgba(255,255,255,.08);padding-block:4rem 2rem}
-.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1)}
-.footer-brand{font-family:var(--font-head);font-size:1.15rem;font-weight:800;color:#fff;display:block;margin-bottom:.85rem;letter-spacing:-.02em}
-.footer-brand span{color:var(--yellow)}
-.footer-brand-col p{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65}
-.footer-col-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:.85rem}
+.footer{background:#fff;border-top:1.5px solid rgba(0,0,0,.08);padding-block:4rem 2rem}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(0,0,0,.08)}
+.footer-brand{font-family:var(--font-head);font-size:1.15rem;font-weight:800;color:var(--slate);display:block;margin-bottom:.85rem;letter-spacing:-.02em}
+.footer-brand span{color:var(--sky)}
+.footer-brand-col p{font-size:.88rem;color:rgba(45,52,54,.55);line-height:1.65}
+.footer-logos{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;padding:2rem 0;border-top:1px solid rgba(0,0,0,.08)}
+.footer-logos img{height:84px;width:auto;object-fit:contain}
+.footer-col-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:rgba(45,52,54,.35);margin-bottom:.85rem}
 /* Etiqueta unica para los dos numeros, en vez de repetir "WhatsApp" en cada uno */
-.footer-sublabel{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.72);margin-bottom:.15rem}
+.footer-sublabel{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:rgba(45,52,54,.72);margin-bottom:.15rem}
 .footer-link--apart{margin-top:.9rem}
-.footer-link{display:block;font-size:.88rem;color:rgba(255,255,255,.55);padding-block:.45rem;transition:color .3s}
-.footer-link:hover{color:#fff}
-.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.3)}
+.footer-link{display:block;font-size:.88rem;color:rgba(45,52,54,.55);padding-block:.45rem;transition:color .3s}
+.footer-link:hover{color:var(--slate)}
+.footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(45,52,54,.35)}
 
 /* 17. REVEAL — sistema de efectos variados */
 
