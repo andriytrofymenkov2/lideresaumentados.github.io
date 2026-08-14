@@ -908,7 +908,23 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .acc-summary:hover,.audience-item:hover{padding-left:0}
 }
 
-/* 19. REDUCED MOTION */
+/* 19. PERFORMANCE */
+
+/* content-visibility: el navegador saltea layout/paint de secciones fuera
+   de pantalla. Con contain-intrinsic-size: auto el browser recuerda el alto
+   real tras el primer render y evita CLS en visitas posteriores. */
+.section,.sponsors,.footer{
+  content-visibility:auto;
+  contain-intrinsic-block-size:auto 700px;
+}
+
+/* touch-action: manipulation elimina el delay de 300ms en tap (iOS/Android)
+   sin romper scroll ni pinch-zoom. */
+a,button,.btn,.acc-summary,.audience-item,.sponsor-slot,.stat-card,.cap-card{
+  touch-action:manipulation;
+}
+
+/* 20. REDUCED MOTION */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
