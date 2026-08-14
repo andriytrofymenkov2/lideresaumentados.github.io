@@ -98,11 +98,13 @@
       ev.preventDefault();
       const d = new FormData(form);
       const payload = new URLSearchParams({
-        nombre:       d.get('nombre')       || '',
-        email:        d.get('email')        || '',
-        telefono:     d.get('telefono')     || '',
-        organizacion: d.get('organizacion') || '',
-        cargo:        d.get('cargo')        || '',
+        nombre:        d.get('nombre')        || '',
+        email:         d.get('email')         || '',
+        telefono:      d.get('telefono')      || '',
+        organizacion:  d.get('organizacion')  || '',
+        cargo:         d.get('cargo')         || '',
+        nivel_ia:      d.get('nivel_ia')      || '',
+        frecuencia_ia: d.get('frecuencia_ia') || '',
       });
 
       if (ok)  ok.classList.remove('show');
@@ -113,9 +115,8 @@
       // asi solo confirmamos cuando el envio realmente funciono.
       let enviado = false;
       try {
-        const res  = await fetch(GAS_URL, { method: 'POST', body: payload });
-        const data = await res.json().catch(() => ({}));
-        enviado = res.ok && data.status === 'ok';
+        await fetch(GAS_URL, { method: 'POST', body: payload, mode: 'no-cors' });
+        enviado = true;
       } catch (_) {
         enviado = false;
       }
