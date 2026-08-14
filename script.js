@@ -111,11 +111,9 @@
       if (err) err.classList.remove('show');
       if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
 
-      // Sin mode:'no-cors' a proposito: la respuesta de Apps Script es legible,
-      // asi solo confirmamos cuando el envio realmente funciono.
       let enviado = false;
       try {
-        await fetch(GAS_URL, { method: 'POST', body: payload, mode: 'no-cors' });
+        await fetch(GAS_URL, { method: 'POST', body: payload });
         enviado = true;
       } catch (_) {
         enviado = false;
