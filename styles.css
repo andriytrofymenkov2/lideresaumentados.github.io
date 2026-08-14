@@ -358,6 +358,7 @@ p{color:var(--slate-light)}
 /* Sponsor confirmado: borde solido, el punteado marca "lugar disponible".
    Mismo tamano que los demas recuadros, para que la fila quede pareja. */
 .sponsor-slot--filled{border-style:solid;border-color:var(--line);background:var(--white)}
+.sponsor-slot--dark{background:#1a1740;border-color:#1a1740}
 .sponsor-slot--filled:hover{border-color:var(--line-2);box-shadow:0 6px 26px rgba(45,52,54,.10)}
 .sponsor-slot img{width:auto;max-width:88%;max-height:70%;object-fit:contain}
 /* 9. STATS */
@@ -817,8 +818,14 @@ section[id],main[id]{scroll-margin-top:5.5rem}
 
   .acc-body{padding-left:0}
   .form-row{grid-template-columns:1fr}
-  /* 16px evita que iOS haga zoom automático al enfocar un input */
-  .field input{font-size:16px}
+  /* 16px evita que iOS haga zoom automático al enfocar un input o select */
+  .field input,.field select{font-size:16px}
+  /* Pricing a ancho completo en mobile */
+  .cta-pricing{width:100%}
+  /* Footer logos más chicos en tablet */
+  .footer-logos img{height:60px}
+  /* Footer logos en columna en tablet */
+  .footer-logos{gap:1.25rem;padding:1.5rem 0}
   .footer-inner{grid-template-columns:1fr;gap:2rem}
   .footer-bottom{flex-direction:column;gap:.6rem;text-align:left}
   /* El salto de línea forzado deja una línea huérfana en móvil */
@@ -859,6 +866,11 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .audience-left .btn{align-self:stretch!important;justify-content:center}
   .sponsor-slot{width:calc(50% - .625rem);max-width:165px;height:74px}
   .sponsors__grid{gap:.75rem}
+  /* Pricing a ancho completo en móvil */
+  .cta-pricing{width:100%}
+  /* Footer logos más pequeños en móvil */
+  .footer-logos img{height:48px}
+  .footer-logos{gap:1rem}
   .btn--wa{padding:1rem 1.5rem}
   .cta-map iframe{height:190px}
   .cta-map{border-radius:12px}
