@@ -88,7 +88,7 @@
       const parent = el.parentElement;
       const sibs = parent ? [...parent.children].filter(c => c.hasAttribute('data-reveal')) : [el];
       const idx = sibs.indexOf(el);
-      if (idx > 0) el.style.setProperty('--d', (idx * 0.1) + 's');
+      if (idx > 0) el.style.setProperty('--d', (idx * 0.13) + 's');
       io.observe(el);
     });
   } else {

@@ -720,8 +720,8 @@ p{color:var(--slate-light)}
    cuidar no es cuanto dura, sino que solo se animen opacity y transform, que
    la GPU resuelve sin volver a calcular el layout. */
 [data-reveal]{
-  opacity:0;transform:translate3d(0,34px,0);
-  transition:opacity .85s var(--ease-out),transform .85s var(--ease-out);
+  opacity:0;transform:translate3d(0,40px,0);
+  transition:opacity 1.15s var(--ease-out),transform 1.15s var(--ease-out);
   transition-delay:var(--d,0s);
 }
 [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
@@ -746,17 +746,20 @@ p{color:var(--slate-light)}
    en cada frame y no se puede componer en GPU: era lo mas caro de la pagina.
    Con un desplazamiento algo mas largo se percibe el mismo efecto suave. */
 [data-reveal="blur"]{
-  opacity:0;transform:translate3d(0,40px,0) scale(.985);
-  transition:opacity 1.05s var(--ease-out),transform 1.05s var(--ease-out);
+  opacity:0;transform:translate3d(0,46px,0) scale(.98);
+  transition:opacity 1.45s var(--ease-out),transform 1.45s var(--ease-out);
   transition-delay:var(--d,0s);
 }
 [data-reveal="blur"].is-visible{transform:translate3d(0,0,0) scale(1)}
 [data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0)}
 
 /* Duración más lenta para elementos grandes */
+/* Tope practico ~1.45s: mas largo que esto y, si alguien scrollea rapido, el
+   elemento sigue animandose cuando ya salio de pantalla. No es un problema de
+   rendimiento sino de que el efecto se pierda igual. */
 [data-reveal="slow"]{
-  transform:translate3d(0,38px,0);opacity:0;
-  transition-duration:1.15s;
+  transform:translate3d(0,44px,0);opacity:0;
+  transition-duration:1.45s;
 }
 [data-reveal="slow"].is-visible{transform:translate3d(0,0,0);opacity:1}
 
@@ -787,18 +790,18 @@ p{color:var(--slate-light)}
 /* Stagger grids — la cascada es la mitad de la gracia del efecto, asi que los
    retardos son bien visibles. Escalonar no cuesta rendimiento: son las mismas
    animaciones, solo empiezan corridas en el tiempo. */
-.stats-grid [data-reveal]:nth-child(2){--d:.14s}
-.stats-grid [data-reveal]:nth-child(3){--d:.28s}
+.stats-grid [data-reveal]:nth-child(2){--d:.13s}
+.stats-grid [data-reveal]:nth-child(3){--d:.26s}
 .caps-grid [data-reveal]:nth-child(2){--d:.13s}
 .caps-grid [data-reveal]:nth-child(3){--d:.26s}
-.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.09s}
-.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.18s}
-.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.27s}
-.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.36s}
-.acc-item:nth-child(2){--d:.09s}
-.acc-item:nth-child(3){--d:.18s}
-.acc-item:nth-child(4){--d:.27s}
-.acc-item:nth-child(5){--d:.36s}
+.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.13s}
+.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.26s}
+.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.39s}
+.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.52s}
+.acc-item:nth-child(2){--d:.13s}
+.acc-item:nth-child(3){--d:.26s}
+.acc-item:nth-child(4){--d:.39s}
+.acc-item:nth-child(5){--d:.52s}
 
 /* 18. RESPONSIVE */
 
