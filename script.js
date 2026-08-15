@@ -117,16 +117,14 @@
 
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();
-      const d = new FormData(form);
-      const payload = new URLSearchParams({
-        nombre:        d.get('nombre')        || '',
-        email:         d.get('email')         || '',
-        telefono:      d.get('telefono')      || '',
-        organizacion:  d.get('organizacion')  || '',
-        cargo:         d.get('cargo')         || '',
-        nivel_ia:      d.get('nivel_ia')      || '',
-        frecuencia_ia: d.get('frecuencia_ia') || '',
-      });
+      /* El cuerpo se arma recorriendo el propio formulario, no enumerando los
+         campos a mano. Con la lista fija, cualquier desfasaje entre el HTML y
+         esta funcion hacia que un dato se perdiera EN SILENCIO: el navegador
+         validaba la pregunta como obligatoria, la persona la respondia, y aun
+         asi nunca viajaba. Asi todo campo con name viaja solo, y agregar una
+         pregunta nueva al HTML no requiere tocar nada aca. */
+      const payload = new URLSearchParams();
+      new FormData(form).forEach((valor, clave) => payload.append(clave, valor));
 
       if (ok)  ok.classList.remove('show');
       if (err) err.classList.remove('show');
