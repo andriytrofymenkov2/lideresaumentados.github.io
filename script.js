@@ -151,26 +151,38 @@
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* 6. MAP FACADE — carga el iframe de Google Maps solo al hacer click */
+  /* 6. MAPA — se carga solo al acercarse la seccion de inscripcion.
+     El iframe no esta en el HTML porque Google Maps baja sus propios scripts
+     y tiles apenas existe, y eso encarecia el arranque de toda la pagina. */
   (function () {
     const facade = document.getElementById('js-map-facade');
     if (!facade) return;
     const SRC = 'https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed';
-    function load() {
+
+    function cargar() {
       const wrap = facade.closest('.cta-map');
-      if (!wrap) return;
+      if (!wrap || !wrap.contains(facade)) return;
       const iframe = document.createElement('iframe');
       iframe.src = SRC;
       iframe.title = 'Ubicación: Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.allowFullscreen = true;
-      iframe.style.cssText = 'width:100%;height:inherit;display:block;border:none;filter:saturate(.65) contrast(1.1)';
-      facade.style.transition = 'opacity .25s';
-      facade.style.opacity = '0';
-      setTimeout(() => { if (wrap.contains(facade)) wrap.replaceChild(iframe, facade); }, 260);
+      iframe.loading = 'lazy';
+      wrap.replaceChild(iframe, facade);
     }
-    facade.addEventListener('click', load);
-    facade.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(); } });
+
+    if ('IntersectionObserver' in window) {
+      /* rootMargin generoso: empieza a pedir el mapa ~600px antes de que la
+         seccion entre en pantalla, asi para cuando llegas ya esta dibujado. */
+      const io = new IntersectionObserver(([e], obs) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        cargar();
+      }, { rootMargin: '600px 0px', threshold: 0 });
+      io.observe(facade.closest('.cta-map') || facade);
+    } else {
+      cargar();
+    }
   }());
 
   /* 7. COUNTDOWN */
