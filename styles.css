@@ -716,23 +716,26 @@ p{color:var(--slate-light)}
 /* 17. REVEAL — sistema de efectos variados */
 
 /* Base: fade up */
+/* Duracion y recorrido generosos: el efecto tiene que notarse. Lo que hay que
+   cuidar no es cuanto dura, sino que solo se animen opacity y transform, que
+   la GPU resuelve sin volver a calcular el layout. */
 [data-reveal]{
-  opacity:0;transform:translate3d(0,24px,0);
-  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);
+  opacity:0;transform:translate3d(0,34px,0);
+  transition:opacity .85s var(--ease-out),transform .85s var(--ease-out);
   transition-delay:var(--d,0s);
 }
 [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
 
 /* Fade desde izquierda */
-[data-reveal="left"]{transform:translate3d(-32px,0,0)}
+[data-reveal="left"]{transform:translate3d(-46px,0,0)}
 [data-reveal="left"].is-visible{transform:translate3d(0,0,0)}
 
 /* Fade desde derecha */
-[data-reveal="right"]{transform:translate3d(32px,0,0)}
+[data-reveal="right"]{transform:translate3d(46px,0,0)}
 [data-reveal="right"].is-visible{transform:translate3d(0,0,0)}
 
 /* Scale suave (cards, stats) */
-[data-reveal="scale"]{transform:translate3d(0,12px,0) scale(.97);opacity:0}
+[data-reveal="scale"]{transform:translate3d(0,22px,0) scale(.94);opacity:0}
 [data-reveal="scale"].is-visible{transform:translate3d(0,0,0) scale(1);opacity:1}
 
 /* Fade puro */
@@ -743,16 +746,17 @@ p{color:var(--slate-light)}
    en cada frame y no se puede componer en GPU: era lo mas caro de la pagina.
    Con un desplazamiento algo mas largo se percibe el mismo efecto suave. */
 [data-reveal="blur"]{
-  opacity:0;transform:translate3d(0,22px,0);
-  transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);
+  opacity:0;transform:translate3d(0,40px,0) scale(.985);
+  transition:opacity 1.05s var(--ease-out),transform 1.05s var(--ease-out);
   transition-delay:var(--d,0s);
 }
+[data-reveal="blur"].is-visible{transform:translate3d(0,0,0) scale(1)}
 [data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0)}
 
 /* Duración más lenta para elementos grandes */
 [data-reveal="slow"]{
-  transform:translate3d(0,24px,0);opacity:0;
-  transition-duration:.85s;
+  transform:translate3d(0,38px,0);opacity:0;
+  transition-duration:1.15s;
 }
 [data-reveal="slow"].is-visible{transform:translate3d(0,0,0);opacity:1}
 
@@ -780,21 +784,21 @@ p{color:var(--slate-light)}
 .hero-in--6{animation-delay:.31s}
 .hero-in--img{animation-delay:.06s}
 
-/* Stagger grids — escalonados cortos. Con retardos largos el ultimo elemento
-   de una fila terminaba casi medio segundo despues del primero, y para
-   entonces el usuario ya habia scrolleado mas abajo. */
-.stats-grid [data-reveal]:nth-child(2){--d:.08s}
-.stats-grid [data-reveal]:nth-child(3){--d:.16s}
-.caps-grid [data-reveal]:nth-child(2){--d:.07s}
-.caps-grid [data-reveal]:nth-child(3){--d:.14s}
-.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.05s}
-.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.1s}
-.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.15s}
-.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.2s}
-.acc-item:nth-child(2){--d:.05s}
-.acc-item:nth-child(3){--d:.1s}
-.acc-item:nth-child(4){--d:.15s}
-.acc-item:nth-child(5){--d:.2s}
+/* Stagger grids — la cascada es la mitad de la gracia del efecto, asi que los
+   retardos son bien visibles. Escalonar no cuesta rendimiento: son las mismas
+   animaciones, solo empiezan corridas en el tiempo. */
+.stats-grid [data-reveal]:nth-child(2){--d:.14s}
+.stats-grid [data-reveal]:nth-child(3){--d:.28s}
+.caps-grid [data-reveal]:nth-child(2){--d:.13s}
+.caps-grid [data-reveal]:nth-child(3){--d:.26s}
+.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.09s}
+.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.18s}
+.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.27s}
+.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.36s}
+.acc-item:nth-child(2){--d:.09s}
+.acc-item:nth-child(3){--d:.18s}
+.acc-item:nth-child(4){--d:.27s}
+.acc-item:nth-child(5){--d:.36s}
 
 /* 18. RESPONSIVE */
 

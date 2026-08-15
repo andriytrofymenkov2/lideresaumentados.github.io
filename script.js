@@ -69,22 +69,26 @@
   /* 3. REVEAL ON SCROLL */
   const reveals = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && reveals.length) {
-    /* rootMargin inferior POSITIVO: el observer dispara cuando al elemento
-       todavia le faltan ~200px para entrar en pantalla. Asi la animacion ya
-       viene corriendo cuando lo ves y no "aparece" de golpe delante tuyo.
-       threshold 0 por el mismo motivo: no esperamos a que se vea un 10%. */
+    /* El margen inferior define CUANDO arranca la animacion y es un
+       equilibrio fino:
+         · muy positivo (ej. +200px) => arranca fuera de pantalla y para
+           cuando lo ves ya termino: el efecto no se aprecia.
+         · muy negativo (el -6% original) => arranca cuando el elemento ya
+           esta bien adentro y lo ves saltar de golpe.
+       -80px lo dispara apenas el elemento entra: la subida y el fundido
+       ocurren delante tuyo, que es lo que se quiere ver. */
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
         e.target.classList.add('is-visible');
       });
-    }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
     reveals.forEach(el => {
       const parent = el.parentElement;
       const sibs = parent ? [...parent.children].filter(c => c.hasAttribute('data-reveal')) : [el];
       const idx = sibs.indexOf(el);
-      if (idx > 0) el.style.setProperty('--d', (idx * 0.07) + 's');
+      if (idx > 0) el.style.setProperty('--d', (idx * 0.1) + 's');
       io.observe(el);
     });
   } else {
