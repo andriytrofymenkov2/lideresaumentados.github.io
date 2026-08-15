@@ -343,20 +343,37 @@ p{color:var(--slate-light)}
 /* 8. SPONSORS */
 .sponsors{padding-block:clamp(3rem,5vw,4rem)}
 .sponsors__eyebrow{text-align:center;margin-bottom:2rem}
-.sponsors__track-wrap{
-  overflow:hidden;
-  mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);
-  -webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);
+/* Carrusel de sponsors.
+   Los degradados de los bordes van en pseudo-elementos y NO en mask-image:
+   una mascara obliga al navegador a recomponer el contenido enmascarado en
+   cada frame, justo lo que estamos animando. Pintados como capa aparte, la
+   cinta viaja sola en la GPU y el degradado no vuelve a calcularse nunca. */
+.sponsors__track-wrap{position:relative;overflow:hidden}
+.sponsors__track-wrap::before,
+.sponsors__track-wrap::after{
+  content:"";position:absolute;top:0;bottom:0;width:clamp(40px,8%,110px);
+  z-index:2;pointer-events:none;
 }
+.sponsors__track-wrap::before{left:0;background:linear-gradient(to right,var(--cloud),rgba(245,246,250,0))}
+.sponsors__track-wrap::after{right:0;background:linear-gradient(to left,var(--cloud),rgba(245,246,250,0))}
+
+/* Sin `gap`: la separacion va como margen de cada slot para que el ancho
+   total sea exactamente 10x(slot+margen). Con gap habia 9 separaciones para
+   10 slots, el 50% del recorrido caia 10px antes del inicio del duplicado y
+   la cinta pegaba un salto visible en cada vuelta. */
 .sponsors__track{
-  display:flex;align-items:center;gap:1.25rem;
+  display:flex;align-items:center;
   width:max-content;
   animation:sponsors-scroll 55s linear infinite;
+  will-change:transform;
+  backface-visibility:hidden;
 }
+.sponsors__track > *{margin-right:1.25rem;flex:0 0 auto}
 @keyframes sponsors-scroll{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-50%,0,0)}
 }
+.sponsors__track-wrap:hover .sponsors__track{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){
   .sponsors__track{animation:none;flex-wrap:wrap;justify-content:center;width:100%}
 }
@@ -963,8 +980,10 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .hero__actions{flex-direction:column;align-items:stretch;gap:.7rem}
   .hero__actions .btn{justify-content:center;width:100%}
   .audience-left .btn{align-self:stretch!important;justify-content:center}
-  .sponsor-slot{width:calc(50% - .625rem);max-width:165px;height:74px}
-  .sponsors__grid{gap:.75rem}
+  /* Ancho fijo, no porcentual: dentro de una cinta con width:max-content un
+     porcentaje se mide contra la cinta entera y los recuadros se deforman. */
+  .sponsor-slot{width:150px;height:74px}
+  .sponsors__track > *{margin-right:.75rem}
   /* Pricing a ancho completo en móvil */
   .cta-pricing{width:100%}
   /* Footer logos más pequeños en móvil */
