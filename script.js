@@ -134,4 +134,31 @@
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* 6. COUNTDOWN */
+  (function () {
+    const wrap  = document.getElementById('js-countdown-wrap');
+    const elD   = document.getElementById('js-cd-days');
+    const elH   = document.getElementById('js-cd-hours');
+    const elM   = document.getElementById('js-cd-mins');
+    const elS   = document.getElementById('js-cd-secs');
+    if (!wrap || !elD) return;
+    const EVENT = new Date('2026-09-05T10:00:00-03:00');
+    const pad   = n => String(n).padStart(2, '0');
+    function tick() {
+      const diff = EVENT - new Date();
+      if (diff <= 0) { wrap.hidden = true; return; }
+      const d = Math.floor(diff / 864e5);
+      const h = Math.floor((diff % 864e5) / 36e5);
+      const m = Math.floor((diff % 36e5) / 6e4);
+      const s = Math.floor((diff % 6e4) / 1e3);
+      elD.textContent = pad(d);
+      elH.textContent = pad(h);
+      elM.textContent = pad(m);
+      if (elS) elS.textContent = pad(s);
+      wrap.hidden = false;
+    }
+    tick();
+    setInterval(tick, 1000);
+  }());
+
 })();

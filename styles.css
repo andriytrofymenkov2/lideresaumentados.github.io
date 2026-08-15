@@ -282,6 +282,12 @@ p{color:var(--slate-light)}
    padding-bottom del layout, el de abajo este padding-bottom. Usan el MISMO
    clamp, asi quedan iguales en cualquier altura de pantalla. */
 .hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.25rem,4vh,5rem)}
+.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(1.25rem,4vh,5rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
+.hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem}
+.hero__countdown-unit strong{font-family:var(--font-head);font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:var(--sky-dark);line-height:1}
+.hero__countdown-unit span{font-family:var(--font-head);font-size:.52rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(45,52,54,.4)}
+.hero__countdown-sep{font-family:var(--font-head);font-size:1rem;font-weight:800;color:rgba(116,185,255,.4);line-height:1;margin-bottom:.65rem}
+.hero__countdown-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(45,52,54,.45);margin-right:.25rem}
 /* La columna Lugar lleva mucho mas texto que las otras tres: si las cuatro
    miden igual, se parte en dos renglones y estira la tarjeta. */
 .hero__meta{display:grid;grid-template-columns:1fr 1fr 1fr 1.8fr}
@@ -478,6 +484,47 @@ p{color:var(--slate-light)}
 @keyframes accOpen{from{opacity:0;transform:translate3d(0,-6px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 .acc-body p{font-size:.95rem;color:var(--slate-light);line-height:1.72;max-width:62ch}
 
+/* FAQ */
+.faq-header{max-width:800px;margin-bottom:2rem}
+.faq-header .eyebrow{margin-bottom:1rem}
+.faq-header .section-title{font-size:clamp(1.55rem,2.6vw,2.1rem);letter-spacing:-.03em;line-height:1.15}
+.faq-header .section-lead{max-width:none}
+.faq-accordion{max-width:800px;margin-top:2rem}
+.faq-accordion .acc-item{
+  border-bottom:1px solid var(--line);
+  transition:background .3s var(--ease);
+  border-radius:0;
+  margin-inline:-1.25rem;
+  padding-inline:1.25rem;
+}
+.faq-accordion .acc-item:first-child{border-top:1px solid var(--line)}
+.faq-accordion .acc-item[open]{background:rgba(116,185,255,.05)}
+.faq-accordion .acc-summary{
+  grid-template-columns:auto 1fr auto;
+  gap:1.25rem;
+  padding:1.5rem 0;
+}
+.faq-accordion .acc-summary:hover{padding-left:0}
+.faq-accordion .acc-summary:hover .acc-title{color:var(--sky-dark)}
+.faq-accordion .acc-item[open] .acc-title{color:var(--sky-dark)}
+.faq-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:20px;height:20px;flex-shrink:0;
+  color:rgba(45,52,54,.28);
+  transition:color .3s var(--ease);
+}
+.faq-accordion .acc-summary:hover .faq-icon{color:rgba(45,52,54,.55)}
+.faq-accordion .acc-item[open] .faq-icon{color:rgba(45,52,54,.65)}
+.faq-accordion .acc-title{font-size:clamp(.95rem,1.5vw,1.08rem);font-weight:700;transition:color .3s var(--ease)}
+.faq-accordion .acc-body{
+  padding:0 3rem 1.5rem 2.5rem;
+  animation:accOpen .35s var(--ease-out);
+}
+.faq-accordion .acc-body p{font-size:.95rem;line-height:1.78;color:var(--slate-light);max-width:65ch}
+.faq-cta{margin-top:1.25rem;padding-top:0}
+.faq-cta__question{font-family:var(--font-head);font-size:1.05rem;font-weight:700;color:var(--slate);margin-bottom:.35rem}
+.faq-cta__answer{font-size:.95rem;color:var(--slate-light)}
+
 /* 13. FACILITADORES */
 .section--facilitadores{background:var(--white)}
 
@@ -591,7 +638,7 @@ p{color:var(--slate-light)}
 
 .audience-label{
   font-family:var(--font-head);
-  font-size:clamp(1.1rem,2vw,1.45rem);
+  font-size:clamp(1rem,1.6vw,1.2rem);
   font-weight:600;letter-spacing:-.03em;
   color:var(--slate);flex:1;
   transition:color .3s var(--ease);
@@ -643,6 +690,8 @@ p{color:var(--slate-light)}
 .footer-link--apart{margin-top:.9rem}
 .footer-link{display:block;font-size:.88rem;color:rgba(45,52,54,.55);padding-block:.45rem;transition:color .3s}
 .footer-link:hover{color:var(--slate)}
+.footer-link--sky{color:var(--sky-dark)}
+.footer-link--sky:hover{color:var(--sky)}
 .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(45,52,54,.35)}
 
 /* 17. REVEAL — sistema de efectos variados */
@@ -908,7 +957,23 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .acc-summary:hover,.audience-item:hover{padding-left:0}
 }
 
-/* 19. PERFORMANCE */
+/* 19. WHATSAPP FLOTANTE */
+.wa-float{
+  position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;
+  display:flex;align-items:center;gap:.6rem;
+  padding:.75rem 1.1rem .75rem .85rem;
+  border-radius:var(--radius-pill);
+  background:#25D366;color:#fff;
+  box-shadow:0 8px 28px -4px rgba(37,211,102,.55);
+  text-decoration:none;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+  touch-action:manipulation;
+}
+.wa-float:hover{transform:translateY(-3px);box-shadow:0 14px 36px -4px rgba(37,211,102,.65)}
+.wa-float__icon{width:24px;height:24px;flex-shrink:0}
+.wa-float__label{font-family:var(--font-head);font-size:.78rem;font-weight:700;letter-spacing:.01em;white-space:nowrap}
+
+/* 20. PERFORMANCE */
 
 /* content-visibility: el navegador saltea layout/paint de secciones fuera
    de pantalla. Con contain-intrinsic-size: auto el browser recuerda el alto
@@ -924,7 +989,7 @@ a,button,.btn,.acc-summary,.audience-item,.sponsor-slot,.stat-card,.cap-card{
   touch-action:manipulation;
 }
 
-/* 20. REDUCED MOTION */
+/* 21. REDUCED MOTION */
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
