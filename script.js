@@ -134,7 +134,29 @@
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* 6. COUNTDOWN */
+  /* 6. MAP FACADE — carga el iframe de Google Maps solo al hacer click */
+  (function () {
+    const facade = document.getElementById('js-map-facade');
+    if (!facade) return;
+    const SRC = 'https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed';
+    function load() {
+      const wrap = facade.closest('.cta-map');
+      if (!wrap) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = SRC;
+      iframe.title = 'Ubicación: Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = 'width:100%;height:inherit;display:block;border:none;filter:saturate(.65) contrast(1.1)';
+      facade.style.transition = 'opacity .25s';
+      facade.style.opacity = '0';
+      setTimeout(() => { if (wrap.contains(facade)) wrap.replaceChild(iframe, facade); }, 260);
+    }
+    facade.addEventListener('click', load);
+    facade.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(); } });
+  }());
+
+  /* 7. COUNTDOWN */
   (function () {
     const wrap  = document.getElementById('js-countdown-wrap');
     const elD   = document.getElementById('js-cd-days');

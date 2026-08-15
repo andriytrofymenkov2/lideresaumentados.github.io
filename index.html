@@ -16,7 +16,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202608150712" />
+  <link rel="stylesheet" href="styles.css?v=202608150721" />
 </head>
 <body>
 
@@ -628,13 +628,11 @@
           </form>
         </div>
         <div class="cta-map" data-reveal="fade">
-          <iframe
-            src="https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            title="Ubicación: Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen>
-          </iframe>
+          <div class="map-facade" id="js-map-facade" role="button" tabindex="0" aria-label="Hacer clic para cargar el mapa de ubicación">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p class="map-facade__address">Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos</p>
+            <span class="map-facade__btn">Ver ubicación en el mapa</span>
+          </div>
         </div>
       </div>
     </section>
@@ -675,7 +673,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202608150712" defer></script>
+  <script src="script.js?v=202608150721" defer></script>
 
   <!-- WhatsApp flotante -->
   <a class="wa-float" href="https://wa.me/5491133278023" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
