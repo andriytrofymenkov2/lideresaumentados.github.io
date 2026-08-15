@@ -100,10 +100,26 @@
      animaciones son infinitas: sin esto siguen ocupando la GPU durante los
      ~7300px de pagina que hay debajo. */
   const hero = document.querySelector('.hero');
+  let heroVisible = true;
+  const alSalirElHero = [];   // se avisa a quien necesite frenar algo
+
   if (hero && 'IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
-      document.body.classList.toggle('anim-off', !e.isIntersecting);
+      heroVisible = e.isIntersecting;
+      document.body.classList.toggle('anim-off', !heroVisible);
+      alSalirElHero.forEach(fn => fn(heroVisible));
     }, { threshold: 0 }).observe(hero);
+  }
+
+  /* 3c. CARRUSEL DE SPONSORS — solo anima mientras se ve.
+     Una animacion infinita sigue consumiendo un frame de compositor por cada
+     refresco de pantalla aunque este a 6000px de distancia. Al pausarla
+     liberamos ademas su capa de GPU (will-change:auto via .is-paused). */
+  const cinta = document.querySelector('.sponsors__track');
+  if (cinta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      cinta.classList.toggle('is-paused', !e.isIntersecting);
+    }, { threshold: 0 }).observe(cinta.closest('.sponsors__track-wrap') || cinta);
   }
 
   /* 4. FORM → Google Apps Script */
@@ -216,8 +232,35 @@
       if (elS) elS.textContent = pad(s);
       wrap.hidden = false;
     }
-    tick();
-    setInterval(tick, 1000);
+    /* El contador solo corre mientras se lo ve.
+       Antes el setInterval reescribia cuatro nodos del hero UNA VEZ POR
+       SEGUNDO durante toda la vida de la pagina, incluso estando a miles de
+       pixeles de distancia. Cada una de esas escrituras era trabajo de hilo
+       principal que caia en medio de un frame de scroll o de carrusel: se
+       sentia como un tironcito rítmico. Fuera de pantalla no hay nada que
+       mostrar, asi que directamente no corre. Al volver hace un tick
+       inmediato, por lo que nunca se ve un valor viejo. */
+    let timer = null;
+    function arrancar() {
+      if (timer) return;
+      tick();
+      timer = setInterval(tick, 1000);
+    }
+    function frenar() {
+      if (!timer) return;
+      clearInterval(timer);
+      timer = null;
+    }
+    function evaluar() {
+      (heroVisible && !document.hidden) ? arrancar() : frenar();
+    }
+
+    alSalirElHero.push(evaluar);
+    // Pestaña en segundo plano: tampoco tiene sentido seguir contando.
+    document.addEventListener('visibilitychange', evaluar);
+    // evaluar y no arrancar: si la pagina abre en una pestaña de fondo,
+    // no debe ponerse a contar hasta que alguien la mire.
+    evaluar();
   }());
 
 })();

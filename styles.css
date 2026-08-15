@@ -285,8 +285,12 @@ p{color:var(--slate-light)}
    clamp, asi quedan iguales en cualquier altura de pantalla. */
 .hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.25rem,4vh,5rem)}
 .hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(1.25rem,4vh,5rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
-.hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem}
-.hero__countdown-unit strong{font-family:var(--font-head);font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:var(--sky-dark);line-height:1}
+/* contain:layout aisla el cambio de digitos: sin esto, cada segundo el nuevo
+   texto podia disparar un recalculo que subia hasta el hero entero. */
+.hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem;contain:layout style}
+/* tabular-nums: todos los digitos miden lo mismo, asi el numero nunca cambia
+   de ancho al pasar de 09 a 10 y no hay reflujo ni temblor visual. */
+.hero__countdown-unit strong{font-family:var(--font-head);font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:var(--sky-dark);line-height:1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 .hero__countdown-unit span{font-family:var(--font-head);font-size:.52rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(45,52,54,.4)}
 .hero__countdown-sep{font-family:var(--font-head);font-size:1rem;font-weight:800;color:rgba(116,185,255,.4);line-height:1;margin-bottom:.65rem}
 .hero__countdown-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(45,52,54,.45);margin-right:.25rem}
@@ -364,16 +368,44 @@ p{color:var(--slate-light)}
 .sponsors__track{
   display:flex;align-items:center;
   width:max-content;
-  animation:sponsors-scroll 55s linear infinite;
+  animation:sponsors-step 15s infinite;
   will-change:transform;
   backface-visibility:hidden;
 }
 .sponsors__track > *{margin-right:1.25rem;flex:0 0 auto}
-@keyframes sponsors-scroll{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(-50%,0,0)}
+
+/* Avance en tirones: la cinta corre un logo, se planta, y vuelve a arrancar.
+   Cada paso ocupa 20% de la linea de tiempo y se reparte 30/70: el 30% de
+   adelante es el desplazamiento y el 70% restante es la pausa.
+
+   El -10% por paso NO depende del ancho del slot: el recorrido total es la
+   mitad de la cinta (-50%) repartida en 5 pasos, y como la cinta son 10 slots
+   iguales, un slot siempre vale el 10% del total. Por eso los mismos
+   porcentajes sirven igual en escritorio (220px) que en movil (162px), sin
+   tener que recalcular nada por breakpoint.
+
+   El cubic-bezier va DENTRO de cada keyframe de arranque: en CSS la curva
+   declarada en un keyframe rige el tramo que empieza ahi. Con .7,0,.3,1 el
+   tramo acelera y frena dentro del mismo paso, que es lo que hace que el
+   tiron se sienta con peso en vez de un corte seco. */
+@keyframes sponsors-step{
+  0%  {transform:translate3d(0,0,0);      animation-timing-function:cubic-bezier(.7,0,.3,1)}
+  6%  {transform:translate3d(-10%,0,0)}
+  20% {transform:translate3d(-10%,0,0);   animation-timing-function:cubic-bezier(.7,0,.3,1)}
+  26% {transform:translate3d(-20%,0,0)}
+  40% {transform:translate3d(-20%,0,0);   animation-timing-function:cubic-bezier(.7,0,.3,1)}
+  46% {transform:translate3d(-30%,0,0)}
+  60% {transform:translate3d(-30%,0,0);   animation-timing-function:cubic-bezier(.7,0,.3,1)}
+  66% {transform:translate3d(-40%,0,0)}
+  80% {transform:translate3d(-40%,0,0);   animation-timing-function:cubic-bezier(.7,0,.3,1)}
+  86% {transform:translate3d(-50%,0,0)}
+  /* -50% es exactamente donde arranca la copia, asi que al reiniciar a 0
+     la imagen en pantalla es identica y el ciclo no tiene costura. */
+  100%{transform:translate3d(-50%,0,0)}
 }
 .sponsors__track-wrap:hover .sponsors__track{animation-play-state:paused}
+/* Fuera de pantalla: se frena y se libera la capa de GPU */
+.sponsors__track.is-paused{animation-play-state:paused;will-change:auto}
 @media(prefers-reduced-motion:reduce){
   .sponsors__track{animation:none;flex-wrap:wrap;justify-content:center;width:100%}
 }

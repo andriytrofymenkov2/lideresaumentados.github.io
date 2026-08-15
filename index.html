@@ -12,11 +12,19 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400&display=swap" /></noscript>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="dns-prefetch" href="https://script.google.com" />
-  <link rel="preload" as="image" href="assets/hero-workshop-1536.webp" fetchpriority="high" type="image/webp" />
+  <!-- Se reserva AVIF y no WebP: es la misma foto (mismo encuadre, 1536x1024)
+       pesando 64 KB en vez de 148 KB, y es la imagen que marca el momento en
+       que la portada se ve completa. El type= hace que solo la reserve el
+       navegador que sabe leerla; el que no, ignora esta linea y baja el WebP
+       por el <picture> de abajo. Los tres atributos (srcset, sizes, type)
+       tienen que coincidir con los del <source> o se descarga dos veces. -->
+  <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+        imagesrcset="assets/hero-workshop-1024.avif 1024w, assets/hero-workshop-1536.avif 1536w"
+        imagesizes="(max-width:1024px) 100vw, 1536px" />
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202608152008" />
+  <link rel="stylesheet" href="styles.css?v=202608152022" />
 </head>
 <body>
 
@@ -112,6 +120,8 @@
                      tenemos). Con object-fit:cover se muestra un recorte de ~960px de
                      ancho: cuantos mas pixeles de origen, mas nitido queda al reducir.
                      El de 1024 tope en 34dB por resolucion, no por compresion. -->
+                <source type="image/avif" sizes="(max-width:1024px) 100vw, 1536px"
+                        srcset="assets/hero-workshop-1024.avif 1024w, assets/hero-workshop-1536.avif 1536w" />
                 <img src="assets/hero-workshop-1536.webp" sizes="(max-width:1024px) 100vw, 1536px"
                      srcset="assets/hero-workshop-1024.webp 1024w, assets/hero-workshop-1536.webp 1536w"
                      width="1536" height="1024" fetchpriority="high" decoding="async"
@@ -165,38 +175,46 @@
     <section class="section section--cloud sponsors">
       <div class="container">
         <p class="eyebrow sponsors__eyebrow" data-reveal="fade">Con el apoyo de</p>
+        <!-- Sin loading="lazy" en esta cinta: la carga diferida se decide por
+             interseccion con la ventana, y estos logos no entran por scroll
+             sino por un transform horizontal, que NO vuelve a disparar ese
+             chequeo. Con lazy, los duplicados podian quedar vacios o
+             resolverse de golpe a mitad del recorrido. Son cinco archivos
+             chicos y ya cacheados: se piden de una y la cinta no parpadea. -->
         <div class="sponsors__track-wrap" data-reveal="fade">
           <div class="sponsors__track">
             <div class="sponsor-slot sponsor-slot--filled">
-              <img src="assets/logo-tiempo-sur.webp" alt="Tiempo Sur" width="400" height="78" loading="lazy" />
+              <img src="assets/logo-tiempo-sur.webp" alt="Tiempo Sur" width="400" height="78" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled sponsor-slot--dark">
-              <img src="assets/logo-ms.svg" alt="MS Patagonia" width="300" height="80" loading="lazy" decoding="async" />
+              <img src="assets/logo-ms.svg" alt="MS Patagonia" width="300" height="80" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled">
-              <img src="assets/logo-ss.webp" alt="SS Servicios" width="300" height="80" loading="lazy" decoding="async" />
+              <img src="assets/logo-ss.webp" alt="SS Servicios" width="300" height="80" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled">
-              <img src="assets/logo-lafranco.webp" alt="Farmacia La Franco" width="300" height="80" loading="lazy" decoding="async" style="max-width:92%;max-height:82%" />
+              <img src="assets/logo-lafranco.webp" alt="Farmacia La Franco" width="300" height="80" decoding="async" style="max-width:92%;max-height:82%" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled">
-              <img src="assets/logo-siglo21.webp" alt="Siglo 21" width="300" height="102" loading="lazy" decoding="async" />
+              <img src="assets/logo-siglo21.webp" alt="Siglo 21" width="300" height="102" decoding="async" />
             </div>
-            <!-- Duplicado para loop sin corte -->
+            <!-- Copia exacta de los cinco de arriba: es lo que hace que al
+                 llegar al 50% del recorrido la cinta reinicie sin que se note.
+                 aria-hidden para que el lector de pantalla no los repita. -->
             <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
-              <img src="assets/logo-tiempo-sur.webp" alt="" width="400" height="78" loading="lazy" />
+              <img src="assets/logo-tiempo-sur.webp" alt="" width="400" height="78" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled sponsor-slot--dark" aria-hidden="true">
-              <img src="assets/logo-ms.svg" alt="" width="300" height="80" loading="lazy" decoding="async" />
+              <img src="assets/logo-ms.svg" alt="" width="300" height="80" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
-              <img src="assets/logo-ss.webp" alt="" width="300" height="80" loading="lazy" decoding="async" />
+              <img src="assets/logo-ss.webp" alt="" width="300" height="80" decoding="async" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
-              <img src="assets/logo-lafranco.webp" alt="" width="300" height="80" loading="lazy" decoding="async" style="max-width:92%;max-height:82%" />
+              <img src="assets/logo-lafranco.webp" alt="" width="300" height="80" decoding="async" style="max-width:92%;max-height:82%" />
             </div>
             <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
-              <img src="assets/logo-siglo21.webp" alt="" width="300" height="102" loading="lazy" decoding="async" />
+              <img src="assets/logo-siglo21.webp" alt="" width="300" height="102" decoding="async" />
             </div>
           </div>
         </div>
@@ -698,7 +716,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202608152008" defer></script>
+  <script src="script.js?v=202608152022" defer></script>
 
   <!-- WhatsApp flotante -->
   <a class="wa-float" href="https://wa.me/5491133278023" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
