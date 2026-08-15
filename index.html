@@ -16,7 +16,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202608151946" />
+  <link rel="stylesheet" href="styles.css?v=202608152006" />
 </head>
 <body>
 
@@ -165,21 +165,39 @@
     <section class="section section--cloud sponsors">
       <div class="container">
         <p class="eyebrow sponsors__eyebrow" data-reveal="fade">Con el apoyo de</p>
-        <div class="sponsors__grid">
-          <div class="sponsor-slot sponsor-slot--filled" data-reveal="scale">
-            <img src="assets/logo-tiempo-sur.webp" alt="Tiempo Sur" width="400" height="78" loading="lazy" />
-          </div>
-          <div class="sponsor-slot sponsor-slot--filled sponsor-slot--dark" data-reveal="scale">
-            <img src="assets/logo-ms.svg" alt="MS Patagonia" width="300" height="80" loading="lazy" decoding="async" />
-          </div>
-          <div class="sponsor-slot sponsor-slot--filled" data-reveal="scale">
-            <img src="assets/logo-ss.webp" alt="SS Servicios" width="300" height="80" loading="lazy" decoding="async" />
-          </div>
-          <div class="sponsor-slot sponsor-slot--filled" data-reveal="scale">
-            <img src="assets/logo-lafranco.webp" alt="Farmacia La Franco" width="300" height="80" loading="lazy" decoding="async" style="max-width:92%;max-height:82%" />
-          </div>
-          <div class="sponsor-slot sponsor-slot--filled" data-reveal="scale">
-            <img src="assets/logo-siglo21.webp" alt="Siglo 21" width="300" height="102" loading="lazy" decoding="async" />
+        <div class="sponsors__track-wrap" data-reveal="fade">
+          <div class="sponsors__track">
+            <div class="sponsor-slot sponsor-slot--filled">
+              <img src="assets/logo-tiempo-sur.webp" alt="Tiempo Sur" width="400" height="78" loading="lazy" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled sponsor-slot--dark">
+              <img src="assets/logo-ms.svg" alt="MS Patagonia" width="300" height="80" loading="lazy" decoding="async" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled">
+              <img src="assets/logo-ss.webp" alt="SS Servicios" width="300" height="80" loading="lazy" decoding="async" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled">
+              <img src="assets/logo-lafranco.webp" alt="Farmacia La Franco" width="300" height="80" loading="lazy" decoding="async" style="max-width:92%;max-height:82%" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled">
+              <img src="assets/logo-siglo21.webp" alt="Siglo 21" width="300" height="102" loading="lazy" decoding="async" />
+            </div>
+            <!-- Duplicado para loop sin corte -->
+            <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
+              <img src="assets/logo-tiempo-sur.webp" alt="" width="400" height="78" loading="lazy" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled sponsor-slot--dark" aria-hidden="true">
+              <img src="assets/logo-ms.svg" alt="" width="300" height="80" loading="lazy" decoding="async" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
+              <img src="assets/logo-ss.webp" alt="" width="300" height="80" loading="lazy" decoding="async" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
+              <img src="assets/logo-lafranco.webp" alt="" width="300" height="80" loading="lazy" decoding="async" style="max-width:92%;max-height:82%" />
+            </div>
+            <div class="sponsor-slot sponsor-slot--filled" aria-hidden="true">
+              <img src="assets/logo-siglo21.webp" alt="" width="300" height="102" loading="lazy" decoding="async" />
+            </div>
           </div>
         </div>
       </div>
@@ -386,9 +404,9 @@
               <h3 class="person-name">Andriy Trofymenko</h3>
               <p class="person-role">Ingeniero Industrial · Procesos · Gestión</p>
               <div class="person-bio-stack">
-                <p class="person-bio">Especialista en gestión de proyectos y optimización de procesos, con foco en control de gestión, planificación estratégica y liderazgo de equipos.</p>
+                <p class="person-bio">Especialista en gestión de proyectos y optimización de procesos, con foco en planificación estratégica, control y liderazgo de equipos.</p>
                 <p class="person-bio">Posgrado universitario de la Universidad Nacional de San Martín en Industria 4.0 y Tecnologías Habilitadoras, con la Inteligencia Artificial como eje.</p>
-                <p class="person-bio">Integra procesos, personas e IA para convertir la gestión en resultados medibles, con experiencia en organizaciones públicas y privadas.</p>
+                <p class="person-bio">Integra procesos, personas e IA para transformar la toma de decisiones en resultados medibles, con experiencia en organizaciones públicas y privadas.</p>
               </div>
             </div>
           </div>
@@ -680,7 +698,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202608151946" defer></script>
+  <script src="script.js?v=202608152006" defer></script>
 
   <!-- WhatsApp flotante -->
   <a class="wa-float" href="https://wa.me/5491133278023" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
