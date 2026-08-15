@@ -582,8 +582,10 @@ p{color:var(--slate-light)}
 }
 
 .facilitator__info{
-  padding:clamp(2.5rem,4vw,4rem);
-  display:flex;flex-direction:column;justify-content:center;gap:1rem;
+  /* Menos aire lateral y vertical: con 4vw el padding se comia 51px por lado
+     y empujaba el texto a mas renglones de los necesarios. */
+  padding:clamp(2rem,3.2vw,3.25rem);
+  display:flex;flex-direction:column;justify-content:center;gap:.85rem;
   border-left:1px solid rgba(45,52,54,.06);
 }
 
@@ -599,8 +601,17 @@ p{color:var(--slate-light)}
 }
 .facilitator .person-bio{
   font-size:.95rem;color:var(--slate-light);
-  line-height:1.75;max-width:42ch;margin-top:.25rem;
+  /* 52ch en vez de 42ch: con 42 el texto usaba 437px de una columna de 540 y
+     dejaba 103px de aire al costado mientras se estiraba hacia abajo. Ocupar
+     el ancho disponible acorta el bloque sin achicar la letra. 52ch sigue
+     dentro del rango comodo de lectura (45-75). */
+  line-height:1.7;max-width:52ch;margin-top:.25rem;
 }
+/* Bios de varios parrafos. Sin esto cada <p> seria un hijo directo del flex
+   de .facilitator__info y heredaria su gap de 1rem, que entre parrafos del
+   mismo texto separa demasiado y los hace leer como bloques sueltos. */
+.person-bio-stack{display:flex;flex-direction:column;gap:.75rem;margin-top:.25rem}
+.person-bio-stack .person-bio{margin-top:0}
 
 /* segunda card: foto a la derecha */
 .facilitator--flip{grid-template-columns:7fr 5fr}
