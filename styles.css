@@ -181,10 +181,12 @@ p{color:var(--slate-light)}
 .nav__links a{font-family:var(--font-head);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--slate-light);transition:color .3s;padding-block:.7rem}
 .nav__links a:hover{color:var(--slate)}
 .nav__burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;color:var(--slate)}
-/* El nav es fixed: el desenfoque se recalcula en cada frame de scroll.
-   Con el fondo al 92% de opacidad, blur(10px) es indistinguible de blur(20px)
-   y cuesta la mitad. */
-.nav.is-solid{background:rgba(245,246,250,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+/* Sin backdrop-filter a proposito. El nav es fixed y ocupa el ancho completo:
+   con desenfoque, el navegador tenia que volver a desenfocar toda esa franja
+   en CADA frame de scroll, y eso se sentia en el scroll de toda la pagina.
+   A 96% de opacidad el desenfoque no se percibia igual, asi que el efecto
+   visual es el mismo y el costo por frame pasa a ser cero. */
+.nav.is-solid{background:rgba(245,246,250,.96);box-shadow:0 1px 0 var(--line)}
 
 /* Mobile menu */
 .nav__mobile{display:none}
@@ -725,8 +727,8 @@ p{color:var(--slate-light)}
 
 /* Base: fade up */
 [data-reveal]{
-  opacity:0;transform:translate3d(0,28px,0);
-  transition:opacity .75s var(--ease-out),transform .75s var(--ease-out);
+  opacity:0;transform:translate3d(0,24px,0);
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);
   transition-delay:var(--d,0s);
 }
 [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
@@ -747,18 +749,20 @@ p{color:var(--slate-light)}
 [data-reveal="fade"]{transform:none;opacity:0}
 [data-reveal="fade"].is-visible{opacity:1}
 
-/* Blur dissolve — para citas y textos destacados */
+/* Antes esto animaba filter:blur(). El desenfoque se recalcula pixel por pixel
+   en cada frame y no se puede componer en GPU: era lo mas caro de la pagina.
+   Con un desplazamiento algo mas largo se percibe el mismo efecto suave. */
 [data-reveal="blur"]{
-  opacity:0;filter:blur(8px);transform:translate3d(0,16px,0);
-  transition:opacity .9s var(--ease-out),filter .9s var(--ease-out),transform .9s var(--ease-out);
+  opacity:0;transform:translate3d(0,22px,0);
+  transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);
   transition-delay:var(--d,0s);
 }
-[data-reveal="blur"].is-visible{opacity:1;filter:blur(0px);transform:translate3d(0,0,0)}
+[data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0)}
 
 /* Duración más lenta para elementos grandes */
 [data-reveal="slow"]{
   transform:translate3d(0,24px,0);opacity:0;
-  transition-duration:1.1s;
+  transition-duration:.85s;
 }
 [data-reveal="slow"].is-visible{transform:translate3d(0,0,0);opacity:1}
 
@@ -786,19 +790,21 @@ p{color:var(--slate-light)}
 .hero-in--6{animation-delay:.31s}
 .hero-in--img{animation-delay:.06s}
 
-/* Stagger grids */
-.stats-grid [data-reveal]:nth-child(2){--d:.12s}
-.stats-grid [data-reveal]:nth-child(3){--d:.24s}
-.caps-grid [data-reveal]:nth-child(2){--d:.1s}
-.caps-grid [data-reveal]:nth-child(3){--d:.2s}
-.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.08s}
-.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.16s}
-.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.24s}
-.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.32s}
-.acc-item:nth-child(2){--d:.07s}
-.acc-item:nth-child(3){--d:.14s}
-.acc-item:nth-child(4){--d:.21s}
-.acc-item:nth-child(5){--d:.28s}
+/* Stagger grids — escalonados cortos. Con retardos largos el ultimo elemento
+   de una fila terminaba casi medio segundo despues del primero, y para
+   entonces el usuario ya habia scrolleado mas abajo. */
+.stats-grid [data-reveal]:nth-child(2){--d:.08s}
+.stats-grid [data-reveal]:nth-child(3){--d:.16s}
+.caps-grid [data-reveal]:nth-child(2){--d:.07s}
+.caps-grid [data-reveal]:nth-child(3){--d:.14s}
+.sponsors__grid [data-reveal="scale"]:nth-child(2){--d:.05s}
+.sponsors__grid [data-reveal="scale"]:nth-child(3){--d:.1s}
+.sponsors__grid [data-reveal="scale"]:nth-child(4){--d:.15s}
+.sponsors__grid [data-reveal="scale"]:nth-child(5){--d:.2s}
+.acc-item:nth-child(2){--d:.05s}
+.acc-item:nth-child(3){--d:.1s}
+.acc-item:nth-child(4){--d:.15s}
+.acc-item:nth-child(5){--d:.2s}
 
 /* 18. RESPONSIVE */
 
@@ -1002,12 +1008,19 @@ section[id],main[id]{scroll-margin-top:5.5rem}
 
 /* 20. PERFORMANCE */
 
-/* content-visibility: el navegador saltea layout/paint de secciones fuera
-   de pantalla. Con contain-intrinsic-size: auto el browser recuerda el alto
-   real tras el primer render y evita CLS en visitas posteriores. */
-.section,.sponsors,.footer{
-  content-visibility:auto;
-  contain-intrinsic-block-size:auto 700px;
+/* Nada de content-visibility aca: obligaba al navegador a hacer el layout de
+   una seccion entera justo en el frame en que entraba en pantalla. Ese pico
+   de trabajo caia siempre mientras el usuario scrolleaba, que es el peor
+   momento posible, y se sentia como un tironeo. El ahorro no compensaba. */
+
+/* El hero mide ~900px y la pagina 8200px: durante casi todo el scroll las
+   formas flotantes y el punto que late siguen animandose fuera de pantalla,
+   manteniendo vivas 9 capas de composicion sin que nadie las vea. Al salir
+   el hero del viewport las congelamos y liberamos las capas. */
+.anim-off .geo,
+.anim-off .eyebrow-dot{
+  animation-play-state:paused;
+  will-change:auto;
 }
 
 /* touch-action: manipulation elimina el delay de 300ms en tap (iOS/Android)

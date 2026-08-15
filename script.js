@@ -69,20 +69,37 @@
   /* 3. REVEAL ON SCROLL */
   const reveals = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && reveals.length) {
+    /* rootMargin inferior POSITIVO: el observer dispara cuando al elemento
+       todavia le faltan ~200px para entrar en pantalla. Asi la animacion ya
+       viene corriendo cuando lo ves y no "aparece" de golpe delante tuyo.
+       threshold 0 por el mismo motivo: no esperamos a que se vea un 10%. */
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        e.target.classList.add('is-visible');
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
     reveals.forEach(el => {
       const parent = el.parentElement;
       const sibs = parent ? [...parent.children].filter(c => c.hasAttribute('data-reveal')) : [el];
       const idx = sibs.indexOf(el);
-      if (idx > 0) el.style.setProperty('--d', (idx * 0.1) + 's');
+      if (idx > 0) el.style.setProperty('--d', (idx * 0.07) + 's');
       io.observe(el);
     });
   } else {
     reveals.forEach(el => el.classList.add('is-visible'));
+  }
+
+  /* 3b. PAUSAR ANIMACIONES DEL HERO CUANDO SALE DE PANTALLA
+     Las formas flotantes y el punto que late solo existen en el hero, pero sus
+     animaciones son infinitas: sin esto siguen ocupando la GPU durante los
+     ~7300px de pagina que hay debajo. */
+  const hero = document.querySelector('.hero');
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      document.body.classList.toggle('anim-off', !e.isIntersecting);
+    }, { threshold: 0 }).observe(hero);
   }
 
   /* 4. FORM → Google Apps Script */
