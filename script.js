@@ -167,19 +167,25 @@
       iframe.title = 'Ubicación: Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.allowFullscreen = true;
-      iframe.loading = 'lazy';
+      /* Sin loading="lazy" a proposito: nosotros ya decidimos el momento de
+         cargarlo. Con lazy, el navegador aplicaba ADEMAS su propio criterio y
+         posponia la descarga hasta tener el mapa casi encima, que es
+         justamente lo que queremos evitar. */
       wrap.replaceChild(iframe, facade);
     }
 
     if ('IntersectionObserver' in window) {
-      /* rootMargin generoso: empieza a pedir el mapa ~600px antes de que la
-         seccion entre en pantalla, asi para cuando llegas ya esta dibujado. */
+      /* Observamos la seccion de inscripcion entera, no el mapa: el mapa esta
+         al final de la seccion, asi que apenas asoma el bloque de inscripcion
+         ya empezamos a pedirlo y quedan ~1500px de scroll por delante. Cuando
+         llegas abajo el mapa ya esta dibujado. */
+      const disparador = document.getElementById('inscripcion') || facade.closest('.cta-map');
       const io = new IntersectionObserver(([e], obs) => {
         if (!e.isIntersecting) return;
         obs.disconnect();
         cargar();
-      }, { rootMargin: '600px 0px', threshold: 0 });
-      io.observe(facade.closest('.cta-map') || facade);
+      }, { rootMargin: '400px 0px', threshold: 0 });
+      io.observe(disparador);
     } else {
       cargar();
     }
