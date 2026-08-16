@@ -299,11 +299,15 @@ p{color:var(--slate-light)}
 .hero__photo-card img{width:100%;aspect-ratio:4/5;max-height:min(72vh,calc(100vh - 340px));object-fit:cover;object-position:top;display:block}
 /* Tarjeta de datos del evento.
    El hueco de ARRIBA no se declara aca: lo aporta el padding-bottom de la
-   seccion de sponsors, que es la que quedo encima. El de ABAJO lo comparte
-   con el padding-top de la seccion de contexto, por eso alcanza con un valor
-   chico y no hace falta repetir el clamp grande de antes: sumados dan el
-   respiro justo, y si se pone el clamp completo el bloque queda flotando. */
-.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1rem,2.5vw,2rem)}
+   seccion de sponsors, que es la que quedo encima.
+
+   El de ABAJO si, y tiene que parecerse al de arriba. La franja celeste
+   arranca en los sponsors y termina justo aca (lo que sigue es blanco), asi
+   que este padding es el borde inferior VISIBLE de esa franja. Con un valor
+   chico quedaban 48px de aire sobre la tarjeta y solo 16 bajo el contador:
+   el bloque se veia pegado al corte de color. Este clamp lo empareja en
+   ambas puntas sin depender del padding de la seccion siguiente. */
+.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(2.5rem,4vw,3.5rem)}
 /* margin-top con vw y no vh: este bloque ya no esta en el hero, asi que su
    separacion tiene que seguir el ancho de pagina como el resto de secciones,
    no la altura de la ventana. */
@@ -1105,6 +1109,33 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   /* Ultimos pixeles, tomados de donde no hay nada que chocar */
   .sponsors{padding-top:clamp(.75rem,1.5vw,1.15rem)}
   .sponsors__eyebrow{margin-bottom:.7rem}
+}
+
+/* ——— CONTADOR EN MOVIL ———
+   La fila completa (FALTAN + 4 unidades + 3 separadores) no entra en los
+   335px utiles del contenedor: medido, la pastilla quedaba de 364px y se
+   salia 29px por la derecha. Como width:fit-content no achica, desbordaba en
+   vez de encogerse, y eso es lo que se leia como "no esta centrado" — no
+   estaba descentrado, estaba desbordado respecto de la tarjeta de arriba.
+   La etiqueta pasa a renglon propio y la pastilla toma exactamente el mismo
+   ancho que la tarjeta de datos, que es lo que alinea los dos bloques. */
+@media(max-width:560px){
+  .hero__countdown{
+    width:100%;
+    flex-wrap:wrap;
+    gap:.25rem;
+    padding:.7rem 1rem;
+  }
+  .hero__countdown-label{
+    flex:0 0 100%;
+    text-align:center;
+    margin-right:0;
+    margin-bottom:.4rem;
+  }
+  /* flex:1 1 0 reparte las cuatro unidades en partes iguales: asi el grupo
+     queda simetrico solo, sin depender del ancho de cada numero. */
+  .hero__countdown-unit{min-width:0;flex:1 1 0}
+  .hero__countdown-sep{margin-bottom:.55rem}
 }
 
 /* ——— Pantallas táctiles: desactivar hovers que "se pegan" ——— */
