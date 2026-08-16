@@ -307,11 +307,11 @@ p{color:var(--slate-light)}
    chico quedaban 48px de aire sobre la tarjeta y solo 16 bajo el contador:
    el bloque se veia pegado al corte de color. Este clamp lo empareja en
    ambas puntas sin depender del padding de la seccion siguiente. */
-.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.75rem,3vw,2.5rem)}
+.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(2.25rem,4vw,3.25rem)}
 /* margin-top con vw y no vh: este bloque ya no esta en el hero, asi que su
    separacion tiene que seguir el ancho de pagina como el resto de secciones,
    no la altura de la ventana. */
-.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(1.75rem,3vw,2.5rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
+.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(2.25rem,4vw,3.25rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
 /* contain:layout aisla el cambio de digitos: sin esto, cada segundo el nuevo
    texto podia disparar un recalculo que subia hasta el hero entero. */
 .hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem;contain:layout style}
@@ -375,7 +375,7 @@ p{color:var(--slate-light)}
 /* Arriba y abajo distintos: arriba se recorta para que la cinta suba a la
    primera pantalla; abajo se mantiene generoso porque ese hueco es el que
    separa el carrusel de la tarjeta de datos. */
-.sponsors{padding-top:clamp(1.75rem,3vw,2.5rem);padding-bottom:clamp(1.75rem,3vw,2.5rem)}
+.sponsors{padding-top:clamp(2.25rem,4vw,3.25rem);padding-bottom:clamp(2.25rem,4vw,3.25rem)}
 .sponsors__eyebrow{text-align:center;margin-bottom:1.15rem}
 /* Carrusel de sponsors.
    Los degradados de los bordes van en pseudo-elementos y NO en mask-image:
@@ -1107,10 +1107,10 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .hero{padding-top:clamp(4.25rem,7vh,5rem)}
   .hero__layout{padding-top:clamp(.75rem,2.5vh,1.25rem)}
   /* Ultimos pixeles, tomados de donde no hay nada que chocar */
-  .sponsors{padding-top:clamp(1rem,1.8vw,1.5rem);padding-bottom:clamp(1rem,1.8vw,1.5rem)}
+  .sponsors{padding-top:clamp(1.25rem,2.2vw,1.75rem);padding-bottom:clamp(1.25rem,2.2vw,1.75rem)}
   .sponsors__eyebrow{margin-bottom:.7rem}
-  .hero__bar{padding-bottom:clamp(1rem,1.8vw,1.5rem)}
-  .hero__countdown{margin-top:clamp(1rem,1.8vw,1.5rem)}
+  .hero__bar{padding-bottom:clamp(1.25rem,2.2vw,1.75rem)}
+  .hero__countdown{margin-top:clamp(1.25rem,2.2vw,1.75rem)}
 }
 
 /* ——— CONTADOR EN MOVIL ———
