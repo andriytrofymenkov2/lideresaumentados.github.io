@@ -233,7 +233,13 @@ p{color:var(--slate-light)}
   position:relative;z-index:2;
   display:grid;grid-template-columns:1fr 1fr;
   gap:clamp(2rem,5vw,5rem);align-items:center;
-  padding-block:clamp(1.25rem,4vh,5rem);flex:1;
+  /* Arriba y abajo distintos a proposito: arriba hay que despegarse del nav,
+     abajo ya no hay tarjeta que separar (se mudo debajo del carrusel), asi
+     que ese hueco era altura desperdiciada que empujaba a los sponsors
+     fuera de la primera pantalla. */
+  padding-top:clamp(1.25rem,4vh,5rem);
+  padding-bottom:clamp(.75rem,1.5vh,1.25rem);
+  flex:1;
 }
 .hero__content{display:flex;flex-direction:column;gap:0}
 .hero__title{
@@ -276,15 +282,32 @@ p{color:var(--slate-light)}
   background-image:url("data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAADQBQCdASoUABkAPrVQoEwnJKMiKAqo4BaJYwDGnUwgrAv2xl/EiDnuSMiCQDSXK54Dg5lN/1gQAP7z8HH1L1q+whScfj4v675zU772nB9Tu54+vocA/V8tSKSPKEQvm+CQ8bnzJgx2L2KAPYAUvQ2ePE2AuIO0wsnQvbjOlG56PgTmfJjXv7HPyR9gYFH2k2VSLlnu+/JkdREStHHtqqD4jRVLVZElBYTAzkSYAGdy10uVzJIFcWKvx+H6kQpEBCDpUlr8wEE2kYAA");
   background-size:cover;background-position:top center;background-repeat:no-repeat;
 }
-/* max-height: en pantallas bajas la imagen 4/5 se comia el hero entero.
-   Arriba de ~890px de alto el tope no llega a activarse (queda en 4/5). */
-.hero__photo-card img{width:100%;aspect-ratio:4/5;max-height:72vh;object-fit:cover;object-position:top;display:block}
-/* Hero meta bar */
-/* Simetria vertical de la tarjeta de datos: el hueco de arriba lo da el
-   padding-bottom del layout, el de abajo este padding-bottom. Usan el MISMO
-   clamp, asi quedan iguales en cualquier altura de pantalla. */
-.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1.25rem,4vh,5rem)}
-.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(1.25rem,4vh,5rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
+/* La foto es lo mas alto del hero y es lo que decide si la banda de sponsors
+   entra o no en la primera pantalla. Por eso el tope no es un valor fijo:
+
+     min(72vh, calc(100vh - 300px))
+
+   El 72vh manda en pantallas altas y conserva el encuadre de siempre. El
+   calc() manda en pantallas bajas: esos 340px son lo que ocupa todo lo demas
+   que tiene que entrar (despeje del nav + margenes del layout + el texto
+   "Con el apoyo de" + la cinta de logos) MAS unos 35px de colchon. El colchon
+   no es capricho: medido sin el quedaban 8px libres, y con eso alcanza que la
+   tipografia cargue distinto o que el navegador tenga otra barra para que la
+   cinta caiga abajo del pliegue. Asi la foto cede solo los pixeles necesarios
+   en cada monitor, en vez de recortarla siempre por las dudas.
+   Con object-position:top el recorte se come el pie de la imagen, no la cara. */
+.hero__photo-card img{width:100%;aspect-ratio:4/5;max-height:min(72vh,calc(100vh - 340px));object-fit:cover;object-position:top;display:block}
+/* Tarjeta de datos del evento.
+   El hueco de ARRIBA no se declara aca: lo aporta el padding-bottom de la
+   seccion de sponsors, que es la que quedo encima. El de ABAJO lo comparte
+   con el padding-top de la seccion de contexto, por eso alcanza con un valor
+   chico y no hace falta repetir el clamp grande de antes: sumados dan el
+   respiro justo, y si se pone el clamp completo el bloque queda flotando. */
+.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(1rem,2.5vw,2rem)}
+/* margin-top con vw y no vh: este bloque ya no esta en el hero, asi que su
+   separacion tiene que seguir el ancho de pagina como el resto de secciones,
+   no la altura de la ventana. */
+.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(1.25rem,2.5vw,2rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
 /* contain:layout aisla el cambio de digitos: sin esto, cada segundo el nuevo
    texto podia disparar un recalculo que subia hasta el hero entero. */
 .hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem;contain:layout style}
@@ -345,8 +368,11 @@ p{color:var(--slate-light)}
 .hero__meta--glass .hero__meta-item dd{color:var(--slate)}
 
 /* 8. SPONSORS */
-.sponsors{padding-block:clamp(3rem,5vw,4rem)}
-.sponsors__eyebrow{text-align:center;margin-bottom:2rem}
+/* Arriba y abajo distintos: arriba se recorta para que la cinta suba a la
+   primera pantalla; abajo se mantiene generoso porque ese hueco es el que
+   separa el carrusel de la tarjeta de datos. */
+.sponsors{padding-top:clamp(1.25rem,2.2vw,1.75rem);padding-bottom:clamp(3rem,5vw,4rem)}
+.sponsors__eyebrow{text-align:center;margin-bottom:1.15rem}
 /* Carrusel de sponsors.
    Los degradados de los bordes van en pseudo-elementos y NO en mask-image:
    una mascara obliga al navegador a recomponer el contenido enmascarado en
@@ -1047,6 +1073,38 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .hero__layout{padding-block:1.5rem}
   .nav__mobile nav a{font-size:1.1rem;padding:.5rem 0}
   .nav__mobile .btn{margin-top:1rem}
+}
+
+/* ——— Pantallas BAJAS de escritorio ———
+   Objetivo: que la cinta de sponsors siga entrando en la primera pantalla.
+   Aca la foto ya no sirve de palanca: por debajo de ~860px de alto la
+   columna de TEXTO pasa a ser la mas alta de las dos (523px contra 421px
+   medidos a 757px de ventana), asi que achicar la imagen no baja nada.
+   Se recortan MARGENES antes que tamaños, porque el titulo es lo que
+   sostiene el impacto de la portada. Van al final del archivo para que
+   ninguna regla posterior las pise, y con min-width para no tocar el movil,
+   que apila las columnas y tiene su propio calculo. */
+@media (min-width:901px) and (max-height:860px){
+  .hero__title{margin:.5rem 0}
+  .hero__claim{margin-bottom:.6rem}
+  .hero__body{margin-bottom:1rem}
+  .hero__actions{margin-bottom:1rem}
+}
+/* Mas bajas todavia (netbooks, 1366x768): recien aca se cede tamaño de
+   titulo, que es el ultimo recurso. */
+@media (min-width:901px) and (max-height:730px){
+  .hero__title{font-size:clamp(2.6rem,5.2vw,3.9rem);margin:.35rem 0}
+  .hero__claim{font-size:clamp(1rem,1.5vw,1.15rem);margin-bottom:.45rem}
+  .hero__body{font-size:.92rem;line-height:1.55;margin-bottom:.8rem}
+  .hero__actions{margin-bottom:.8rem}
+  /* Ojo con este valor: el nav es fijo y mide ~86px, asi que el despeje real
+     es este padding MAS el padding-top del layout. Medido queda en 93px de
+     tope contra 86 de nav; bajarlo mas mete el badge abajo de la barra. */
+  .hero{padding-top:clamp(4.25rem,7vh,5rem)}
+  .hero__layout{padding-top:clamp(.75rem,2.5vh,1.25rem)}
+  /* Ultimos pixeles, tomados de donde no hay nada que chocar */
+  .sponsors{padding-top:clamp(.75rem,1.5vw,1.15rem)}
+  .sponsors__eyebrow{margin-bottom:.7rem}
 }
 
 /* ——— Pantallas táctiles: desactivar hovers que "se pegan" ——— */

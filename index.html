@@ -22,7 +22,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202608152022" />
+  <link rel="stylesheet" href="styles.css?v=202608152113" />
 </head>
 <body>
 
@@ -131,39 +131,6 @@
         </div>
       </div>
 
-      <!-- Meta glass card -->
-      <div class="hero__bar">
-        <div class="container">
-          <dl class="hero__meta hero__meta--glass">
-            <div class="hero__meta-item"><dt>Fecha</dt><dd>Sábado 5 de septiembre</dd></div>
-            <div class="hero__meta-item"><dt>Horario</dt><dd>10:00–14:00 hs</dd></div>
-            <div class="hero__meta-item"><dt>Modalidad</dt><dd>Presencial</dd></div>
-            <div class="hero__meta-item"><dt>Lugar</dt><dd>Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos</dd></div>
-          </dl>
-          <div class="hero__countdown" id="js-countdown-wrap" hidden>
-            <span class="hero__countdown-label">Faltan</span>
-            <div class="hero__countdown-unit">
-              <strong id="js-cd-days">00</strong>
-              <span>días</span>
-            </div>
-            <div class="hero__countdown-sep" aria-hidden="true">:</div>
-            <div class="hero__countdown-unit">
-              <strong id="js-cd-hours">00</strong>
-              <span>horas</span>
-            </div>
-            <div class="hero__countdown-sep" aria-hidden="true">:</div>
-            <div class="hero__countdown-unit">
-              <strong id="js-cd-mins">00</strong>
-              <span>minutos</span>
-            </div>
-            <div class="hero__countdown-sep" aria-hidden="true">:</div>
-            <div class="hero__countdown-unit">
-              <strong id="js-cd-secs">00</strong>
-              <span>segundos</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
 
@@ -216,6 +183,45 @@
         </div>
       </div>
     </section>
+
+    <!-- ═══════ DATOS DEL EVENTO + CONTADOR ═══════
+         Va despues de los sponsors a proposito: primero se ven las empresas
+         que acompañan, y recien despues el cuando y el donde con el contador.
+         El bloque conserva las clases hero__* porque el diseño de la tarjeta
+         de cristal es el mismo; ningun selector del CSS las anida dentro de
+         .hero, asi que sacarlas de ahi no cambia como se ven. -->
+    <div class="hero__bar">
+      <div class="container">
+        <dl class="hero__meta hero__meta--glass">
+          <div class="hero__meta-item"><dt>Fecha</dt><dd>Sábado 5 de septiembre</dd></div>
+          <div class="hero__meta-item"><dt>Horario</dt><dd>10:00–14:00 hs</dd></div>
+          <div class="hero__meta-item"><dt>Modalidad</dt><dd>Presencial</dd></div>
+          <div class="hero__meta-item"><dt>Lugar</dt><dd>Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos</dd></div>
+        </dl>
+        <div class="hero__countdown" id="js-countdown-wrap" hidden>
+          <span class="hero__countdown-label">Faltan</span>
+          <div class="hero__countdown-unit">
+            <strong id="js-cd-days">00</strong>
+            <span>días</span>
+          </div>
+          <div class="hero__countdown-sep" aria-hidden="true">:</div>
+          <div class="hero__countdown-unit">
+            <strong id="js-cd-hours">00</strong>
+            <span>horas</span>
+          </div>
+          <div class="hero__countdown-sep" aria-hidden="true">:</div>
+          <div class="hero__countdown-unit">
+            <strong id="js-cd-mins">00</strong>
+            <span>minutos</span>
+          </div>
+          <div class="hero__countdown-sep" aria-hidden="true">:</div>
+          <div class="hero__countdown-unit">
+            <strong id="js-cd-secs">00</strong>
+            <span>segundos</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ═══════ CONTEXTO / STATS ═══════ -->
     <section id="contexto" class="section section--white">
@@ -712,7 +718,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202608152022" defer></script>
+  <script src="script.js?v=202608152113" defer></script>
 
   <!-- WhatsApp flotante -->
   <a class="wa-float" href="https://wa.me/5491133278023" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">

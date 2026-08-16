@@ -100,14 +100,9 @@
      animaciones son infinitas: sin esto siguen ocupando la GPU durante los
      ~7300px de pagina que hay debajo. */
   const hero = document.querySelector('.hero');
-  let heroVisible = true;
-  const alSalirElHero = [];   // se avisa a quien necesite frenar algo
-
   if (hero && 'IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
-      heroVisible = e.isIntersecting;
-      document.body.classList.toggle('anim-off', !heroVisible);
-      alSalirElHero.forEach(fn => fn(heroVisible));
+      document.body.classList.toggle('anim-off', !e.isIntersecting);
     }, { threshold: 0 }).observe(hero);
   }
 
@@ -251,11 +246,25 @@
       clearInterval(timer);
       timer = null;
     }
+    let aLaVista = true;
     function evaluar() {
-      (heroVisible && !document.hidden) ? arrancar() : frenar();
+      (aLaVista && !document.hidden) ? arrancar() : frenar();
     }
 
-    alSalirElHero.push(evaluar);
+    /* Se observa el CONTENEDOR, no el contador.
+       Dos motivos: el contador arranca con [hidden], y un elemento sin caja
+       nunca intersecta, asi que el observador no dispararia jamas. Y ademas
+       este bloque ya no vive dentro del hero (ahora va debajo del carrusel),
+       de modo que atarlo al hero lo dejaria congelado en 00 justo cuando lo
+       tenes delante. */
+    const contenedor = wrap.closest('.hero__bar') || wrap.parentElement;
+    if (contenedor && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        aLaVista = e.isIntersecting;
+        evaluar();
+      }, { threshold: 0 }).observe(contenedor);
+    }
+
     // Pestaña en segundo plano: tampoco tiene sentido seguir contando.
     document.addEventListener('visibilitychange', evaluar);
     // evaluar y no arrancar: si la pagina abre en una pestaña de fondo,
