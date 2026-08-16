@@ -106,16 +106,28 @@
     }, { threshold: 0 }).observe(hero);
   }
 
-  /* 3c. CARRUSEL DE SPONSORS — solo anima mientras se ve.
-     Una animacion infinita sigue consumiendo un frame de compositor por cada
-     refresco de pantalla aunque este a 6000px de distancia. Al pausarla
-     liberamos ademas su capa de GPU (will-change:auto via .is-paused). */
-  const cinta = document.querySelector('.sponsors__track');
-  if (cinta && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => {
-      cinta.classList.toggle('is-paused', !e.isIntersecting);
-    }, { threshold: 0 }).observe(cinta.closest('.sponsors__track-wrap') || cinta);
-  }
+  /* 3c. CARRUSEL DE SPONSORS — CSS compositor animation (60 fps garantizados).
+     JS solo hace dos cosas: setear el valor exacto en px de la mitad del track
+     (elimina el micro-jitter que da el porcentaje) y controlar play/pause via
+     clase cuando el carrusel sale de pantalla o la pestaña va a segundo plano. */
+  (function () {
+    const wrap = document.querySelector('.sponsors__track-wrap');
+    if (!wrap) return;
+    const tracks = wrap.querySelectorAll('.sponsors__track');
+    if (!tracks.length) return;
+
+    let inView = true;
+    function updatePause() { setPaused(!inView || document.hidden); }
+
+    function setPaused(p) { tracks.forEach(t => t.classList.toggle('is-paused', p)); }
+    wrap.addEventListener('mouseenter', () => setPaused(true));
+    wrap.addEventListener('mouseleave', updatePause);
+    document.addEventListener('visibilitychange', updatePause);
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { inView = e.isIntersecting; updatePause(); }, { threshold: 0 }).observe(wrap);
+    }
+  }());
 
   /* 4. FORM → Google Apps Script */
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbxHBRdNHz6PVMrRAbDaj8xl5wH5_h3rFHCQafYR_HKQ-WNBznq6ZkHQciN4heNVMhwClw/exec';
