@@ -382,11 +382,11 @@ p{color:var(--slate-light)}
    una mascara obliga al navegador a recomponer el contenido enmascarado en
    cada frame, justo lo que estamos animando. Pintados como capa aparte, la
    cinta viaja sola en la GPU y el degradado no vuelve a calcularse nunca. */
-.sponsors__track-wrap{position:relative;overflow:hidden}
+.sponsors__track-wrap{position:relative;overflow:hidden;clip-path:inset(0)}
 
 .sponsors__track{
   display:flex;align-items:center;
-  min-width:200%; /* pista = 2× contenedor; 10 slots × 10% = 100% pista */
+  width:200%; /* pista = 2× contenedor; 10 slots × 10% = 100% pista */
   animation:sponsors-step 11.5s linear infinite;
 }
 /* Pista única con 10 items (5 originales + 5 duplicados).
@@ -426,7 +426,6 @@ p{color:var(--slate-light)}
    declarada en un keyframe rige el tramo que empieza ahi. Con .7,0,.3,1 el
    tramo acelera y frena dentro del mismo paso, que es lo que hace que el
    tiron se sienta con peso en vez de un corte seco. */
-.sponsors__track-wrap:hover .sponsors__track{animation-play-state:paused}
 /* Fuera de pantalla: se frena y se libera la capa de GPU */
 .sponsors__track.is-paused{animation-play-state:paused;will-change:auto}
 @media(prefers-reduced-motion:reduce){

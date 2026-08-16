@@ -117,11 +117,9 @@
     if (!tracks.length) return;
 
     let inView = true;
+    function setPaused(p) { tracks.forEach(t => t.classList.toggle('is-paused', p)); }
     function updatePause() { setPaused(!inView || document.hidden); }
 
-    function setPaused(p) { tracks.forEach(t => t.classList.toggle('is-paused', p)); }
-    wrap.addEventListener('mouseenter', () => setPaused(true));
-    wrap.addEventListener('mouseleave', updatePause);
     document.addEventListener('visibilitychange', updatePause);
 
     if ('IntersectionObserver' in window) {
