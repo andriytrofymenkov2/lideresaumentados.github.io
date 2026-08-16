@@ -382,7 +382,7 @@ p{color:var(--slate-light)}
    una mascara obliga al navegador a recomponer el contenido enmascarado en
    cada frame, justo lo que estamos animando. Pintados como capa aparte, la
    cinta viaja sola en la GPU y el degradado no vuelve a calcularse nunca. */
-.sponsors__track-wrap{position:relative;overflow:hidden;display:flex}
+.sponsors__track-wrap{position:relative;overflow:clip;display:flex}
 
 .sponsors__track{
   display:flex;align-items:center;
