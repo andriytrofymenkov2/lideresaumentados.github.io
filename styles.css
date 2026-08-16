@@ -382,26 +382,27 @@ p{color:var(--slate-light)}
    una mascara obliga al navegador a recomponer el contenido enmascarado en
    cada frame, justo lo que estamos animando. Pintados como capa aparte, la
    cinta viaja sola en la GPU y el degradado no vuelve a calcularse nunca. */
-.sponsors__track-wrap{position:relative;overflow:clip;display:flex}
+.sponsors__track-wrap{position:relative;overflow:hidden}
 
 .sponsors__track{
   display:flex;align-items:center;
-  min-width:100%;flex-shrink:0;
   animation:sponsors-step 11.5s linear infinite;
 }
-/* 2.6% movimiento (0.3s) + 17.4% pausa (2s) por logo. */
+/* Pista única con 10 items (5 originales + 5 duplicados).
+   La pista desborda el wrap: overflow:hidden la recorta correctamente.
+   1.3% movimiento (0.3s) + 18.7% pausa (2s) por logo — cada paso = 10% de la pista. */
 @keyframes sponsors-step{
   0%    {transform:translateX(0);     animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  2.6%  {transform:translateX(-20%)}
-  20%   {transform:translateX(-20%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  22.6% {transform:translateX(-40%)}
-  40%   {transform:translateX(-40%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  42.6% {transform:translateX(-60%)}
-  60%   {transform:translateX(-60%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  62.6% {transform:translateX(-80%)}
-  80%   {transform:translateX(-80%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  82.6% {transform:translateX(-100%)}
-  100%  {transform:translateX(-100%)}
+  1.3%  {transform:translateX(-10%)}
+  20%   {transform:translateX(-10%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  21.3% {transform:translateX(-20%)}
+  40%   {transform:translateX(-20%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  41.3% {transform:translateX(-30%)}
+  60%   {transform:translateX(-30%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  61.3% {transform:translateX(-40%)}
+  80%   {transform:translateX(-40%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  81.3% {transform:translateX(-50%)}
+  100%  {transform:translateX(-50%)}
 }
 .sponsors__track.is-paused{animation-play-state:paused}
 .sponsors__track > *{margin-right:1.25rem;flex:0 0 auto}
