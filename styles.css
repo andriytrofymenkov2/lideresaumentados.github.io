@@ -383,32 +383,25 @@ p{color:var(--slate-light)}
    cada frame, justo lo que estamos animando. Pintados como capa aparte, la
    cinta viaja sola en la GPU y el degradado no vuelve a calcularse nunca. */
 .sponsors__track-wrap{position:relative;overflow:hidden;display:flex}
-.sponsors__track-wrap::before,
-.sponsors__track-wrap::after{
-  content:"";position:absolute;top:0;bottom:0;width:clamp(40px,8%,110px);
-  z-index:2;pointer-events:none;
-}
-.sponsors__track-wrap::before{left:0;background:linear-gradient(to right,var(--cloud),rgba(245,246,250,0))}
-.sponsors__track-wrap::after{right:0;background:linear-gradient(to left,var(--cloud),rgba(245,246,250,0))}
 
 .sponsors__track{
   display:flex;align-items:center;
   min-width:100%;flex-shrink:0;
-  animation:sponsors-step 12.5s linear infinite;
+  animation:sponsors-step 11.5s linear infinite;
 }
-/* 4% movimiento (0.5s) + 16% pausa (2s) por logo. */
+/* 2.6% movimiento (0.3s) + 17.4% pausa (2s) por logo. */
 @keyframes sponsors-step{
-  0%  {transform:translateX(0);     animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  4%  {transform:translateX(-20%)}
-  20% {transform:translateX(-20%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  24% {transform:translateX(-40%)}
-  40% {transform:translateX(-40%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  44% {transform:translateX(-60%)}
-  60% {transform:translateX(-60%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  64% {transform:translateX(-80%)}
-  80% {transform:translateX(-80%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
-  84% {transform:translateX(-100%)}
-  100%{transform:translateX(-100%)}
+  0%    {transform:translateX(0);     animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  2.6%  {transform:translateX(-20%)}
+  20%   {transform:translateX(-20%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  22.6% {transform:translateX(-40%)}
+  40%   {transform:translateX(-40%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  42.6% {transform:translateX(-60%)}
+  60%   {transform:translateX(-60%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  62.6% {transform:translateX(-80%)}
+  80%   {transform:translateX(-80%);  animation-timing-function:cubic-bezier(0,.5,.5,1)}
+  82.6% {transform:translateX(-100%)}
+  100%  {transform:translateX(-100%)}
 }
 .sponsors__track.is-paused{animation-play-state:paused}
 .sponsors__track > *{margin-right:1.25rem;flex:0 0 auto}
