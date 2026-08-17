@@ -406,27 +406,7 @@ p{color:var(--slate-light)}
   81.3% {transform:translateX(-50%)}
   100%  {transform:translateX(-50%)}
 }
-.sponsors__track.is-paused{animation-play-state:paused}
-/* flex:1 distribuye los 10 slots en partes iguales dentro de min-width:200%.
-   Resultado: cada slot = 10% pista = 20% contenedor. Sin margin-right para que
-   la suma sea exacta; el espacio visual entre cards viene del padding interno. */
 .sponsors__track > *{flex:1 0 0;margin:0;padding:0 0.625rem;box-sizing:border-box}
-
-/* Avance en tirones: la cinta corre un logo, se planta, y vuelve a arrancar.
-   Cada paso ocupa 20% de la linea de tiempo y se reparte 30/70: el 30% de
-   adelante es el desplazamiento y el 70% restante es la pausa.
-
-   El -10% por paso NO depende del ancho del slot: el recorrido total es la
-   mitad de la cinta (-50%) repartida en 5 pasos, y como la cinta son 10 slots
-   iguales, un slot siempre vale el 10% del total. Por eso los mismos
-   porcentajes sirven igual en escritorio (220px) que en movil (162px), sin
-   tener que recalcular nada por breakpoint.
-
-   El cubic-bezier va DENTRO de cada keyframe de arranque: en CSS la curva
-   declarada en un keyframe rige el tramo que empieza ahi. Con .7,0,.3,1 el
-   tramo acelera y frena dentro del mismo paso, que es lo que hace que el
-   tiron se sienta con peso en vez de un corte seco. */
-/* Fuera de pantalla: se frena y se libera la capa de GPU */
 .sponsors__track.is-paused{animation-play-state:paused;will-change:auto}
 @media(prefers-reduced-motion:reduce){
   .sponsors__track{animation:none;flex-wrap:wrap;justify-content:center;width:100%}
@@ -853,8 +833,7 @@ p{color:var(--slate-light)}
   transition:opacity 1.45s var(--ease-out),transform 1.45s var(--ease-out);
   transition-delay:var(--d,0s);
 }
-[data-reveal="blur"].is-visible{transform:translate3d(0,0,0) scale(1)}
-[data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0)}
+[data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0) scale(1)}
 
 /* Duración más lenta para elementos grandes */
 /* Tope practico ~1.45s: mas largo que esto y, si alguien scrollea rapido, el
