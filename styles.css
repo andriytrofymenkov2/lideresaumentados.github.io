@@ -500,6 +500,7 @@ p{color:var(--slate-light)}
   box-shadow:0 4px 24px rgba(45,52,54,.12);
 }
 .manifesto-video iframe,.manifesto-video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.manifesto-video::before{content:'';position:absolute;top:0;left:0;right:0;height:18%;z-index:1}
 .manifesto-quote{
   font-family:var(--font-head);font-weight:800;
   font-size:clamp(1.9rem,4.5vw,3.6rem);
