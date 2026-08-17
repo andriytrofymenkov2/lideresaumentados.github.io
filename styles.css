@@ -961,6 +961,7 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   /* Sin espacio para dos columnas: texto arriba, imagen debajo centrada */
   .manifesto-layout{grid-template-columns:1fr;gap:2.5rem;justify-items:center}
   .manifesto-media{width:min(290px,74vw)}
+  .manifesto-video{max-width:92%}
 }
 
 /* ——— ≤760px — teléfonos grandes / tablet vertical ——— */
