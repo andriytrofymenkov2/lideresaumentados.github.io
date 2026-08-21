@@ -128,7 +128,7 @@
   }());
 
   /* 4. FORM → Google Apps Script */
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxHBRdNHz6PVMrRAbDaj8xl5wH5_h3rFHCQafYR_HKQ-WNBznq6ZkHQciN4heNVMhwClw/exec';
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzIR95vvyI3ZWXSC6Oiy0SaD-2iHfAh5fmEYNTdkbWXpM6Z9gsI6AXrNsXUSWKJ867hfg/exec';
   const ARROW_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const form = document.querySelector('[data-form]');
   if (form) {
