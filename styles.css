@@ -538,7 +538,6 @@ p{color:var(--slate-light)}
   align-items:center;gap:1.5rem;
   padding:1.65rem 0;cursor:pointer;
   transition:transform .4s var(--ease);
-  will-change:transform;
 }
 .acc-summary:hover{transform:translateX(.75rem)}
 .acc-label{
@@ -633,8 +632,12 @@ p{color:var(--slate-light)}
   display:flex;align-items:flex-end;justify-content:center;
   overflow:hidden;padding-top:2.5rem;position:relative;
 }
+/* Tono neutro de respaldo, no background:none. Es la red de seguridad para
+   conexiones lentas: si la foto todavia no llego, se ve un gris suave en vez
+   de un hueco blanco con forma de error. */
 .facilitator__photo:has(img.photo--cover){
-  padding-top:0;align-items:stretch;background:none;
+  padding-top:0;align-items:stretch;
+  background:linear-gradient(160deg,#E8EBEF 0%,#DDE1E6 100%);
 }
 .facilitator__photo img{
   width:85%;max-width:280px;display:block;
@@ -719,7 +722,6 @@ p{color:var(--slate-light)}
   border-bottom:1px solid var(--line-2);
   cursor:default;
   transition:transform .35s var(--ease);
-  will-change:transform;
 }
 .audience-item:first-child{border-top:1px solid var(--line-2)}
 .audience-item:hover{transform:translateX(.75rem)}
@@ -805,11 +807,16 @@ p{color:var(--slate-light)}
 /* Duracion y recorrido generosos: el efecto tiene que notarse. Lo que hay que
    cuidar no es cuanto dura, sino que solo se animen opacity y transform, que
    la GPU resuelve sin volver a calcular el layout. */
+/* Sin will-change aca a proposito. Son 35 elementos con [data-reveal] en la
+   pagina: declararlo en CSS le pide al navegador 35 capas de composicion vivas
+   desde el primer frame, incluidas las que estan a 8000px de scroll. Eso satura
+   memoria de GPU y hace mas lento justo lo que se queria acelerar. La capa se
+   reserva desde JS unos 500px antes de que al elemento le toque animar, y se
+   libera al terminar la transicion. */
 [data-reveal]{
   opacity:0;transform:translate3d(0,40px,0);
   transition:opacity 1.15s var(--ease-out),transform 1.15s var(--ease-out);
   transition-delay:var(--d,0s);
-  will-change:transform,opacity;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
 }

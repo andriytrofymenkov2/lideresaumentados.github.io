@@ -82,18 +82,61 @@
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
         e.target.classList.add('is-visible');
+        /* Al terminar se devuelve la capa: sin esto el elemento seguiria
+           ocupando memoria de GPU para siempre por una animacion que ya paso. */
+        e.target.addEventListener('transitionend', function soltar(ev) {
+          if (ev.target !== e.target) return;   // ignora transiciones de hijos
+          e.target.style.willChange = '';
+          e.target.removeEventListener('transitionend', soltar);
+        });
       });
     }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
+
+    /* Observador previo: reserva la capa de composicion ~500px ANTES de que al
+       elemento le toque animarse, para que el navegador llegue con la capa ya
+       lista al primer frame de la transicion en vez de tener que armarla justo
+       ahi (que es cuando se ve el tironcito). Como se libera al terminar, en
+       cualquier momento hay un puñado de capas vivas y no las 35 de la pagina.
+       Declarar will-change en el CSS haria las 35 desde el primer frame. */
+    const ioPrep = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        ioPrep.unobserve(e.target);
+        e.target.style.willChange = 'transform, opacity';
+      });
+    }, { threshold: 0, rootMargin: '500px 0px 500px 0px' });
+
     reveals.forEach(el => {
       const parent = el.parentElement;
       const sibs = parent ? [...parent.children].filter(c => c.hasAttribute('data-reveal')) : [el];
       const idx = sibs.indexOf(el);
       if (idx > 0) el.style.setProperty('--d', (idx * 0.13) + 's');
+      ioPrep.observe(el);
       io.observe(el);
     });
   } else {
     reveals.forEach(el => el.classList.add('is-visible'));
   }
+
+  /* 3a. ADELANTAR LAS FOTOS DE CONTENIDO
+     Con loading="lazy" el navegador recien las pide cuando ya las tenes casi
+     encima. En la practica eso significaba que la animacion de entrada de los
+     facilitadores corria sobre una caja vacia y la foto aparecia de golpe
+     despues: se leia como "esta seccion carga lento".
+
+     La solucion no es sacar el lazy del HTML (eso las pondria a competir con
+     la foto del hero, que es la que define el LCP), sino pasarlas a eager
+     RECIEN DESPUES del evento load. Para entonces la portada ya esta pintada,
+     el navegador esta ocioso, y quedan varios miles de pixeles de scroll por
+     delante: llegan cacheadas y aparecen instantaneas.
+
+     Los iframes de YouTube quedan afuera a proposito: cada uno arrastra sus
+     propios scripts de terceros y ahi el lazy si esta ganando algo real. */
+  window.addEventListener('load', function () {
+    document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+      if (!img.complete) img.loading = 'eager';
+    });
+  });
 
   /* 3b. PAUSAR ANIMACIONES DEL HERO CUANDO SALE DE PANTALLA
      Las formas flotantes y el punto que late solo existen en el hero, pero sus
