@@ -170,6 +170,150 @@
     }
   }());
 
+  /* 3d. GALERÍA — entrada con cortina + visor a pantalla completa */
+  (function () {
+    const gal = document.querySelector('[data-gal]');
+    if (!gal) return;
+    const items = [...gal.querySelectorAll('.gal-item')];
+
+    /* Entrada: cada tarjeta destapa su foto un poco despues que la anterior.
+       Se observa la grilla entera y no cada foto, para que la cascada corra
+       completa y en orden aunque la fila de abajo todavia no este en pantalla. */
+    items.forEach((it, i) => it.style.setProperty('--gd', (i * 0.09) + 's'));
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e], obs) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        items.forEach(it => it.classList.add('is-visible'));
+      }, { threshold: 0.12 }).observe(gal);
+    } else {
+      items.forEach(it => it.classList.add('is-visible'));
+    }
+
+    /* Visor. AVIF si el navegador ya eligio AVIF en la grilla, WebP si no:
+       asi no hace falta detectar soporte por separado. */
+    const usaAvif = () => {
+      const img = gal.querySelector('img');
+      return !!(img && img.currentSrc && img.currentSrc.endsWith('.avif'));
+    };
+    const urlGrande = (it) => it.dataset.full + (usaAvif() ? '.avif' : '.webp');
+
+    const ICON = {
+      prev:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+      next:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+      close: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    };
+    const lb = document.createElement('div');
+    lb.className = 'lb';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Fotos de la primera edición');
+    lb.innerHTML =
+      '<button class="lb__btn lb__prev" type="button" aria-label="Foto anterior">' + ICON.prev + '</button>' +
+      '<figure class="lb__stage"><img class="lb__img" alt="" decoding="async" />' +
+      '<figcaption class="lb__bar"><span class="lb__count"></span><span class="lb__cap"></span></figcaption></figure>' +
+      '<button class="lb__btn lb__next" type="button" aria-label="Foto siguiente">' + ICON.next + '</button>' +
+      '<button class="lb__btn lb__close" type="button" aria-label="Cerrar">' + ICON.close + '</button>';
+    document.body.appendChild(lb);
+
+    const imgEl   = lb.querySelector('.lb__img');
+    const capEl   = lb.querySelector('.lb__cap');
+    const countEl = lb.querySelector('.lb__count');
+    const btnPrev = lb.querySelector('.lb__prev');
+    const btnNext = lb.querySelector('.lb__next');
+    const btnClose = lb.querySelector('.lb__close');
+    let actual = 0, abierto = false, volverA = null, pedido = 0;
+
+    function mostrar(i) {
+      actual = (i + items.length) % items.length;
+      const it = items[actual];
+      const n = ++pedido;
+      imgEl.classList.remove('is-ready');
+      capEl.textContent = it.dataset.cap || '';
+      countEl.textContent = String(actual + 1).padStart(2, '0') + ' / ' + String(items.length).padStart(2, '0');
+
+      /* Se decodifica ANTES de mostrar: sin esto la foto grande aparece a
+         medio pintar o con un parpadeo al cambiar. Si el usuario ya paso a
+         otra foto mientras bajaba esta, se descarta (n !== pedido). */
+      const tmp = new Image();
+      tmp.decoding = 'async';
+      tmp.src = urlGrande(it);
+      const listo = () => {
+        if (n !== pedido) return;
+        imgEl.src = tmp.src;
+        imgEl.alt = it.querySelector('img').alt;
+        requestAnimationFrame(() => imgEl.classList.add('is-ready'));
+      };
+      (tmp.decode ? tmp.decode() : Promise.reject()).then(listo, () => { tmp.onload = listo; if (tmp.complete) listo(); });
+
+      // Precarga las vecinas: la flecha siguiente responde al instante
+      [actual + 1, actual - 1].forEach(j => {
+        const v = items[(j + items.length) % items.length];
+        (new Image()).src = urlGrande(v);
+      });
+    }
+
+    function abrir(i) {
+      volverA = document.activeElement;
+      const barra = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.overflow = 'hidden';
+      if (barra > 0) document.body.style.paddingRight = barra + 'px';
+      abierto = true;
+      lb.classList.add('is-open');
+      mostrar(i);
+      btnClose.focus({ preventScroll: true });
+    }
+
+    function cerrar() {
+      abierto = false;
+      lb.classList.remove('is-open');
+      imgEl.classList.remove('is-ready');
+      document.documentElement.style.overflow = '';
+      document.body.style.paddingRight = '';
+      if (volverA) volverA.focus({ preventScroll: true });
+    }
+
+    items.forEach((it, i) => it.addEventListener('click', ev => {
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button === 1) return; // abrir en pestaña nueva sigue funcionando
+      ev.preventDefault();
+      abrir(i);
+    }));
+    btnPrev.addEventListener('click', () => mostrar(actual - 1));
+    btnNext.addEventListener('click', () => mostrar(actual + 1));
+    btnClose.addEventListener('click', cerrar);
+    // Clic en el fondo oscuro (no en la foto ni en los botones) cierra
+    lb.addEventListener('click', ev => {
+      if (ev.target === lb || ev.target.classList.contains('lb__stage')) cerrar();
+    });
+
+    document.addEventListener('keydown', ev => {
+      if (!abierto) return;
+      if (ev.key === 'Escape') cerrar();
+      else if (ev.key === 'ArrowRight') mostrar(actual + 1);
+      else if (ev.key === 'ArrowLeft') mostrar(actual - 1);
+      else if (ev.key === 'Tab') {
+        // El foco no se escapa del visor mientras esta abierto
+        const f = [btnPrev, btnNext, btnClose];
+        const k = f.indexOf(document.activeElement);
+        ev.preventDefault();
+        f[(k + (ev.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+
+    // Deslizar con el dedo
+    let x0 = null, y0 = null;
+    lb.addEventListener('touchstart', ev => {
+      x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY;
+    }, { passive: true });
+    lb.addEventListener('touchend', ev => {
+      if (x0 === null) return;
+      const dx = ev.changedTouches[0].clientX - x0;
+      const dy = ev.changedTouches[0].clientY - y0;
+      x0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) mostrar(actual + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }());
+
   /* 4. FORM → Google Apps Script */
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbzIR95vvyI3ZWXSC6Oiy0SaD-2iHfAh5fmEYNTdkbWXpM6Z9gsI6AXrNsXUSWKJ867hfg/exec';
   const ARROW_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';

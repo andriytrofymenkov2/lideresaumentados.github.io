@@ -22,7 +22,7 @@
   <!-- ?v= fuerza al navegador a bajar la version nueva. GitHub Pages manda
        Cache-Control: max-age=600, asi que sin esto los cambios tardan hasta
        10 minutos en verse. Subir el numero en cada cambio de CSS o JS. -->
-  <link rel="stylesheet" href="styles.css?v=202609141645" />
+  <link rel="stylesheet" href="styles.css?v=202609141741" />
 </head>
 <body>
 
@@ -177,6 +177,88 @@
               <img src="assets/logo-siglo21.webp" alt="" width="300" height="102" decoding="async" />
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ GALERÍA · PRIMERA EDICIÓN ═══════
+         Cada foto es un <a> al archivo grande: sin JS igual se puede abrir.
+         Con JS, script.js lo intercepta y abre el visor a pantalla completa.
+         --lqip es una miniatura de 16px incrustada: se ve al instante mientras
+         baja la foto real, sin request extra. -->
+    <section id="galeria" class="section section--gallery">
+      <div class="container">
+        <div class="gal-head">
+          <div data-reveal="left">
+            <p class="eyebrow eyebrow--dim">Primera edición · Río Gallegos 2026</p>
+            <h2 class="h2 gal-title">Así nació la primera generación de <span class="text-sky">líderes aumentados.</span></h2>
+          </div>
+          <p class="gal-lead" data-reveal="right">Directivos, gerentes y referentes de organizaciones públicas y privadas compartieron una jornada intensiva de liderazgo, inteligencia artificial aplicada y trabajo en equipo.</p>
+        </div>
+
+        <div class="gal" data-gal>
+          <a class="gal-item gal-item--1" href="assets/evento/evento-1-1800.webp" data-full="assets/evento/evento-1-1800" data-cap="La primera generación de Líderes Aumentados">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAwAgCdASoQAAwAA4BaJQBOgMWg4CNiY+NHoADOOYAO1ZxnsovEN655gjs8g+Xmio/D22jNnYrGFe0LCpzkqqEKI6RL7Cs4M529VUMrvXjis0updYIDZWAy1wRouZe3L3/n1iI4U/VIUgAA)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 100vw, 600px" srcset="assets/evento/evento-1-640.avif 640w, assets/evento/evento-1-1080.avif 1080w" />
+                <img src="assets/evento/evento-1-1080.webp" sizes="(max-width:760px) 100vw, 600px" srcset="assets/evento/evento-1-640.webp 640w, assets/evento/evento-1-1080.webp 1080w" width="1280" height="960" loading="lazy" decoding="async" alt="Foto grupal de participantes y facilitadores de la primera edición del workshop" />
+              </picture>
+            </span>
+            <span class="gal-cap">La primera generación</span>
+          </a>
+          <a class="gal-item gal-item--2" href="assets/evento/evento-2-1080.webp" data-full="assets/evento/evento-2-1080" data-cap="Apertura del workshop">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAADwAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JYgCdABM91yOwQ7+t+lWAAP5b6YF2VPeKMmfnL9Wj17mkWKzRTgGk4KoZQeFDAwK0COSl3qPDv4vCMClVgZPDGkI01q6JkS57/a/k0+bkjS2cF2u6M4FPwMiVUDeb5mA8/PLoQuZiVSOUAAA=)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 50vw, 300px" srcset="assets/evento/evento-2-640.avif 640w, assets/evento/evento-2-1080.avif 960w" />
+                <img src="assets/evento/evento-2-640.webp" sizes="(max-width:760px) 50vw, 300px" srcset="assets/evento/evento-2-640.webp 640w, assets/evento/evento-2-1080.webp 960w" width="960" height="1280" loading="lazy" decoding="async" alt="Facilitador presentando frente al auditorio" />
+              </picture>
+            </span>
+            <span class="gal-cap">Apertura</span>
+          </a>
+          <a class="gal-item gal-item--3" href="assets/evento/evento-3-1080.webp" data-full="assets/evento/evento-3-1080" data-cap="Contenido aplicado a la gestión">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JQBOmUAS2Ayyu0dXfDZOElrk/5TgA/sj7dXv25E6KJRkXOHg3Sq7zr20Cs6osEpVB9NvxFvHzf5wjbY4W5Zg8WKBDZDUKpuFpYxvHgL4fFzq/7PTmIepfVySjUnYHvQOuk3h4bTpmdUuLWHFFIFz0HHsgAA==)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 50vw, 300px" srcset="assets/evento/evento-3-640.avif 640w, assets/evento/evento-3-1080.avif 960w" />
+                <img src="assets/evento/evento-3-640.webp" sizes="(max-width:760px) 50vw, 300px" srcset="assets/evento/evento-3-640.webp 640w, assets/evento/evento-3-1080.webp 960w" width="960" height="1280" loading="lazy" decoding="async" alt="Participantes atentos a la presentación de uno de los bloques" />
+              </picture>
+            </span>
+            <span class="gal-cap">Contenido aplicado</span>
+          </a>
+          <a class="gal-item gal-item--4" href="assets/evento/evento-4-1800.webp" data-full="assets/evento/evento-4-1800" data-cap="Todo listo para empezar">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAwBACdASoQABUAPu1iqU2ppaOiMAgBMB2JZgCdMoACLCxxRXiDvbFIwgAA02unrc1hxizitx5uWtRZVWZ/QY5h0DAimXa50sd5kUE3sp6dyXczM0ONMXp/hFG8n7G5nnj8aeDRvQ345YuyMMRoRpqidKyaxtPb1xEgv8QDiPTmP+zx3tCLgAAA)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 100vw, 400px" srcset="assets/evento/evento-4-640.avif 640w, assets/evento/evento-4-1080.avif 1080w" />
+                <img src="assets/evento/evento-4-640.webp" sizes="(max-width:760px) 100vw, 400px" srcset="assets/evento/evento-4-640.webp 640w, assets/evento/evento-4-1080.webp 1080w" width="4284" height="5712" loading="lazy" decoding="async" alt="Escenario del auditorio con la pantalla de Líderes Aumentados antes de comenzar" />
+              </picture>
+            </span>
+            <span class="gal-cap">La previa</span>
+          </a>
+          <a class="gal-item gal-item--5" href="assets/evento/evento-5-1800.webp" data-full="assets/evento/evento-5-1800" data-cap="Actividad lúdica">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABwBACdASoQABUAPu1mqk2ppaQiMAgBMB2JZgCdMoFqAAMp6/nWpX1rGUpQAAD8i47nwsQOylB0rtRv+1gH8JGcIdTmhlW2/djhGVe+ZBh6r4TXRoDnYgfzWgSMpG/HtVjweb3QR9dHqD5FR5mKocn248xGKfVwWR1VSCBJX1LX/yHgisR5b2CjhTAyIwv1wyaePaAA)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 50vw, 400px" srcset="assets/evento/evento-5-640.avif 640w, assets/evento/evento-5-1080.avif 1080w" />
+                <img src="assets/evento/evento-5-640.webp" sizes="(max-width:760px) 50vw, 400px" srcset="assets/evento/evento-5-640.webp 640w, assets/evento/evento-5-1080.webp 1080w" width="3024" height="4032" loading="lazy" decoding="async" alt="Facilitador guiando una actividad lúdica con código QR en pantalla" />
+              </picture>
+            </span>
+            <span class="gal-cap">Actividad lúdica</span>
+          </a>
+          <a class="gal-item gal-item--6" href="assets/evento/evento-6-1800.webp" data-full="assets/evento/evento-6-1800" data-cap="Trabajo en equipo">
+            <span class="gal-media" style="--lqip:url(data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAADQAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JQBUesXmMj/VikrL/acAA/uAGYvxmjY6+B+W505K90wtmCvxQaAnLE42NKI9IdY6KmOvZ/dMFUcs7Db3Um4PcjmxD/6t7e6xbPTVigs37GA4xMZVfkSCDTPB2nKOdV2YagtRtCgsRPKce1iclNCfIZYHnzwSL9f8iou8eMWo0KHvksNgAAA==)">
+              <picture>
+                <source type="image/avif" sizes="(max-width:760px) 50vw, 400px" srcset="assets/evento/evento-6-640.avif 640w, assets/evento/evento-6-1080.avif 1080w" />
+                <img src="assets/evento/evento-6-640.webp" sizes="(max-width:760px) 50vw, 400px" srcset="assets/evento/evento-6-640.webp 640w, assets/evento/evento-6-1080.webp 1080w" width="4284" height="5712" loading="lazy" decoding="async" alt="Participantes trabajando en equipo durante la actividad" />
+              </picture>
+            </span>
+            <span class="gal-cap">Trabajo en equipo</span>
+          </a>
+        </div>
+
+        <div class="gal-cta" data-reveal="fade">
+          <p>¿Querés vivir esta experiencia con tu equipo?</p>
+          <a href="#inscripcion" class="btn btn--cta">
+            Llevar el workshop a mi organización
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -684,7 +766,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=202609141645" defer></script>
+  <script src="script.js?v=202609141741" defer></script>
 
   <!-- WhatsApp flotante -->
   <a class="wa-float" href="https://wa.me/5491133278023" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">

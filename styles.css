@@ -433,6 +433,173 @@ p{color:var(--slate-light)}
 .sponsor-slot--dark{background:#1a1740;border-color:#1a1740}
 .sponsor-slot--filled:hover{border-color:var(--line-2);box-shadow:0 6px 26px rgba(45,52,54,.10)}
 .sponsor-slot img{width:auto;max-width:88%;max-height:70%;object-fit:contain}
+/* 8b. GALERÍA — PRIMERA EDICIÓN */
+.section--gallery{background:var(--slate);color:#fff;--gal-bg:#2D3436}
+.gal-head{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(1.5rem,5vw,5rem);align-items:end}
+.gal-title{color:#fff;max-width:18ch}
+.gal-lead{color:rgba(255,255,255,.62);font-size:clamp(.98rem,1.4vw,1.12rem);line-height:1.7;max-width:46ch}
+
+/* 12 columnas. Fila 1: la foto grupal ocupa media grilla y las dos verticales
+   un cuarto cada una. Como las verticales llevan aspect-ratio 3/4 y la grande
+   no, la grande toma sola la altura de la fila y queda ~3:2 (casi su 4:3
+   nativo, recorte minimo). Fila 2: tres cuadradas que suman la misma altura
+   visual, asi el bloque se lee como un rectangulo prolijo. */
+.gal{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(.6rem,1.1vw,1rem);
+  margin-top:clamp(2.5rem,4.5vw,4rem);
+}
+.gal-item--1{grid-column:span 6}
+.gal-item--2,.gal-item--3{grid-column:span 3;aspect-ratio:3/4}
+.gal-item--4,.gal-item--5,.gal-item--6{grid-column:span 4;aspect-ratio:1/1}
+
+.gal-item{
+  position:relative;display:block;overflow:hidden;
+  border-radius:18px;cursor:zoom-in;
+  /* Aisla cada tarjeta: el hover y la cortina no invalidan a las vecinas */
+  contain:layout paint;
+  isolation:isolate;
+  -webkit-tap-highlight-color:transparent;
+}
+.gal-item:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+
+/* Dos capas a proposito: .gal-media hace el zoom de ENTRADA (1.25 -> 1, lento)
+   y el <img> hace el zoom de HOVER (1 -> 1.06, rapido). Si fueran el mismo
+   elemento, pasar el mouse durante la entrada cortaria la animacion. */
+.gal-media{
+  position:absolute;inset:0;
+  background:var(--lqip) center/cover no-repeat,#3a4245;
+  transform:scale(1.25);
+  transition:transform 1.6s var(--ease-out);
+  transition-delay:var(--gd,0s);
+}
+.gal-media img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .9s var(--ease-out);
+}
+.gal-item--1 img{object-position:50% 55%}
+.gal-item--2 img{object-position:50% 45%}
+.gal-item--3 img{object-position:50% 50%}
+.gal-item--4 img{object-position:50% 42%}
+.gal-item--5 img{object-position:50% 68%}
+.gal-item--6 img{object-position:50% 58%}
+
+/* Cortina: un panel del color del fondo que se repliega hacia arriba y
+   destapa la foto. scaleY en vez de clip-path: el recorte con clip-path se
+   repinta en cada frame; una escala la resuelve la GPU sola. */
+.gal-item::before{
+  content:'';position:absolute;inset:0;z-index:3;
+  background:var(--gal-bg);
+  transform-origin:50% 0;
+  transform:scaleY(1);
+  transition:transform 1.1s cubic-bezier(.77,0,.18,1);
+  transition-delay:var(--gd,0s);
+}
+/* Degradado inferior para que el epigrafe se lea sobre cualquier foto */
+.gal-item::after{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,transparent 45%,rgba(20,24,26,.78) 100%);
+  opacity:0;transition:opacity .6s var(--ease-out);
+}
+.gal-cap{
+  position:absolute;left:1.1rem;right:1.1rem;bottom:1rem;z-index:2;
+  display:flex;align-items:center;gap:.6rem;
+  font-family:var(--font-head);font-size:.82rem;font-weight:700;
+  letter-spacing:-.01em;color:#fff;
+  opacity:0;transform:translate3d(0,12px,0);
+  transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);
+}
+.gal-cap::before{
+  content:'';width:22px;height:2px;border-radius:2px;background:var(--yellow);flex-shrink:0;
+}
+
+.gal-item.is-visible::before{transform:scaleY(0)}
+.gal-item.is-visible .gal-media{transform:scale(1)}
+
+@media(hover:hover){
+  .gal-item:hover img{transform:scale(1.06)}
+  .gal-item:hover::after{opacity:1}
+  .gal-item:hover .gal-cap{opacity:1;transform:translate3d(0,0,0)}
+}
+/* En pantallas tactiles no hay hover: el epigrafe queda siempre visible */
+@media(hover:none){
+  .gal-item::after{opacity:1}
+  .gal-cap{opacity:1;transform:none}
+}
+
+.gal-cta{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:1rem 1.5rem;margin-top:clamp(2.25rem,4vw,3.25rem);text-align:center;
+}
+.gal-cta p{font-family:var(--font-head);font-weight:600;font-size:1.02rem;color:rgba(255,255,255,.78)}
+
+@media(max-width:900px){
+  .gal-head{grid-template-columns:1fr;gap:1rem}
+}
+@media(max-width:760px){
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .gal-item--1{grid-column:span 2;aspect-ratio:4/3}
+  .gal-item--2,.gal-item--3{grid-column:span 1;aspect-ratio:3/4}
+  .gal-item--4{grid-column:span 2;aspect-ratio:4/3}
+  .gal-item--5,.gal-item--6{grid-column:span 1;aspect-ratio:3/4}
+  .gal-item{border-radius:14px}
+  .gal-cap{font-size:.74rem;left:.8rem;right:.8rem;bottom:.7rem}
+  .gal-cap::before{width:14px}
+}
+@media(max-width:560px){
+  .gal-cta .btn{width:100%;justify-content:center}
+}
+
+/* VISOR (lightbox) */
+.lb{
+  position:fixed;inset:0;z-index:1000;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  background:rgba(14,17,18,.95);
+  opacity:0;visibility:hidden;
+  transition:opacity .4s var(--ease-out),visibility 0s linear .4s;
+  touch-action:pan-y;
+}
+.lb.is-open{opacity:1;visibility:visible;transition:opacity .4s var(--ease-out),visibility 0s}
+.lb__stage{
+  grid-column:2;margin:0;height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;padding:clamp(3.5rem,6vh,4.5rem) 0 clamp(1.25rem,3vh,2rem);
+  min-width:0;
+}
+.lb__img{
+  max-width:100%;max-height:calc(100dvh - 9rem);
+  width:auto;height:auto;object-fit:contain;border-radius:12px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  transform:scale(.96);opacity:0;
+  transition:transform .5s var(--ease-out),opacity .35s var(--ease-out);
+}
+.lb.is-open .lb__img.is-ready{transform:scale(1);opacity:1}
+.lb__bar{display:flex;align-items:center;gap:1rem;font-family:var(--font-head);color:rgba(255,255,255,.8)}
+.lb__cap{font-size:.92rem;font-weight:600}
+.lb__count{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--yellow);font-variant-numeric:tabular-nums}
+.lb__btn{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  transition:background .3s var(--ease),transform .3s var(--ease);
+}
+.lb__btn:hover{background:rgba(255,255,255,.18)}
+.lb__btn:active{transform:scale(.94)}
+.lb__btn:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.lb__prev{grid-column:1;margin-left:clamp(.5rem,2vw,1.75rem)}
+.lb__next{grid-column:3;margin-right:clamp(.5rem,2vw,1.75rem)}
+.lb__close{position:absolute;top:clamp(.75rem,2vh,1.25rem);right:clamp(.75rem,2vw,1.5rem);width:46px;height:46px}
+@media(max-width:760px){
+  .lb{grid-template-columns:1fr}
+  .lb__stage{grid-column:1;padding-inline:.75rem}
+  .lb__img{max-height:calc(100dvh - 11rem)}
+  /* Flechas abajo, a mano del pulgar; tambien se puede deslizar */
+  .lb__prev,.lb__next{position:absolute;bottom:1rem;margin:0;width:48px;height:48px}
+  .lb__prev{left:1rem}
+  .lb__next{right:1rem}
+  .lb__stage{padding-bottom:5rem}
+}
+
 /* 9. STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:clamp(3rem,5vw,5rem) 0 clamp(2rem,3vw,3rem)}
 .stat-card{
