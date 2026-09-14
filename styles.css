@@ -537,9 +537,10 @@ p{color:var(--slate-light)}
   display:grid;grid-template-columns:auto 1fr auto;
   align-items:center;gap:1.5rem;
   padding:1.65rem 0;cursor:pointer;
-  transition:padding-left .4s var(--ease);
+  transition:transform .4s var(--ease);
+  will-change:transform;
 }
-.acc-summary:hover{padding-left:.75rem}
+.acc-summary:hover{transform:translateX(.75rem)}
 .acc-label{
   font-family:var(--font-head);font-size:.6rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.22em;
@@ -579,7 +580,7 @@ p{color:var(--slate-light)}
   gap:1.25rem;
   padding:1.5rem 0;
 }
-.faq-accordion .acc-summary:hover{padding-left:0}
+.faq-accordion .acc-summary:hover{transform:none}
 .faq-accordion .acc-summary:hover .acc-title{color:var(--sky-dark)}
 .faq-accordion .acc-item[open] .acc-title{color:var(--sky-dark)}
 .faq-icon{
@@ -717,10 +718,11 @@ p{color:var(--slate-light)}
   padding:1.2rem 0;
   border-bottom:1px solid var(--line-2);
   cursor:default;
-  transition:padding-left .35s var(--ease);
+  transition:transform .35s var(--ease);
+  will-change:transform;
 }
 .audience-item:first-child{border-top:1px solid var(--line-2)}
-.audience-item:hover{padding-left:.75rem}
+.audience-item:hover{transform:translateX(.75rem)}
 
 .audience-label{
   font-family:var(--font-head);
@@ -807,6 +809,9 @@ p{color:var(--slate-light)}
   opacity:0;transform:translate3d(0,40px,0);
   transition:opacity 1.15s var(--ease-out),transform 1.15s var(--ease-out);
   transition-delay:var(--d,0s);
+  will-change:transform,opacity;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
 
@@ -881,6 +886,12 @@ p{color:var(--slate-light)}
 .acc-item:nth-child(3){--d:.26s}
 .acc-item:nth-child(4){--d:.39s}
 .acc-item:nth-child(5){--d:.52s}
+
+/* En móvil sin hover el transform no se "pega" igual que el padding-left */
+@media(hover:none){
+  .acc-summary:hover{transform:none}
+  .audience-item:hover{transform:none}
+}
 
 /* 18. RESPONSIVE */
 
