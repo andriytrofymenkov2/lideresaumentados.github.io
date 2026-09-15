@@ -477,7 +477,10 @@ p{color:var(--slate-light)}
   width:100%;height:100%;object-fit:cover;display:block;
   transition:transform .9s var(--ease-out);
 }
-.gal-item--1 img{object-position:50% 55%}
+/* Foto vertical en casillero horizontal: el grupo esta en la franja media
+   (45%-73% del alto), con techo arriba y alfombra abajo. 62% deja al grupo
+   completo y con aire parejo arriba y abajo, en 3:2 (escritorio) y 4:3 (movil). */
+.gal-item--1 img{object-position:50% 62%}
 .gal-item--2 img{object-position:50% 45%}
 .gal-item--3 img{object-position:50% 50%}
 .gal-item--4 img{object-position:50% 42%}
