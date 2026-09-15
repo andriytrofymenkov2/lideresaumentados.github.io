@@ -224,9 +224,9 @@ p{color:var(--slate-light)}
 .geo--v2{width:32px;height:32px;background:var(--yellow);opacity:.8;position:absolute;bottom:-12px;right:-12px;border-radius:8px;z-index:10;box-shadow:rgba(255,234,167,.6) 0px 12px 40px 0px;animation:geoFloat 7s ease-in-out 1.5s infinite}
 /* Solo transform en keyframes — propiedad compuesta, nunca causa layout ni paint */
 @keyframes geoFloat{
-  0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
-  33%{transform:translate3d(0,-12px,0) rotate(3deg)}
-  66%{transform:translate3d(0,-6px,0) rotate(-2deg)}
+  0%,100%{transform:translate(0,0) rotate(0deg)}
+  33%{transform:translate(0,-12px) rotate(3deg)}
+  66%{transform:translate(0,-6px) rotate(-2deg)}
 }
 
 .hero__layout{
@@ -297,80 +297,6 @@ p{color:var(--slate-light)}
    en cada monitor, en vez de recortarla siempre por las dudas.
    Con object-position:top el recorte se come el pie de la imagen, no la cara. */
 .hero__photo-card img{width:100%;aspect-ratio:4/5;max-height:min(72vh,calc(100vh - 340px));object-fit:cover;object-position:top;display:block}
-/* Tarjeta de datos del evento.
-   El hueco de ARRIBA no se declara aca: lo aporta el padding-bottom de la
-   seccion de sponsors, que es la que quedo encima.
-
-   El de ABAJO si, y tiene que parecerse al de arriba. La franja celeste
-   arranca en los sponsors y termina justo aca (lo que sigue es blanco), asi
-   que este padding es el borde inferior VISIBLE de esa franja. Con un valor
-   chico quedaban 48px de aire sobre la tarjeta y solo 16 bajo el contador:
-   el bloque se veia pegado al corte de color. Este clamp lo empareja en
-   ambas puntas sin depender del padding de la seccion siguiente. */
-.hero__bar{background:transparent;position:relative;z-index:2;margin-top:0;padding-top:0;padding-bottom:clamp(2.25rem,4vw,3.25rem)}
-/* margin-top con vw y no vh: este bloque ya no esta en el hero, asi que su
-   separacion tiene que seguir el ancho de pagina como el resto de secciones,
-   no la altura de la ventana. */
-.hero__countdown{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:clamp(2.25rem,4vw,3.25rem);width:fit-content;margin-left:auto;margin-right:auto;padding:.5rem 1.25rem;border-radius:var(--radius-pill);background:rgba(255,255,255,.72);border:1px solid rgba(170,200,235,.28);box-shadow:0 24px 55px 8px rgba(45,52,54,.1)}
-/* contain:layout aisla el cambio de digitos: sin esto, cada segundo el nuevo
-   texto podia disparar un recalculo que subia hasta el hero entero. */
-.hero__countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.1rem;min-width:2.8rem;contain:layout style}
-/* tabular-nums: todos los digitos miden lo mismo, asi el numero nunca cambia
-   de ancho al pasar de 09 a 10 y no hay reflujo ni temblor visual. */
-.hero__countdown-unit strong{font-family:var(--font-head);font-size:1.15rem;font-weight:800;letter-spacing:-.03em;color:var(--sky-dark);line-height:1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-.hero__countdown-unit span{font-family:var(--font-head);font-size:.52rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(45,52,54,.4)}
-.hero__countdown-sep{font-family:var(--font-head);font-size:1rem;font-weight:800;color:rgba(116,185,255,.4);line-height:1;margin-bottom:.65rem}
-.hero__countdown-label{font-family:var(--font-head);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:rgba(45,52,54,.45);margin-right:.25rem}
-/* La columna Lugar lleva mucho mas texto que las otras tres: si las cuatro
-   miden igual, se parte en dos renglones y estira la tarjeta. */
-.hero__meta{display:grid;grid-template-columns:1fr 1fr 1fr 1.8fr}
-.hero__meta-item{padding:1.15rem .75rem;display:flex;flex-direction:column;gap:.22rem;align-items:center;text-align:center}
-.hero__meta-item:not(:last-child){border-right:1.5px solid var(--line)}
-.hero__meta-item dt{font-family:var(--font-head);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--slate-muted)}
-.hero__meta-item dd{font-family:var(--font-head);font-size:.82rem;font-weight:700;color:var(--slate)}
-
-/* Glass variant — cristal claro */
-.hero__meta--glass{
-  position:relative;
-  background:linear-gradient(160deg,
-    rgba(255,255,255,.75) 0%,
-    rgba(235,245,255,.38) 60%,
-    rgba(215,232,255,.20) 100%);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-radius:22px;
-  border-top:1px solid rgba(255,255,255,1);
-  border-left:1px solid rgba(255,255,255,.85);
-  border-right:1px solid rgba(170,200,235,.3);
-  border-bottom:1px solid rgba(170,200,235,.25);
-  box-shadow:
-    0 28px 60px rgba(45,52,54,.12),
-    0 6px 16px rgba(45,52,54,.07),
-    inset 0 1px 0 rgba(255,255,255,1),
-    inset 1px 0 0 rgba(255,255,255,.75),
-    inset 0 -1px 0 rgba(170,200,235,.3),
-    inset 0 0 48px rgba(255,255,255,.15);
-  overflow:hidden;
-}
-/* Barrido de luz diagonal — efecto óptico del cristal */
-.hero__meta--glass::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(118deg,
-    rgba(255,255,255,.65) 0%,
-    rgba(255,255,255,.22) 30%,
-    transparent 54%,
-    rgba(200,220,255,.10) 100%);
-  pointer-events:none;z-index:0;
-  border-radius:inherit;
-}
-.hero__meta--glass .hero__meta-item{position:relative;z-index:1}
-.hero__meta--glass .hero__meta-item:not(:last-child){
-  border-right:1px solid rgba(180,205,235,.4);
-}
-.hero__meta--glass .hero__meta-item dt{color:rgba(45,52,54,.48)}
-.hero__meta--glass .hero__meta-item dd{color:var(--slate)}
-
 /* 8. SPONSORS */
 /* Arriba y abajo distintos: arriba se recorta para que la cinta suba a la
    primera pantalla; abajo se mantiene generoso porque ese hueco es el que
@@ -422,10 +348,6 @@ p{color:var(--slate-light)}
 .sponsor-slot:hover{
   border-color:var(--sky);
   box-shadow:0 4px 20px rgba(116,185,255,.15);
-}
-.sponsor-slot span{
-  font-family:var(--font-head);font-size:.65rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.15em;color:var(--slate-muted);
 }
 /* Sponsor confirmado: borde solido, el punteado marca "lugar disponible".
    Mismo tamano que los demas recuadros, para que la fila quede pareja. */
@@ -509,7 +431,7 @@ p{color:var(--slate-light)}
   display:flex;align-items:center;gap:.6rem;
   font-family:var(--font-head);font-size:.82rem;font-weight:700;
   letter-spacing:-.01em;color:#fff;
-  opacity:0;transform:translate3d(0,12px,0);
+  opacity:0;transform:translate(0,12px);
   transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);
 }
 .gal-cap::before{
@@ -522,7 +444,7 @@ p{color:var(--slate-light)}
 @media(hover:hover){
   .gal-item:hover img{transform:scale(1.06)}
   .gal-item:hover::after{opacity:1}
-  .gal-item:hover .gal-cap{opacity:1;transform:translate3d(0,0,0)}
+  .gal-item:hover .gal-cap{opacity:1;transform:none}
 }
 /* En pantallas tactiles no hay hover: el epigrafe queda siempre visible */
 @media(hover:none){
@@ -726,7 +648,7 @@ p{color:var(--slate-light)}
   padding:0 0 1.75rem 8rem;
   animation:accOpen .35s var(--ease-out);
 }
-@keyframes accOpen{from{opacity:0;transform:translate3d(0,-6px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes accOpen{from{opacity:0;transform:translate(0,-6px)}to{opacity:1;transform:none}}
 .acc-body p{font-size:.95rem;color:var(--slate-light);line-height:1.72;max-width:62ch}
 
 /* FAQ */
@@ -921,10 +843,6 @@ p{color:var(--slate-light)}
 .cta-details{display:flex;flex-direction:column;gap:.8rem}
 .cta-details li{display:flex;align-items:center;gap:.8rem;font-size:.92rem;color:rgba(255,255,255,.6)}
 .cta-details li svg{flex-shrink:0;color:var(--yellow)}
-.cta-pricing{margin-top:1.75rem;display:flex;flex-direction:column;gap:.6rem;width:fit-content}
-.cta-pricing__row{display:flex;flex-direction:column;gap:.2rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
-.cta-pricing__price{font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-.02em}
-.cta-pricing__label{font-size:.82rem;color:rgba(255,255,255,.5)}
 .cta-form{display:grid;gap:1rem}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .form-ok{display:none;color:#55EFC4;font-size:.87rem}
@@ -954,7 +872,14 @@ p{color:var(--slate-light)}
 
 /* 17. REVEAL — sistema de efectos variados */
 
-/* Base: fade up */
+/* Base: fade up
+   Transformaciones 2D (translate, no translate3d) y estado final transform:none
+   a proposito. En Chrome un translate3d, aunque sea (0,0,0), es motivo directo
+   para mantener una capa de GPU propia: con 35 elementos que se quedaban en
+   translate3d(0,0,0) al terminar, la pagina cargaba decenas de capas muertas
+   durante todo el scroll. Mientras la transicion corre, el navegador arma la
+   capa solo (y script.js la adelanta con will-change); al llegar a none se
+   libera. Visualmente es identico. */
 /* Duracion y recorrido generosos: el efecto tiene que notarse. Lo que hay que
    cuidar no es cuanto dura, sino que solo se animen opacity y transform, que
    la GPU resuelve sin volver a calcular el layout. */
@@ -965,25 +890,23 @@ p{color:var(--slate-light)}
    reserva desde JS unos 500px antes de que al elemento le toque animar, y se
    libera al terminar la transicion. */
 [data-reveal]{
-  opacity:0;transform:translate3d(0,40px,0);
+  opacity:0;transform:translate(0,40px);
   transition:opacity 1.15s var(--ease-out),transform 1.15s var(--ease-out);
   transition-delay:var(--d,0s);
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
 }
-[data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
+[data-reveal].is-visible{opacity:1;transform:none}
 
 /* Fade desde izquierda */
-[data-reveal="left"]{transform:translate3d(-46px,0,0)}
-[data-reveal="left"].is-visible{transform:translate3d(0,0,0)}
+[data-reveal="left"]{transform:translate(-46px,0)}
+[data-reveal="left"].is-visible{transform:none}
 
 /* Fade desde derecha */
-[data-reveal="right"]{transform:translate3d(46px,0,0)}
-[data-reveal="right"].is-visible{transform:translate3d(0,0,0)}
+[data-reveal="right"]{transform:translate(46px,0)}
+[data-reveal="right"].is-visible{transform:none}
 
 /* Scale suave (cards, stats) */
-[data-reveal="scale"]{transform:translate3d(0,22px,0) scale(.94);opacity:0}
-[data-reveal="scale"].is-visible{transform:translate3d(0,0,0) scale(1);opacity:1}
+[data-reveal="scale"]{transform:translate(0,22px) scale(.94);opacity:0}
+[data-reveal="scale"].is-visible{transform:none;opacity:1}
 
 /* Fade puro */
 [data-reveal="fade"]{transform:none;opacity:0}
@@ -993,30 +916,30 @@ p{color:var(--slate-light)}
    en cada frame y no se puede componer en GPU: era lo mas caro de la pagina.
    Con un desplazamiento algo mas largo se percibe el mismo efecto suave. */
 [data-reveal="blur"]{
-  opacity:0;transform:translate3d(0,46px,0) scale(.98);
+  opacity:0;transform:translate(0,46px) scale(.98);
   transition:opacity 1.45s var(--ease-out),transform 1.45s var(--ease-out);
   transition-delay:var(--d,0s);
 }
-[data-reveal="blur"].is-visible{opacity:1;transform:translate3d(0,0,0) scale(1)}
+[data-reveal="blur"].is-visible{opacity:1;transform:none}
 
 /* Duración más lenta para elementos grandes */
 /* Tope practico ~1.45s: mas largo que esto y, si alguien scrollea rapido, el
    elemento sigue animandose cuando ya salio de pantalla. No es un problema de
    rendimiento sino de que el efecto se pierda igual. */
 [data-reveal="slow"]{
-  transform:translate3d(0,44px,0);opacity:0;
+  transform:translate(0,44px);opacity:0;
   transition-duration:1.45s;
 }
-[data-reveal="slow"].is-visible{transform:translate3d(0,0,0);opacity:1}
+[data-reveal="slow"].is-visible{transform:none;opacity:1}
 
 /* Hero — animación de entrada (CSS puro, sin IntersectionObserver) */
 @keyframes heroReveal{
-  from{opacity:0;transform:translate3d(0,20px,0)}
-  to{opacity:1;transform:translate3d(0,0,0)}
+  from{opacity:0;transform:translate(0,20px)}
+  to{opacity:1;transform:none}
 }
 @keyframes heroRevealImg{
-  from{opacity:0;transform:translate3d(24px,0,0)}
-  to{opacity:1;transform:translate3d(0,0,0)}
+  from{opacity:0;transform:translate(24px,0)}
+  to{opacity:1;transform:none}
 }
 /* Coreografia de entrada: antes tardaba 1470ms en terminar de revelar todo
    y retrasaba el LCP a 1264ms aunque la imagen ya estaba lista a los 25ms.
@@ -1044,12 +967,6 @@ p{color:var(--slate-light)}
 .acc-item:nth-child(3){--d:.26s}
 .acc-item:nth-child(4){--d:.39s}
 .acc-item:nth-child(5){--d:.52s}
-
-/* En móvil sin hover el transform no se "pega" igual que el padding-left */
-@media(hover:none){
-  .acc-summary:hover{transform:none}
-  .audience-item:hover{transform:none}
-}
 
 /* 18. RESPONSIVE */
 
@@ -1084,7 +1001,6 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .geo--v2{width:20px;height:20px;bottom:-8px;right:-8px;border-radius:6px}
   .hero__title{font-size:clamp(3.25rem,10vw,5rem)}
   .hero__body{max-width:60ch}
-  .hero__bar{margin-top:0}
   .stats-grid{grid-template-columns:1fr;gap:1rem}
   .caps-grid{grid-template-columns:1fr}
   .cta-layout{grid-template-columns:1fr;gap:3rem}
@@ -1134,20 +1050,10 @@ section[id],main[id]{scroll-margin-top:5.5rem}
 
 /* ——— ≤760px — teléfonos grandes / tablet vertical ——— */
 @media(max-width:760px){
-  /* Meta del hero en 2×2 en lugar de 4 filas apiladas */
-  .hero__meta{grid-template-columns:1fr 1fr}
-  .hero__meta-item{padding:.95rem .6rem}
-  .hero__meta-item:not(:last-child){border-right:none}
-  .hero__meta--glass .hero__meta-item:nth-child(odd){border-right:1px solid rgba(180,205,235,.4)}
-  .hero__meta--glass .hero__meta-item:nth-child(-n+2){border-bottom:1px solid rgba(180,205,235,.4)}
-  .hero__meta-item dd{font-size:.78rem;line-height:1.3}
-
   .acc-body{padding-left:0}
   .form-row{grid-template-columns:1fr}
   /* 16px evita que iOS haga zoom automático al enfocar un input o select */
   .field input,.field select{font-size:16px}
-  /* Pricing a ancho completo en mobile */
-  .cta-pricing{width:100%}
   /* Footer logos más chicos en tablet */
   .footer-logos img{height:60px}
   /* Footer logos en columna en tablet */
@@ -1170,8 +1076,7 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .acc-label{grid-column:1;grid-row:1;font-size:.55rem;letter-spacing:.18em}
   .acc-title{grid-column:1;grid-row:2}
   .acc-chevron{grid-column:2;grid-row:1/3;align-self:center}
-  .acc-summary:hover{padding-left:0}
-  .audience-item:hover{padding-left:0}
+  .acc-summary:hover,.audience-item:hover{transform:none}
 }
 
 /* ——— ≤560px — teléfonos ——— */
@@ -1191,20 +1096,10 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .audience-left .btn{align-self:stretch!important;justify-content:center}
   .sponsor-slot{height:74px}
   .sponsors__track > *{padding:0 .375rem}
-  /* Pricing a ancho completo en móvil */
-  .cta-pricing{width:100%}
   /* Footer logos más pequeños en móvil */
   .footer-logos img{height:48px}
   .footer-logos{gap:1rem}
   .btn--wa{padding:1rem 1.5rem}
-}
-
-/* ——— ≤345px — teléfonos muy angostos: los datos ya no entran en 2 columnas ——— */
-@media(max-width:345px){
-  .hero__meta{grid-template-columns:1fr}
-  .hero__meta--glass .hero__meta-item:nth-child(odd){border-right:none}
-  .hero__meta--glass .hero__meta-item:not(:last-child){border-bottom:1px solid rgba(180,205,235,.4)}
-  .hero__meta--glass .hero__meta-item:last-child{border-bottom:none}
 }
 
 /* ——— ≤380px — teléfonos angostos (iPhone SE) ——— */
@@ -1252,35 +1147,6 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   /* Ultimos pixeles, tomados de donde no hay nada que chocar */
   .sponsors{padding-top:clamp(1.25rem,2.2vw,1.75rem);padding-bottom:clamp(1.25rem,2.2vw,1.75rem)}
   .sponsors__eyebrow{margin-bottom:.7rem}
-  .hero__bar{padding-bottom:clamp(1.25rem,2.2vw,1.75rem)}
-  .hero__countdown{margin-top:clamp(1.25rem,2.2vw,1.75rem)}
-}
-
-/* ——— CONTADOR EN MOVIL ———
-   La fila completa (FALTAN + 4 unidades + 3 separadores) no entra en los
-   335px utiles del contenedor: medido, la pastilla quedaba de 364px y se
-   salia 29px por la derecha. Como width:fit-content no achica, desbordaba en
-   vez de encogerse, y eso es lo que se leia como "no esta centrado" — no
-   estaba descentrado, estaba desbordado respecto de la tarjeta de arriba.
-   La etiqueta pasa a renglon propio y la pastilla toma exactamente el mismo
-   ancho que la tarjeta de datos, que es lo que alinea los dos bloques. */
-@media(max-width:560px){
-  .hero__countdown{
-    width:100%;
-    flex-wrap:wrap;
-    gap:.25rem;
-    padding:.7rem 1rem;
-  }
-  .hero__countdown-label{
-    flex:0 0 100%;
-    text-align:center;
-    margin-right:0;
-    margin-bottom:.4rem;
-  }
-  /* flex:1 1 0 reparte las cuatro unidades en partes iguales: asi el grupo
-     queda simetrico solo, sin depender del ancho de cada numero. */
-  .hero__countdown-unit{min-width:0;flex:1 1 0}
-  .hero__countdown-sep{margin-bottom:.55rem}
 }
 
 /* ——— Pantallas táctiles: desactivar hovers que "se pegan" ——— */
@@ -1289,7 +1155,7 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .facilitator:hover .facilitator__photo img{transform:none}
   .stat-card:hover,.cap-card:hover{transform:none}
   .btn:hover{transform:none}
-  .acc-summary:hover,.audience-item:hover{padding-left:0}
+  .acc-summary:hover,.audience-item:hover{transform:none}
 }
 
 /* 19. WHATSAPP FLOTANTE */
