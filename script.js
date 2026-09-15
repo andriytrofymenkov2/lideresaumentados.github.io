@@ -131,8 +131,14 @@
      delante: llegan cacheadas y aparecen instantaneas.
 
      Los iframes de YouTube quedan afuera a proposito: cada uno arrastra sus
-     propios scripts de terceros y ahi el lazy si esta ganando algo real. */
-  window.addEventListener('load', function () {
+     propios scripts de terceros y ahi el lazy si esta ganando algo real.
+
+     Excepcion: con "ahorro de datos" o conexion lenta NO se adelanta nada.
+     Ahi cada KB le cuesta al visitante y puede que nunca baje hasta esas
+     fotos; el lazy nativo del navegador es la mejor opcion. */
+  const red = navigator.connection;
+  const redLenta = !!red && (red.saveData || /2g|3g/.test(red.effectiveType || ''));
+  if (!redLenta) window.addEventListener('load', function () {
     document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
       if (!img.complete) img.loading = 'eager';
     });
