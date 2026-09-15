@@ -361,46 +361,6 @@
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* 6. MAPA — se carga solo al acercarse la seccion de inscripcion.
-     El iframe no esta en el HTML porque Google Maps baja sus propios scripts
-     y tiles apenas existe, y eso encarecia el arranque de toda la pagina. */
-  (function () {
-    const facade = document.getElementById('js-map-facade');
-    if (!facade) return;
-    const SRC = 'https://maps.google.com/maps?q=C%C3%A1mara+de+Comercio+R%C3%ADo+Gallegos+Santa+Cruz+Argentina&t=&z=15&ie=UTF8&iwloc=&output=embed';
-
-    function cargar() {
-      const wrap = facade.closest('.cta-map');
-      if (!wrap || !wrap.contains(facade)) return;
-      const iframe = document.createElement('iframe');
-      iframe.src = SRC;
-      iframe.title = 'Ubicación: Auditorio del CCIARG · 9 de Julio 32 · Río Gallegos';
-      iframe.referrerPolicy = 'no-referrer-when-downgrade';
-      iframe.allowFullscreen = true;
-      /* Sin loading="lazy" a proposito: nosotros ya decidimos el momento de
-         cargarlo. Con lazy, el navegador aplicaba ADEMAS su propio criterio y
-         posponia la descarga hasta tener el mapa casi encima, que es
-         justamente lo que queremos evitar. */
-      wrap.replaceChild(iframe, facade);
-    }
-
-    if ('IntersectionObserver' in window) {
-      /* Observamos la seccion de inscripcion entera, no el mapa: el mapa esta
-         al final de la seccion, asi que apenas asoma el bloque de inscripcion
-         ya empezamos a pedirlo y quedan ~1500px de scroll por delante. Cuando
-         llegas abajo el mapa ya esta dibujado. */
-      const disparador = document.getElementById('inscripcion') || facade.closest('.cta-map');
-      const io = new IntersectionObserver(([e], obs) => {
-        if (!e.isIntersecting) return;
-        obs.disconnect();
-        cargar();
-      }, { rootMargin: '400px 0px', threshold: 0 });
-      io.observe(disparador);
-    } else {
-      cargar();
-    }
-  }());
-
   /* 7. COUNTDOWN */
   (function () {
     const wrap  = document.getElementById('js-countdown-wrap');

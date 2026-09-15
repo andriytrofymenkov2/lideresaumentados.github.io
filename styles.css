@@ -925,25 +925,6 @@ p{color:var(--slate-light)}
 .cta-pricing__row{display:flex;flex-direction:column;gap:.2rem;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
 .cta-pricing__price{font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-.02em}
 .cta-pricing__label{font-size:.82rem;color:rgba(255,255,255,.5)}
-.cta-map{margin:3rem auto 0;max-width:700px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 4px 32px rgba(0,0,0,.4)}
-.cta-map iframe{width:100%;height:260px;display:block;border:none;filter:saturate(.65) contrast(1.1)}
-
-/* Map facade — marcador de posicion mientras el iframe todavia no se pidio.
-   Google Maps arrastra sus propios scripts, tiles y llamadas a la API: si el
-   iframe esta en el HTML, todo eso se descarga al abrir la pagina aunque el
-   mapa este a 7000px de distancia. Se cambia por el iframe real recien al
-   acercarse la seccion de inscripcion. */
-.map-facade{
-  width:100%;height:260px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;
-  background:rgba(255,255,255,.04);
-  color:rgba(255,255,255,.35);
-}
-.map-facade__address{
-  font-family:var(--font-head);font-size:.82rem;font-weight:500;
-  color:rgba(255,255,255,.35);text-align:center;
-  padding-inline:1rem;
-}
 .cta-form{display:grid;gap:1rem}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .form-ok{display:none;color:#55EFC4;font-size:.87rem}
@@ -1107,8 +1088,6 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .stats-grid{grid-template-columns:1fr;gap:1rem}
   .caps-grid{grid-template-columns:1fr}
   .cta-layout{grid-template-columns:1fr;gap:3rem}
-  .cta-map{max-width:100%;margin-top:2.5rem}
-  .cta-map iframe,.map-facade{height:240px}
   .footer-inner{grid-template-columns:1fr 1fr;gap:2.25rem}
 }
 
@@ -1179,7 +1158,6 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .stats-outro__line--3 br{display:none}
   .stats-outro{padding-top:2.25rem}
   .stat-card,.cap-card{padding:1.85rem 1.5rem}
-  .cta-map iframe,.map-facade{height:210px}
   .facilitator__info{padding:2rem 1.6rem}
 }
 
@@ -1219,8 +1197,6 @@ section[id],main[id]{scroll-margin-top:5.5rem}
   .footer-logos img{height:48px}
   .footer-logos{gap:1rem}
   .btn--wa{padding:1rem 1.5rem}
-  .cta-map iframe,.map-facade{height:190px}
-  .cta-map{border-radius:12px}
 }
 
 /* ——— ≤345px — teléfonos muy angostos: los datos ya no entran en 2 columnas ——— */
